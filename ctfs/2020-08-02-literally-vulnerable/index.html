@@ -1,0 +1,170 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Literally Vulnerable is an easy to medium difficulty OSCP style box from VulnHub. Below are the steps taken to compromise this box.
+First, I enumerated open ports with threader3000.
+Next, I ran nmap -A -p 21,22,80,65535 [machine ip] to enumerate the ports to find out more details about what services were running on them.
+It appears that there is an FTP server available with anonymous access, 2 HTTP servers on ports 80 and 65535, and SSH open.">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content=" Literally Vulnerable - Vulnhub">
+<meta name=twitter:description content="Literally Vulnerable is an easy to medium difficulty OSCP style box from VulnHub. Below are the steps taken to compromise this box.
+First, I enumerated open ports with threader3000.
+Next, I ran nmap -A -p 21,22,80,65535 [machine ip] to enumerate the ports to find out more details about what services were running on them.
+It appears that there is an FTP server available with anonymous access, 2 HTTP servers on ports 80 and 65535, and SSH open.">
+<meta property="og:title" content=" Literally Vulnerable - Vulnhub">
+<meta property="og:description" content="Literally Vulnerable is an easy to medium difficulty OSCP style box from VulnHub. Below are the steps taken to compromise this box.
+First, I enumerated open ports with threader3000.
+Next, I ran nmap -A -p 21,22,80,65535 [machine ip] to enumerate the ports to find out more details about what services were running on them.
+It appears that there is an FTP server available with anonymous access, 2 HTTP servers on ports 80 and 65535, and SSH open.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2020-08-02-literally-vulnerable/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2020-08-02T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-08-02T00:00:00+00:00">
+<title>
+Literally Vulnerable - Vulnhub · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2020-08-02-literally-vulnerable/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2020-08-02-literally-vulnerable/>
+Literally Vulnerable - Vulnhub
+</a>
+</h1>
+</header>
+<p>Literally Vulnerable is an easy to medium difficulty OSCP style box from <a href=https://www.vulnhub.com>VulnHub</a>. Below are the steps taken to compromise this box.</p>
+<p>First, I enumerated open ports with <strong>threader3000</strong>.</p>
+<p><img src=/assets/img/LiterallyVulnerable1.png alt="Literally Vulnerable threader3000"></p>
+<p>Next, I ran <strong>nmap -A -p 21,22,80,65535 [machine ip]</strong> to enumerate the ports to find out more details about what services were running on them.</p>
+<p><img src=/assets/img/LiterallyVulnerable2.png alt="Literally Vulnerable nmap"></p>
+<p>It appears that there is an FTP server available with anonymous access, 2 HTTP servers on ports 80 and 65535, and SSH open. Let&rsquo;s take a look at the FTP server first. Let&rsquo;s run <strong>ftp [machine ip]</strong> and enter in the username of <strong>anonymous</strong> when prompted. Once connected, run <strong>ls</strong> and you will see a file called <strong>backupPasswords</strong>. Let&rsquo;s run <strong>get backupPasswords</strong> to save this file to our attacker pc.</p>
+<p><img src=/assets/img/LiterallyVulnerable3.png alt="Literally Vulnerable ftp"></p>
+<p>Let&rsquo;s terminate the ftp connection and run <strong>cat backupPasswords</strong> to see what is in the file.</p>
+<p><img src=/assets/img/LiterallyVulnerable4.png alt="Literally Vulnerable backupPasswords"></p>
+<p>It appears that this contains a list of passwords for something. Let&rsquo;s take a look at the website on port 80 to start with.</p>
+<p><img src=/assets/img/LiterallyVulnerable5.png alt="Literally Vulnerable website port 80"></p>
+<p>It appears that this is a WordPress site, but it didn&rsquo;t load properly. Looking at the links, it is looking for a website named <strong>literally.vulnerable</strong>. Let&rsquo;s run <strong>echo &ldquo;[machine ip] literally.vulnerable&rdquo; &#187; /etc/hosts</strong>.</p>
+<p><img src=/assets/img/LiterallyVulnerable6.png alt="Literally Vulnerable update /etc/hosts"></p>
+<p>Let&rsquo;s reload the website and see if it loads properly.</p>
+<p><img src=/assets/img/LiterallyVulnerable7.png alt="Literally Vulnerable Wordpress site fixed"></p>
+<p>This looks much better. I went to the Wordpress login link at the bottom of the page and tried using the username of <strong>doe</strong> on the login page, but it appeared that user didn&rsquo;t exist. I then tried with admin and used all the passwords in the <strong>backupPassword</strong> file, but none of them worked. I next took a look at the website on port 65535.</p>
+<p><img src=/assets/img/LiterallyVulnerable8.png alt="Literally Vulnerable port 65535 website"></p>
+<p>This appears to be a default configuration of Apache2. Let&rsquo;s run <strong>gobuster dir -u <a href=http://literally.vulnerable:65535/>http://literally.vulnerable:65535/</a> -w /usr/share/wordlists/dirb/big.txt -x .php,.txt -t 50</strong>. It appears that there is a directory called <strong>/phpcms</strong>. Let&rsquo;s take a look at it.</p>
+<p><img src=/assets/img/LiterallyVulnerable9.png alt="Literally Vulnerable gobuster port 65535"></p>
+<p>It appears that this site has a password protected post by a user named <strong>notadmin</strong>.</p>
+<p><img src=/assets/img/LiterallyVulnerable10.png alt="Literally Vulnerable Wordpress"></p>
+<p>I scrolled down and went to the login page. We know one of the user login names is <strong>notadmin</strong> based on who is posting. Let&rsquo;s see what we can find with <strong>wpscan</strong> for this site. Let&rsquo;s run <strong>wpscan &ndash;url <a href=http://literally.vulnerable:65535/phpcms/>http://literally.vulnerable:65535/phpcms/</a> &ndash;enumerate</strong>. This ends up returning 2 users, <strong>maybeadmin</strong> and <strong>notadmin</strong>.</p>
+<p><img src=/assets/img/LiterallyVulnerable11.png alt="Literally Vulnerable wpscan 65535"></p>
+<p>Let&rsquo;s try to crack one of these users with the passwords list we obtained earlier with <strong>wpscan &ndash;url <a href=http://literally.vulnerable:65535/phpcms/>http://literally.vulnerable:65535/phpcms/</a> &ndash;usernames maybeadmin, notadmin &ndash;passwords backupPasswords</strong>. After a few moments, we will crack the password for maybeadmin</p>
+<p><img src=/assets/img/LiterallyVulnerable12.png alt="Literally Vulnerable maybeadmin password"></p>
+<p>Let&rsquo;s navigate to <strong><a href=http://literally.vulnerable:65535/phpcms/wp-login.php>http://literally.vulnerable:65535/phpcms/wp-login.php</a></strong> and attempt to login with the username <strong>maybeadmin</strong> and the password you just uncovered for this user.</p>
+<p><img src=/assets/img/LiterallyVulnerable13.png alt="Literally Vulnerable WordPress dashboard"></p>
+<p>Success! Let&rsquo;s see what information we can uncover. Let&rsquo;s take a look at the secure post we didn&rsquo;t have access to at the beginning. Click on <strong>Posts</strong> on the left hand menu and then you should be able to click on <strong>Secure Post</strong></p>
+<p><img src=/assets/img/LiterallyVulnerable14.png alt="Literally Vulnerable Secure Post"></p>
+<p>This provides you with the credentials for <strong>notadmin</strong>.</p>
+<p><img src=/assets/img/LiterallyVulnerable15.png alt="Literally Vulnerable notadmin"></p>
+<p>Let&rsquo;s login with this user&rsquo;s credentials, as we are not able to edit themes or add in/modify plugins as maybeadmin.</p>
+<p><img src=/assets/img/LiterallyVulnerable16.png alt="Literally Vulnerable notadmin login"></p>
+<p>Awesome <strong>notadmin</strong> is the admin to this WordPress site. Let&rsquo;s click on <strong>Appearance</strong> followed by <strong>Theme Editor</strong> so we can modify a PHP page with a reverse shell.</p>
+<p><img src=/assets/img/LiterallyVulnerable17.png alt="Literally Vulnerable theme editor"></p>
+<p>Next, on the right hand side, click on <strong>404 Template</strong> so we can paste in the reverse shell from <a href=http://pentestmonkey.net/tools/web-shells/php-reverse-shell>PenTestMonkey</a>. Make sure to modify the IP address and port to match what you want to use on your attacker PC. Once finished, click on <strong>Update File</strong>.</p>
+<p><img src=/assets/img/LiterallyVulnerable18.png alt="Literally Vulnerable PHP reverse shell"></p>
+<p>Unfortunately, this results in an error message and we aren&rsquo;t able to save the changes to the PHP file.</p>
+<p><img src=/assets/img/LiterallyVulnerable19.png alt="Literally Vulnerable update failed"></p>
+<p>Let&rsquo;s see if there&rsquo;s a MetaSploit module we can use instead. Let&rsquo;s launch metasploit with <strong>msfconsole</strong> and then run <strong>search wp_admin</strong></p>
+<p><img src=/assets/img/LiterallyVulnerable20.png alt="Literally Vulnerable msfconsole"></p>
+<p>Let&rsquo;s attempt this exploit with **use exploit/unix/webapp/wp_admin_shell_upload ** and then run <strong>show options</strong></p>
+<p><img src=/assets/img/LiterallyVulnerable21.png alt="Literally Vulnerable msfconsole2"></p>
+<p>Let&rsquo;s use <strong>set PASSWORD [password from wpscan], set USERNAME notadmin, set TARGETURI /phpcms/, set RHOSTS [machine ip], set RPORT 65535</strong> and run <strong>show options</strong> again to confirm all the options are set.</p>
+<p><img src=/assets/img/LiterallyVulnerable22.png alt="Literally Vulnerable msfconsole3"></p>
+<p>once enterd, type in <strong>exploit</strong> and press enter to start the exploit. You will soon get a meterpreter connection. Let&rsquo;s run <strong>shell</strong> to get to a shell and run <strong>whoami</strong> to see who we are logged in as.</p>
+<p><img src=/assets/img/LiterallyVulnerable23.png alt="Literally Vulnerable meterpreter shell"></p>
+<p>Let&rsquo;s see if we can upgrade our shell. After some trial and error it appears that python3 is installed, and we can get a shell with <strong>python3 -c &lsquo;import pty; pty.spawn("/bin/sh")'</strong>. Next, I navigated to the user home directory with <strong>cd /home</strong> and ran <strong>ls</strong> to see what was present there. It appears there are two users, <strong>doe</strong> and <strong>john</strong>. Let&rsquo;s go to doe&rsquo;s home directory with <strong>cd doe</strong>. The first flag is here, but we aren&rsquo;t able to read it. There&rsquo;s also a noteFromAdmin and an executable named <strong>itseasy</strong> that is a SUID that runs as the user <strong>john</strong>.</p>
+<p><img src=/assets/img/LiterallyVulnerable24.png alt="Literally Vulnerable doe home folder"></p>
+<p>Let&rsquo;s run the program with <strong>./itseasy</strong>. It appears to print the user&rsquo;s home directory, which is typically stored in the <strong>$PWD</strong> environmental variable.</p>
+<p><img src=/assets/img/LiterallyVulnerable25.png alt="Literally Vulnerable itseasy"></p>
+<p>Let&rsquo;s modify the PWD variable to run bash instead with <strong>export PWD=';/bin/bash&rsquo;</strong>. This will change this variable to execute a bash shell. Let&rsquo;s run <strong>./itseasy</strong>. You should now have a shell as john.</p>
+<p><img src=/assets/img/LiterallyVulnerable27.png alt="Literally Vulnerable john shell"></p>
+<p>Let&rsquo;s navigate to john&rsquo;s home directory with <strong>cd /home/john</strong> and run <strong>ls -al</strong> to see what&rsquo;s there. The user.txt file is present here, which can be viewed with <strong>cat user.txt</strong>.</p>
+<p><img src=/assets/img/LiterallyVulnerable28.png alt="Literally Vulnerable user.txt"></p>
+<p>At this point, I wanted to see if I could find any files that john owned throughout the victim machine, so I ran <strong>find / -group john 2>/dev/null</strong> which will eliminate any error messages and return only the files john has access to.</p>
+<p><img src=/assets/img/LiterallyVulnerable29.png alt="Literally Vulnerable john owned files"></p>
+<p>One stood out, <strong>/home/john/.local/share/tmpFiles/myPassword</strong>. Let&rsquo;s run <strong>cat /home/john/.local/share/tmpFiles/myPassword</strong>. This provides you with a note stating that john&rsquo;s password is encoded in base64.</p>
+<p><img src=/assets/img/LiterallyVulnerable30.png alt="Literally Vulnerable myPassword"></p>
+<p>Let&rsquo;s run <strong>echo &ldquo;[base64 encoded password]"|base64 -d</strong>. This should provide you with john&rsquo;s credentials:</p>
+<p><img src=/assets/img/LiterallyVulnerable31.png alt></p>
+<p>Let&rsquo;s open a new terminal window on our attacker pc and run <strong>ssh john@[machine.ip]</strong> and enter the password that was just decoded.</p>
+<p><img src=/assets/img/LiterallyVulnerable32.png alt="Literally Vulnerable SSH"></p>
+<p>Let&rsquo;s run <strong>sudo -l</strong> and we see that john can run <strong>/var/www/html/test.html</strong> as root</p>
+<p><img src=/assets/img/LiterallyVulnerable33.png alt="Literally Vulnerable sudo -l"></p>
+<p>Let&rsquo;s navigate to that folder with <strong>cd /var/www/html</strong> and run <strong>touch test.html</strong>. Unfortunately, we are not able to create this file here with john.</p>
+<p><img src=/assets/img/LiterallyVulnerable34.png alt="Literally Vulnerable Permission denied"></p>
+<p>However, this is under a folder that www-data has access to. Let&rsquo;s go back to the other terminal window and type <strong>exit</strong> to leave the shell as john and go back to the <strong>www-data</strong> user.</p>
+<p><img src=/assets/img/LiterallyVulnerable35.png alt="Literally Vulnerable www-data"></p>
+<p>Let&rsquo;s run <strong>touch /var/www/html/test.html</strong> and see what happens</p>
+<p><img src=/assets/img/LiterallyVulnerable36.png alt="Literally Vulnerable touch test.html"></p>
+<p>Success! Let&rsquo;s run <strong>echo &ldquo;/bin/bash&rdquo; &#187; /var/www/html/test.html</strong> and <strong>chmod +x /var/www/html/test.html</strong></p>
+<p><img src=/assets/img/LiterallyVulnerable37.png alt="Literally Vulnerable update test.html"></p>
+<p>This will allow it to run a bash shell as root since it is now executable. Next, go back to your SSH session as john and run <strong>sudo ./test.html</strong>. You should now have a root shell!</p>
+<p><img src=/assets/img/LiterallyVulnerable38.png alt="Literally Vulnerable root shell"></p>
+<p>Now, we can run <strong>cd /root</strong> followed by <strong>ls</strong> and <strong>cat root.txt</strong> to get the root flag. We can also run <strong>cat /home/doe/local.txt</strong> to get the local.txt flag from earlier.</p>
+<p><img src=/assets/img/LiterallyVulnerable39.png alt="Literally Vulnerable root.txt local.txt"></p>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

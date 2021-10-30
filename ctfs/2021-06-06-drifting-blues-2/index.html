@@ -1,0 +1,209 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Drifting Blues 2    Drifting Blues is the second in a series of 9 boxes on Vulnhub.
+User Hints  Have you enumerated the directories for the website? Have you added an appropriate entry to your hosts file to properly view the site? A well known CMS is running on this server, how can it be exploited?   Root Hints  What is one of the first commands ran to check the user's privileges to run elevated commands?">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Drifting Blues 2">
+<meta name=twitter:description content="Drifting Blues 2    Drifting Blues is the second in a series of 9 boxes on Vulnhub.
+User Hints  Have you enumerated the directories for the website? Have you added an appropriate entry to your hosts file to properly view the site? A well known CMS is running on this server, how can it be exploited?   Root Hints  What is one of the first commands ran to check the user's privileges to run elevated commands?">
+<meta property="og:title" content="Drifting Blues 2">
+<meta property="og:description" content="Drifting Blues 2    Drifting Blues is the second in a series of 9 boxes on Vulnhub.
+User Hints  Have you enumerated the directories for the website? Have you added an appropriate entry to your hosts file to properly view the site? A well known CMS is running on this server, how can it be exploited?   Root Hints  What is one of the first commands ran to check the user's privileges to run elevated commands?">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2021-06-06-drifting-blues-2/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2021-06-06T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-06-06T00:00:00+00:00">
+<title>
+Drifting Blues 2 · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2021-06-06-drifting-blues-2/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2021-06-06-drifting-blues-2/>
+Drifting Blues 2
+</a>
+</h1>
+</header>
+<h1 id=drifting-blues-2>
+Drifting Blues 2
+<a class=heading-link href=#drifting-blues-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h1>
+<p>Drifting Blues is the second in a series of 9 boxes on <a href=https://www.vulnhub.com/series/driftingblues,424/>Vulnhub</a>.</p>
+<details><summary><strong>User Hints</strong></summary>
+<ul>
+<li>Have you enumerated the directories for the website?
+<li>Have you added an appropriate entry to your hosts file to properly view the site?
+<li>A well known CMS is running on this server, how can it be exploited?
+</ul>
+</details>
+<details><summary><strong>Root Hints</strong></summary>
+<ul>
+<li>What is one of the first commands ran to check the user's privileges to run elevated commands?
+<li>How can we exploit the executable listed?
+</ul>
+</details>
+<h2 id=walkthrough>
+Walkthrough
+<a class=heading-link href=#walkthrough>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h2>
+<details><summary><strong>Full Walkthrough</strong></summary>
+First, let's find the IP address of the host by utilizing:
+**`netdiscover -i eth0`**
+<p>from our Kali host. After a few moments, you should be able to uncover the IP of our target system.</p>
+<p><img src=/assets/img/driftingblues-2-1.png alt="Drifting Blues 2 netdiscover"></p>
+<p>Once you have discovered the IP, let&rsquo;s enumerate this host to determine what ports/services are open/running. To do this, let&rsquo;s run:</p>
+<p><strong><code>threader3000</code></strong></p>
+<p>and enter the IP uncovered by netdiscover when prompted:</p>
+<p><img src=/assets/img/driftingblues-2-2.png alt="Drifting Blues 2 threader3000"></p>
+<p>Once prompted, let nmap run it&rsquo;s default scan that is built in to threader3000.</p>
+<p><img src=/assets/img/driftingblues-2-3.png alt="Drifting Blues 2 nmap"></p>
+<p>It appears that we have anonymous FTP open, along with SSH and an HTTP server. Let&rsquo;s look at the FTP server first.</p>
+<p>Logging into the FTP server took a few attempts, but the username for anonymous access ended up being <strong>ftp</strong>. After entering this username, the password did not matter. Once connected, I ran:</p>
+<p><strong><code>ls</code></strong></p>
+<p>followed by:</p>
+<p><strong><code>get secret.jpg</code></strong></p>
+<p>to list the directory contents and download the only file present.</p>
+<p><img src=/assets/img/driftingblues-2-4.png alt="Drifting Blues 2 FTP"></p>
+<p>I opened the image file and didn&rsquo;t notice anything strange, and various steganography tools did not detect anything in the image.</p>
+<p>With no luck here, I turned to the website running on port 80. Pulling up the initial website presented me with the following:</p>
+<p><img src=/assets/img/driftingblues-2-5.png alt="Drifting Blues 2 initial website"></p>
+<p>I decided to enumerate the website with dirsearch by running:</p>
+<p><strong><code>python3 dirsearch.py -u http://&lt;victim ip> -w /usr/share/wordlists/dirbuster/directory-list-lowerase-2.3-medium.txt</code></strong></p>
+<p>After a few minutes, the <strong>/blog/</strong> subdirectory was discovered.</p>
+<p><img src=/assets/img/driftingblues-2-6.png alt=driftingblues-2-6></p>
+<p>Visiting this directory presented us with the following website. However, it appeared that it did not load properly. Placing my mouse over one of the titles showed that the website hostname was driftingblues.box:</p>
+<p><img src=/assets/img/driftingblues-2-7.png alt="Drifting Blues 2 /blog/ website"></p>
+<p>I edited my attacker pc&rsquo;s /etc/hosts file with:</p>
+<p><strong>nano /etc/hosts</strong></p>
+<p>and added the appropriate entry as shown below.</p>
+<p><img src=/assets/img/driftingblues-2-8.png alt="Drifting Blues 2 /etc/hosts edit"></p>
+<p>I then reloaded the website to see if it updated the appearance:</p>
+<p><img src=/assets/img/driftingblues-2-9.png alt="Drifting Blues 2 /blog/ website properly loaded"></p>
+<p>Based on prior experience with the layout of this site, I was pretty positive it was a WordPress website. I decided to run WPScan with the following parameters to enumerate the first 20 users on the box:</p>
+<p><strong><code>wpscan --url http://driftingblues.box/blog -e u1-20</code></strong></p>
+<p><img src=/assets/img/driftingblues-2-10.png alt="Drifting Blues 2 WPScan 1"></p>
+<p><img src=/assets/img/driftingblues-2-11.png alt="Drifting Blues 2 WPScan 2"></p>
+<p><img src=/assets/img/driftingblues-2-12.png alt="Drifting Blues 2 WPScan 3"></p>
+<p>As shown above, the <strong>albert</strong> user was uncovered as part of this scan. Next, I used WPScan again with a different set of parameters to brute force the user password:</p>
+<p><strong><code>wpscan --url http://driftingblues.box/blog --passwords /usr/share/wordlists/rockyou.txt --usernames albert</code></strong></p>
+<p><img src=/assets/img/driftingblues-2-13.png alt="Drifting Blues 2 WPScan 4"></p>
+<p><img src=/assets/img/driftingblues-2-14.png alt="Drifting Blues 2 WPScan 5"></p>
+<p>After a few moments, the password of <strong>scotland1</strong> was uncovered. Next, I navigated to the admin login page located at <strong><a href=http://driftingblues.box/blog/wp-login.php>http://driftingblues.box/blog/wp-login.php</a></strong> and logged in with the credentials uncovered by WPScan.</p>
+<p><img src=/assets/img/driftingblues-2-15.png alt="Drifting Blues 2 WordPress Login"></p>
+<p>Next, I clicked on <strong>Appearance</strong> on the left hand menu followed by <strong>Theme Editor</strong>. Once loaded, I clicked on the <strong>404 Template</strong> on the right hand side.</p>
+<p><img src=/assets/img/driftingblues-2-16.png alt="Drifting Blues 2 WordPress edit theme"></p>
+<p>Next, I copied Pentestmonkey&rsquo;s <a href=https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php>Reverse PHP Shell</a> script and overwrote what was present in this template with that shell.</p>
+<p><img src=/assets/img/driftingblues-2-17.png alt="Drifting Blues 2 Pentestmonkey Reverse PHP Shell"></p>
+<p><img src=/assets/img/driftingblues-2-18.png alt="Drifting Blues 2 WordPress overwrite 404 Template"></p>
+<p>After editing the IP address to match that of my attacker box in the WordPress Template I clicked on <strong>Update File</strong> to save my changes. Next, I opened up a netcat listener from terminal on my attacker box to catch a reverse shell with:</p>
+<p><strong><code>nc -nvlp 1234</code></strong></p>
+<p><img src=/assets/img/driftingblues-2-19.png alt="Drifting Blues 2 nc listener"></p>
+<p>After starting the listener, I navigated to one of the blog entries and added <strong>/a</strong> to the url to force a 404 error page.</p>
+<p><img src=/assets/img/driftingblues-2-20.png alt="Drifting Blues 2 WordPress 404"></p>
+<p>I then returned to my reverse shell and noticed I had a reverse shell as the <strong>www-data</strong> user:</p>
+<p><img src=/assets/img/driftingblues-2-21.png alt="Drifting Blues 2 Reverse Shell caught"></p>
+<p>I then upgraded my shell to a TTY Python shell with:</p>
+<p><strong><code>python -c 'import pty; pty.spawn("/bin/sh")'</code></strong></p>
+<p><img src=/assets/img/driftingblues-2-22.png alt="Drifting Blues 2 shell upgrade"></p>
+<p>Next, I ran a few command to enumerate the user home directory and noticed I had read access to their <strong>.ssh</strong> folder and <strong>id_rsa</strong> ssh key. The command entered to naviate here were as follows:</p>
+<p><strong><code>cd /home</code></strong></p>
+<p><strong><code>ls</code></strong></p>
+<p><strong><code>cd freddie</code></strong></p>
+<p><strong><code>ls -al</code></strong></p>
+<p><strong><code>cd .ssh</code></strong></p>
+<p><strong><code>ls -al</code></strong></p>
+<p><img src=/assets/img/driftingblues-2-23.png alt="Drifting Blues 2 enumerate /home directory"></p>
+<p>Next, I used cat to display the contents of the <strong>id_rsa</strong> file with:</p>
+<p><strong><code>cat id_rsa</code></strong></p>
+<p><img src=/assets/img/driftingblues-2-24.png alt="Drifting Blues 2 cat id_rsa"></p>
+<p>I then highlighted and copied this and saved it to a file on my attacker box:</p>
+<p><img src=/assets/img/driftingblues-2-25.png alt="Drifting Blues 2 save id_rsa key locally"></p>
+<p>Next, I changed permissions on this file with:</p>
+<p><strong><code>chmod 600 id_rsa</code></strong></p>
+<p>and then ran:</p>
+<p><strong><code>ssh -i id_rsa freddie@&lt;victim ip address></code></strong></p>
+<p>to connect as freddie via SSH, which was successful as shown below.</p>
+<p><img src=/assets/img/driftingblues-2-26.png alt="Drifting Blues 2 SSH"></p>
+<p>Now that we are logged in as freddie, I ran:</p>
+<p><strong><code>ls</code></strong></p>
+<p>and noticed the user.txt file in this folder. I then used:</p>
+<p><strong><code>cat user.txt</code></strong></p>
+<p>to display this flag&rsquo;s contents.</p>
+<p><img src=/assets/img/driftingblues-2-27.png alt="Drifting Blues 2 user flag"></p>
+<p>Next, I decided to see what sudo permissions freddie had, if any, so I ran:</p>
+<p><strong><code>sudo -l</code></strong></p>
+<p><img src=/assets/img/driftingblues-2-28.png alt="Drifting Blues 2 sudo -l"></p>
+<p>It appears that this user can run nmap as root without a password. I used <a href=https://gtfobins.github.io/#>GTFOBins</a> and uncovered that there was a way to create a temporary script file and execute it as nmap, which in this case would lead to a root shell:</p>
+<p><img src=/assets/img/driftingblues-2-29.png alt="Drifting Blues 2 GTFOBins nmap privesc"></p>
+<p>At this point, as the root user, all we needed to do to retrieve the final flag were the following commands:</p>
+<p><strong><code>cd /root</code></strong></p>
+<p><strong><code>ls -al</code></strong></p>
+<p><strong><code>cat root.txt</code></strong></p>
+<p><img src=/assets/img/driftingblues-2-30.png alt="Drifting Blues 2 root flag"></p>
+<p>And that&rsquo;s the end of Drifting Blues 2!</p>
+</details>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

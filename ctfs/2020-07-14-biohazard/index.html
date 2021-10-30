@@ -1,0 +1,218 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="Biohazard is a medium difficulty box on TryHackMe. This box is based on the Resident Evil/Biohazard video game series, and features several encryption puzzles. Below are the steps I took to root this box.
+Task 1    I initially started with scanning this box with nmap -A [machine ip]. This returns the following results.
+This provides us with the answer to Question 2 (3 ports). Question 1 Just asks you to deploy the machine so you can complete it at any time.">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content=" Biohazard - TryHackMe">
+<meta name=twitter:description content="Biohazard is a medium difficulty box on TryHackMe. This box is based on the Resident Evil/Biohazard video game series, and features several encryption puzzles. Below are the steps I took to root this box.
+Task 1    I initially started with scanning this box with nmap -A [machine ip]. This returns the following results.
+This provides us with the answer to Question 2 (3 ports). Question 1 Just asks you to deploy the machine so you can complete it at any time.">
+<meta property="og:title" content=" Biohazard - TryHackMe">
+<meta property="og:description" content="Biohazard is a medium difficulty box on TryHackMe. This box is based on the Resident Evil/Biohazard video game series, and features several encryption puzzles. Below are the steps I took to root this box.
+Task 1    I initially started with scanning this box with nmap -A [machine ip]. This returns the following results.
+This provides us with the answer to Question 2 (3 ports). Question 1 Just asks you to deploy the machine so you can complete it at any time.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/ctfs/2020-07-14-biohazard/"><meta property="article:section" content="ctfs">
+<meta property="article:published_time" content="2020-07-14T00:00:00+00:00">
+<meta property="article:modified_time" content="2020-07-14T00:00:00+00:00">
+<title>
+Biohazard - TryHackMe · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/ctfs/2020-07-14-biohazard/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-14-biohazard/>
+Biohazard - TryHackMe
+</a>
+</h1>
+</header>
+<p>Biohazard is a medium difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. This box is based on the Resident Evil/Biohazard video game series, and features several encryption puzzles. Below are the steps I took to root this box.</p>
+<h3 id=task-1>
+Task 1
+<a class=heading-link href=#task-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<p>I initially started with scanning this box with <strong>nmap -A [machine ip]</strong>. This returns the following results.</p>
+<p><img src=/assets/img/Biohazard1.png alt="Biohazard nmap"></p>
+<p>This provides us with the answer to <strong>Question 2 (3 ports)</strong>. Question 1 Just asks you to deploy the machine so you can complete it at any time.</p>
+<p>Let&rsquo;s visit the webpage first and see what is there.</p>
+<p><img src=/assets/img/Biohazard2.png alt="Biohazard Web Page"></p>
+<p>On this page is the answer to <strong>Question 3</strong>.</p>
+<h3 id=task-2>
+Task 2
+<a class=heading-link href=#task-2>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<p>Let&rsquo;s next click on the link to enter the mansion at the bottom of the page. Once there, there is a bit of the story of the first Biohazard game and it is asking you where the gun shot came from. If you look at the source of this page, it directs you to go to the <strong>/diningRoom/</strong>.</p>
+<p><img src=/assets/img/Biohazard3.png alt="Biohazard Mansion source"></p>
+<p>Let&rsquo;s navigate to this page next, which is located at <strong>http://[machine ip]/diningRoom/</strong>. There is a bit more of the story, and it asks if you want to take the emblem on the wall. Click on <strong>Yes</strong> at the bottom of the page.</p>
+<p><img src=/assets/img/Biohazard4.png alt="Biohazard emblem"></p>
+<p>This is the answer to <strong>Question 1</strong> for Task 2. Let&rsquo;s refresh the /diningRoom/ page as elected and look at the input field at the bottom of the page. Paste in the emblem key you received a few moments ago and click on submit. Unfortunately, this does not do anything except send you to a page stating Nothing happened. In the info at the bottom of the page, it states that the shell must be in another room. Let&rsquo;s look at the source code for the <strong>/diningRoom/</strong> page.</p>
+<p><img src=/assets/img/Biohazard6.png alt="Biohazard diningRoom source"></p>
+<p>There appears to be another comment encoded in base 64 in the source code. Let&rsquo;s run <strong>echo [comment] | base64 -d</strong> and see what we get. This directs us to the <strong>/teaRoom/</strong>.</p>
+<p><img src=/assets/img/Biohazard7.png alt="Biohazard base64 decode teaRoom"></p>
+<p>The teaRoom has another bit of information and a link for a <strong>Lockpick</strong> you can click on and a suggestion to visit another room <strong>/artRoom/</strong>.</p>
+<p><img src=/assets/img/Biohazard8.png alt="Biohazard teaRoom"></p>
+<p>Let&rsquo;s click on the Lockpick link first. This gives us the answer to <strong>Question 2</strong> for Task 2.</p>
+<p><img src=/assets/img/Biohazard9.png alt="Biohazard lock_pick"></p>
+<p>Next, let&rsquo;s go visit the <strong>/artRoom</strong>/. This page has another link on it that you can investigate.</p>
+<p><img src=/assets/img/Biohazard10.png alt="Biohazard artRoom"></p>
+<p>Clicking this link gives you a &ldquo;map&rdquo;, which has a list of several subdirectories on this website it appears.</p>
+<p><img src=/assets/img/Biohazard11.png alt="BioHazard Map"></p>
+<p>Let&rsquo;s start with the next entry on the list we haven&rsquo;t visited, which is the <strong>/barRoom/</strong>. It says it can be opened with a <strong>lockpick</strong>. Enter the flag you received earlier for the lock_pick and click submit.</p>
+<p><img src=/assets/img/Biohazard12.png alt="Biohazard barRoom lock_pick"></p>
+<p>It will ask you to play the piano, but it is asking for a sheet music to proceed. At the bottom, there is a note about the moonlight sonata, click on it to read it.</p>
+<p><img src=/assets/img/Biohazard13.png alt="Biohazard barRoom"></p>
+<p>Visiting this page gives you an encrypted message. Let&rsquo;s see if we can figure out what its encrypted with.</p>
+<p><img src=/assets/img/Biohazard14.png alt="Biohazard music note"></p>
+<p>After playing around on <a href=https://gchq.github.io/CyberChef/>CyberChef</a> for a bit, I uncovered that this was in base32 format and decoded the <strong>music_sheet</strong></p>
+<p><img src=/assets/img/Biohazard15.png alt="Biohazard base32 decode"></p>
+<p>This is the answer to <strong>Question 3</strong> of Task 2. Next, let&rsquo;s click back and enter this code in the <strong>Play this piano?</strong> section and press submit.</p>
+<p><img src=/assets/img/Biohazard16.png alt="Biohazard play piano"></p>
+<p>This will take you to a page with a gold emblem. Click on <strong>Yes</strong> to take it to get the key for the gold emblem. This is the answer to <strong>Question 4</strong> of Task 2.</p>
+<p><img src=/assets/img/Biohazard17.png alt=Biohazardgold_emblem></p>
+<p>Go back to the previous page and refresh it and input the <strong>gold_emblem</strong> flag you just received. You will get an answer of &ldquo;Nothing happened&rdquo;. However if you enter the <strong>emblem</strong> flag from earlier, you get a different response.</p>
+<p><img src=/assets/img/Biohazard18.png alt></p>
+<p>It appears that these paths are done. Let&rsquo;s go go back to our &ldquo;map&rdquo; and go to the next site on the list, which is <strong>/diningRoom2F/</strong>. This page says that there is a shining blue gem but Jill can&rsquo;t reach it. Let&rsquo;s see if there&rsquo;s anything in the source code on this page. Once again there&rsquo;s something hidden in the comments, and this appears to be encoded with either ROT13 or a Caesar cipher.</p>
+<p><img src=/assets/img/Biohazard19.png alt="Biohazard diningRoom2f source"></p>
+<p>It appears that this was in Rot 13, it directs you to go to another page under the <strong>/diningRoom/</strong> subdirectory. This leads you to the <strong>blue_jewel</strong> flag, which is the answer to <strong>Question 6</strong> for Task 2.</p>
+<p><img src=/assets/img/Biohazard20.png alt="Biohazard blue_jewel"></p>
+<p>Let&rsquo;s once again go back to our &ldquo;map&rdquo; and go to the next page on the list, which is the <strong>/tigerStatusRoom</strong>. It appears you can put a gem in the tiger&rsquo;s eye. Use the <strong>blue_jewel</strong> from earlier. This gets you a note about crest 1.</p>
+<p><img src=/assets/img/Biohazard29.png alt="Biohazard tiger crest 1"></p>
+<p>We&rsquo;re done here so let&rsquo;s visit the <strong>/galleryRoom/</strong>. There is a note that can be examined.</p>
+<p><img src=/assets/img/Biohazard21.png alt="Biohazard Gallery Room"></p>
+<p>Examining the note provides you with information about crest 2, which has been encoded twice, but contains 18 letters.</p>
+<p><img src=/assets/img/Biohazard22.png alt="Biohazard crest2 note"></p>
+<p>We will work on decoding this later.</p>
+<p>I visited the <strong>/studyRoom/, /armorRoom/</strong> and <strong>/attic</strong>, and they required either the shield key or helmet key that we do not have, so in true Resident Evil fashion, I started revisiting rooms. I started with the <strong>/diningRoom/</strong> and used the <strong>gold_emblem</strong> flag which gave us yet another encoded message.</p>
+<p><img src=/assets/img/Biohazard23.png alt="Biohazard vigenere cipher"></p>
+<p>This is a Vigenere cipher and it is decoded with the key you found using the <strong>emblem</strong> a few rooms back. It provides you with the location of the shield key.</p>
+<p><img src=/assets/img/Biohazard24.png alt="Biohazard Vigenere Cipher Shield Key"></p>
+<p>Let&rsquo;s navigate to this page that is mentioned, and you uncover the <strong>shield_key</strong>.</p>
+<p><img src=/assets/img/Biohazard25.png alt="Biohazard shield_key"></p>
+<p>Next, let&rsquo;s head to the <strong>/armorRoom/</strong> as it can be unlocked with the <strong>shield_key</strong>.</p>
+<p><img src=/assets/img/Biohazard26.png alt="ArmorRoom shield_key"></p>
+<p>This room contains a note in it, click on the link for that note and you are given information about crest 3.</p>
+<p><img src=/assets/img/Biohazard27.png alt="Biohazard crest 3 armorRoom"></p>
+<p>Next, let&rsquo;s go into the <strong>/attic/</strong> which also uses the <strong>shield_key</strong></p>
+<p>In the attic, there is a link to another note, which provides info about crest 4:</p>
+<p><img src=/assets/img/Biohazard28.png alt="Biohazard crest 4 attic"></p>
+<p>At this point, we have all 4 crests, let&rsquo;s decode them.</p>
+<p><strong>Crest 1</strong> - Base 64 then Base 32</p>
+<p><strong>Crest 2</strong> - Base 32 then Base 58</p>
+<p><strong>Crest 3</strong> - Base64, Binary, Hex</p>
+<p><strong>Crest 4</strong> - base 58, Hex</p>
+<p>Afterwards, combine the results together and decode it with base64 to get the FTP credentials.</p>
+<h3 id=task-3>
+Task 3
+<a class=heading-link href=#task-3>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<p>Next, let&rsquo;s connect to the site via ftp with the credentials we uncovered. There are several files present here which can be downloaded with <strong>mget *</strong>.</p>
+<p><img src=/assets/img/Biohazard30.png alt="Biohazard ftp access"></p>
+<p>They 3 key .jpgs all look like normal images, and it appears we have the helmet_key encrypted with gpg, and a note, that we can read with <strong>cat important.txt</strong>. It appears it is a note from Barry, which contains access to another hidden directory. Let&rsquo;s go visit this page. This is the answer to <strong>Question 1</strong> of Task 3.</p>
+<p><img src=/assets/img/Biohazard31.png alt="Biohazard important.txt"></p>
+<p>Visiting this page doesn&rsquo;t get us very far, as it needs the gpg key decoded from earlier.</p>
+<p><img src=/assets/img/Biohazard32.png alt="Biohazard hidden room helmet key"></p>
+<p>Question 2 has a great hint. It is implying that one of the keys has a file hidden in it, another has a comment in the metadata, and I wasn&rsquo;t sure what the third one (walk away) meant. While I pondered that, I tried to get the other 2 sorted out.</p>
+<p>After some trial and error, I realized that 001-key.jpg had a file hidden in it. This was extracted by running <strong>steghide extract -sf 001-key.jpg</strong>. I left the passphrase blank and hit enter, and <strong>key-001.txt</strong> was extracted. This contained part of a password.</p>
+<p><img src=/assets/img/Biohazard33.png alt="Biohazard key 001 steghide"></p>
+<p>Next, I ran <strong>exiftool 002-key.jpg</strong> and in the Comments section, there was part of the password.</p>
+<p><img src=/assets/img/Biohazard34.png alt="Biohazard exiftool key 002"></p>
+<p>For the 3rd key, use <strong>binwalk -e 003-key.jpg</strong> and it will extract the files to <strong>_003-key.jpg.extracted</strong>. Navigate to this folder with **cd _003-key.jpg.extracted ** and run <strong>ls</strong>. There is a text file here that can be viewed with <strong>cat key-003.txt</strong>, which is the 3rd part of the password.</p>
+<p><img src=/assets/img/Biohazard35.png alt="Biohazard binwalk key 003"></p>
+<p>Let&rsquo;s combine these together. It does not appear to be a normal password, and appears to be encoded (surprise, surprise). They can be decoded with base64, and that is the answer to <strong>Question 3</strong> for Task 3. Now let&rsquo;s extract the helmet key flag with this password. This can be done with <strong>gpg helmet_key.txt.gpg</strong>. Enter the uncovered password from the 3 keys and then it should save in the same directory as a normal text file, which can be viewed with <strong>cat helmet_key.txt</strong>.</p>
+<p><img src=/assets/img/Biohazard36.png alt="Biohazard Helmet Key"></p>
+<h3 id=task-4>
+Task 4
+<a class=heading-link href=#task-4>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<p>Let&rsquo;s go back to the study room now that we have the <strong>helmet_key</strong>. Once entered, you find a sealed book with a link to examine it. Upon doing so, a zip file is opened that contains a tar file inside of it which contains a file named <strong>eagle_medal.txt</strong>. (I was able to open bot of these files with Engrampa File Manager which is standard in Kali). Inside <strong>eagle_medal.txt</strong> was the ssh user. This is the answer to <strong>Question 1</strong> for Task 4.</p>
+<p><img src=/assets/img/Biohazard37.png alt="Biohazard SSH user"></p>
+<p>Next, let&rsquo;s go back to the hidden room in Barry&rsquo;s note and enter the helmet key there as well. You end up finding Enrico, which is the answer to <strong>Question 3</strong> for Task 4. There are two links here. The 2nd one contains the SSH password, the answer to <strong>Question 2</strong> for Task 4.</p>
+<p><img src=/assets/img/Biohazard38.png alt="Biohazard SSH Password"></p>
+<p>The other link on the hidden page is for MO Disk 1, which contains some encrypted text.</p>
+<p><img src=/assets/img/Biohazard39.png alt></p>
+<h3 id=task-5>
+Task 5
+<a class=heading-link href=#task-5>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<p>Let&rsquo;s connect with our newly uncovered SSH credentials and see what we can find now.</p>
+<p><img src=/assets/img/Biohazard40.png alt="Biohazard SSH"></p>
+<p>There is nothing in this user&rsquo;s directory, so let&rsquo;s run <strong>cd ..</strong> followed by <strong>ls</strong> and we will see additonal users of hunter and weasker. Let&rsquo;s navigate into weasker&rsquo;s folder with <strong>cd weasker</strong> and run <strong>ls</strong> again. There is a note present that can be read with <strong>cat weasker_note.txt</strong>. This contains the answers of who the traitor is and the ultimate life form (<strong>Question 2/Question 4</strong>) of Task 5.</p>
+<p><img src=/assets/img/Biohazard41.png alt="Biohazard traitor ultimate life form"></p>
+<p>Let&rsquo;s go fully enumerate the umbrella_guest home directory including hidden files. Let&rsquo;s run <strong>cd ~</strong> followed by <strong>ls -al</strong>. There is a hidden directory called present (which is the answer to <strong>Question 3</strong> of Task 5) as chris.txt is inside of it. This note contains <strong>MO disk 2</strong> in it as well.</p>
+<p><img src=/assets/img/Biohazard42.png alt="Biohazard Chris Location"></p>
+<p>We had an encrypted phrase (MO Disk 1 from earlier) and it appears that MO disk 2 is the key, which makes this a Vigenere cipher like we dealt with earlier. Let&rsquo;s decrypt these and see what we get.</p>
+<p><img src=/assets/img/Biohazard43.png alt="Biohazard credentials"></p>
+<p>We now have login credentials for weasker. His password is the answer to <strong>Question 4</strong> of Task 5. Let&rsquo;s run <strong>su weasker</strong> and enter his password we just uncovered. Next, run <strong>sudo -l</strong> and it shows that this user can run anything as sudo. Let&rsquo;s run <strong>sudo cat /root/root.txt</strong> to get the final flag in this challenge.</p>
+<p><img src=/assets/img/Biohazard44.png alt="Biohazard root.txt"></p>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>
