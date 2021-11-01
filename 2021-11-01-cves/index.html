@@ -1,0 +1,151 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta http-equiv=content-language content="en">
+<meta name=color-scheme content="light dark">
+<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+<meta name=author content="Kiel Vaughn">
+<meta name=description content="A few months ago, Joe Helle made a post about how he found some CVEs in open source software one night. I highly recommend reading his article, as it has a wealth of information on what to do if you find a vulnerability in a piece of software. While there is a shortage of people working in cybersecurity, it seems that employers are still very picky about filling these types of roles.">
+<meta name=keywords content="blog,cybersecurity,personal">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="CVE-2021-38602 and CVE-2021-38603">
+<meta name=twitter:description content="A few months ago, Joe Helle made a post about how he found some CVEs in open source software one night. I highly recommend reading his article, as it has a wealth of information on what to do if you find a vulnerability in a piece of software. While there is a shortage of people working in cybersecurity, it seems that employers are still very picky about filling these types of roles.">
+<meta property="og:title" content="CVE-2021-38602 and CVE-2021-38603">
+<meta property="og:description" content="A few months ago, Joe Helle made a post about how he found some CVEs in open source software one night. I highly recommend reading his article, as it has a wealth of information on what to do if you find a vulnerability in a piece of software. While there is a shortage of people working in cybersecurity, it seems that employers are still very picky about filling these types of roles.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://www.kielvaughn.com/2021-11-01-cves/"><meta property="article:section" content>
+<meta property="article:published_time" content="2021-11-01T00:00:00+00:00">
+<meta property="article:modified_time" content="2021-11-01T00:00:00+00:00">
+<title>
+CVE-2021-38602 and CVE-2021-38603 · Kiel Vaughn, CISSP
+</title>
+<link rel=canonical href=http://www.kielvaughn.com/2021-11-01-cves/>
+<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
+<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
+<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
+<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
+<link rel=apple-touch-icon href=/assets/img/cissp.ico>
+<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
+<meta name=generator content="Hugo 0.88.1">
+</head>
+<body class="preload-transitions colorscheme-dark">
+<main class=wrapper>
+<nav class=navigation>
+<section class=container>
+<a class=navigation-title href=/>
+Kiel Vaughn, CISSP
+</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle>
+<i class="fa fa-bars fa-fw" aria-hidden=true></i>
+</label>
+<ul class=navigation-list>
+<li class=navigation-item>
+<a class=navigation-link href=/whoami/>whoami</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/certifications/>certifications</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/posts/>blog</a>
+</li>
+<li class=navigation-item>
+<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
+</li>
+</ul>
+</section>
+</nav>
+<div class=content>
+<section class="container page">
+<article>
+<header>
+<h1 class=title>
+<a class=title-link href=http://www.kielvaughn.com/2021-11-01-cves/>
+CVE-2021-38602 and CVE-2021-38603
+</a>
+</h1>
+</header>
+<p>A few months ago, Joe Helle made a <a href=https://medium.com/cybersecpadawan/how-i-was-bored-one-night-and-found-two-cves-4233c3719194>post</a> about how he found some CVEs in open source software one night. I highly recommend reading his article, as it has a wealth of information on what to do if you find a vulnerability in a piece of software. While there is a shortage of people working in cybersecurity, it seems that employers are still very picky about filling these types of roles. Finding a CVE of your own can definitely help you stand out. Here&rsquo;s the two CVEs I was able to find:</p>
+<h1 id=cve-2021-38602>
+CVE-2021-38602
+<a class=heading-link href=#cve-2021-38602>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h1>
+<p>A stored cross site scripting vulnerability is present on the Article editing page in version 5.8.7 of PluXML. User input is not properly sanitized in multiple fields.</p>
+<h2 id=vulnerable-fields>
+Vulnerable Fields:
+<a class=heading-link href=#vulnerable-fields>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h2>
+<ul>
+<li>Headline (optional):</li>
+<li>Content:</li>
+</ul>
+<p><img src=/assets/img/PluXML_Create_Article.png alt="Create Article Page"></p>
+<p>Once inserted, XSS can be triggered by visiting the posted article at the link mentioned under <strong>Link to article:</strong> near the top of the page.</p>
+<p><img src=/assets/img/PluXML_Link_to_Article.png alt="Link to Article"></p>
+<h3 id=headline-stored-xss-example>
+Headline Stored XSS Example
+<a class=heading-link href=#headline-stored-xss-example>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<hr>
+<p><img src=/assets/img/PluXML_Headline_Stored_XSS.png alt="Headline XSS"></p>
+<h3 id=content-stored-xss-example>
+Content Stored XSS Example
+<a class=heading-link href=#content-stored-xss-example>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<hr>
+<p><img src=/assets/img/PluXML_Content_Stored_XSS.png alt="Content XSS"></p>
+<h1 id=cve-2021-38603>
+CVE-2021-38603
+<a class=heading-link href=#cve-2021-38603>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h1>
+<p>A stored cross site scripting vulnerability is present on the Profile edit page in the <strong>Information:</strong> field for each user.</p>
+<h2 id=httphostnameserver-ipcoreadminprofilphp>
+http://&lt;hostname/server ip>/core/admin/profil.php
+<a class=heading-link href=#httphostnameserver-ipcoreadminprofilphp>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h2>
+<h3 id=vulnerable-fields-1>
+Vulnerable Fields:
+<a class=heading-link href=#vulnerable-fields-1>
+<i class="fa fa-link" aria-hidden=true></i>
+</a>
+</h3>
+<ul>
+<li>Information:</li>
+</ul>
+<p><img src=/assets/img/PluXML_Profile.png alt="User Profile Page"></p>
+<p>Once inserted, XSS can be triggered by visiting any page/article created by that particular user.</p>
+<p><img src=/assets/img/PluXML_Profile_Stored_XSS.png alt="Profile XSS"></p>
+<p>There is a wealth of open source software out there that can be tested upon. Here&rsquo;s a few lists to get you started!</p>
+<p><a href=https://github.com/awesome-selfhosted/awesome-selfhosted>https://github.com/awesome-selfhosted/awesome-selfhosted</a></p>
+<p><a href=https://github.com/johnjago/awesome-free-software>https://github.com/johnjago/awesome-free-software</a></p>
+<p><a href=https://github.com/Awesome-Windows/Awesome>https://github.com/Awesome-Windows/Awesome</a></p>
+<p><a href=https://github.com/luong-komorebi/Awesome-Linux-Software>https://github.com/luong-komorebi/Awesome-Linux-Software</a></p>
+</article>
+</section>
+</div>
+<footer class=footer>
+<section class=container>
+©
+2020 -
+2021
+Kiel Vaughn
+</section>
+</footer>
+</main>
+<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
+</body>
+</html>
