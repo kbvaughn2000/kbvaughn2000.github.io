@@ -34,7 +34,7 @@ Linux Challenges - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.88.1">
+<meta name=generator content="Hugo 0.89.2">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -125,7 +125,7 @@ Question 5
 <i class="fa fa-link" aria-hidden=true></i>
 </a>
 </h5>
-<p>Question 5 is asking you to find and retrieve flag 5. Let&rsquo;s use <em><em>find / -name flag5</em> 2>/dev/null</em>* This will show you that the file is in **/lib/terminfo/E/flag5.txt**. Use **cat /lib/terminfo/E/flag5.txt** to get this flag.</p>
+<p>Question 5 is asking you to find and retrieve flag 5. Let&rsquo;s use <em><em>find / -name flag5</em> 2>/dev/null</em>* This will show you that the file is in <strong>/lib/terminfo/E/flag5.txt</strong>. Use <strong>cat /lib/terminfo/E/flag5.txt</strong> to get this flag.</p>
 <p><img src=/assets/img/LinuxChallenges5.png alt="Task 2 Question 5"></p>
 <h5 id=question-6>
 Question 6
@@ -133,7 +133,7 @@ Question 6
 <i class="fa fa-link" aria-hidden=true></i>
 </a>
 </h5>
-<p>Flag 6 is asking you to grep specific characters inside of flag6. First we need to find where flag6 is at, which can be done with <em><em>find / -name flag6</em> 2>/dev/null</em>*. This shows you that it is located in **/home/flag6.txt**. Next, run **cat /home/flag6.txt |grep &ldquo;c9&rdquo;** This will highlight that portion of the output for the answer to this question as shown below.</p>
+<p>Flag 6 is asking you to grep specific characters inside of flag6. First we need to find where flag6 is at, which can be done with <em><em>find / -name flag6</em> 2>/dev/null</em>*. This shows you that it is located in <strong>/home/flag6.txt</strong>. Next, run <strong>cat /home/flag6.txt |grep &ldquo;c9&rdquo;</strong> This will highlight that portion of the output for the answer to this question as shown below.</p>
 <p><img src=/assets/img/LinuxChallenges6.png alt="Task 2 Question 6"></p>
 <h5 id=question-7>
 Question 7
@@ -338,7 +338,7 @@ Question 10
 <i class="fa fa-link" aria-hidden=true></i>
 </a>
 </h5>
-<p>This flag wants you to perform some manipulation on a file. Let&rsquo;s first find it&rsquo;s location with <em><em>find / -name flag29</em> 2>/dev/null</em>*. This file is in garry&rsquo;s home directory. Let&rsquo;s run **su garry** and enter his password of letmein and then change to his home directory with **cd ~**.</p>
+<p>This flag wants you to perform some manipulation on a file. Let&rsquo;s first find it&rsquo;s location with <em><em>find / -name flag29</em> 2>/dev/null</em>*. This file is in garry&rsquo;s home directory. Let&rsquo;s run <strong>su garry</strong> and enter his password of letmein and then change to his home directory with <strong>cd ~</strong>.</p>
 <p><img src=/assets/img/LinuxChallenges32.png alt="Task 4 Question 10 part 1"></p>
 <p>We can use a combination of cat and tr (translate) to find the answer. The command to run is <strong>cat flag29|tr -d " \n"</strong>. Make note of the extra space between the first quote and the \n. This tells translate to delete all whitespace and new line flags. Copy the last portion after the last comma for the flag.</p>
 <p><img src=/assets/img/LinuxChallenges33.png alt="Task 4 Question 1 part 2"></p>
@@ -370,7 +370,7 @@ Question 3
 <i class="fa fa-link" aria-hidden=true></i>
 </a>
 </h5>
-<p>This asks you to get data out of the the database that was found in the previous question. First, type **use database_&lt;previous flag>;** to use the database. Next, run **show tables;** followed by **SELECT * from flags;** to get this flag.</p>
+<p>This asks you to get data out of the the database that was found in the previous question. First, type <strong>use database_&lt;previous flag>;</strong> to use the database. Next, run <strong>show tables;</strong> followed by <strong>SELECT * from flags;</strong> to get this flag.</p>
 <p><img src=/assets/img/LinuxChallenges36.png alt="Task 5 Question 3"></p>
 <h5 id=question-4-3>
 Question 4
