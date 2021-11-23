@@ -34,7 +34,7 @@ Erit Securus I - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -64,15 +64,49 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-20-erit-securus/>
 Erit Securus I - TryHackMe
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-20T00:00:00Z>
+July 20, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+4-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/erit-securus-i/>Erit Securus I</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/tryhackme/>TryHackMe</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/pivoting/>pivoting</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/bolt-cms/>bolt cms</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Erit Securus I is an easy rated difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. Below are the steps taken to compromise this system.</p>
 <h3 id=task-1>
 Task 1
@@ -180,6 +214,9 @@ Task 9
 <p><img src=/assets/img/EritSecurus25.png alt="Erit Securus jsmith sudo -l"></p>
 <p>What they can run as sudo is the answer to <strong>Question 1</strong>. Next, there are numerous ways to gain root, but the easiest way is with <strong>sudo su root</strong>. From here run <strong>cd /root</strong> followed by <strong>ls</strong>. Run <strong>cat flag3.txt</strong> to get the final flag and the answer to <strong>Question 2</strong> to finish this challenge!</p>
 <p><img src=/assets/img/EritSecurus26.png alt="Erit Securus flag3.txt"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

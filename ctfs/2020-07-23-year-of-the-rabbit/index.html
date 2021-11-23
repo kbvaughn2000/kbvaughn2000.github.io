@@ -37,7 +37,7 @@ Year of the Rabbit - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -67,15 +67,57 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-23-year-of-the-rabbit/>
 Year of the Rabbit - TryHackMe
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-23T00:00:00Z>
+July 23, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+4-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/year-of-the-rabbit/>Year of the Rabbit</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/tryhackme/>TryHackMe</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/privilege-escalation/>privilege escalation</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/steganography/>steganography</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/website-enumeration/>website enumeration</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/cve/>CVE</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Year of the Rabbit is an easy difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. Below are the steps taken to root the box.</p>
 <p>First, I ran Threader3000 on this box and it returns 3 open ports.</p>
 <p><img src=/assets/img/YearOfTheRabbit1.png alt="Year of the Rabbit Threader3000"></p>
@@ -120,6 +162,9 @@ Year of the Rabbit - TryHackMe
 <p>Awesome, we were able to open vi, let&rsquo;s hit escape and enter <strong>!bin/sh</strong> and see who we get a shell as.</p>
 <p><img src=/assets/img/YearOfTheRabbit22.png alt="Year of the Rabbit root shell"></p>
 <p>We now have root access, now just run <strong>cd /root</strong> and <strong>cat root.txt</strong> to get the final flag for this box.</p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

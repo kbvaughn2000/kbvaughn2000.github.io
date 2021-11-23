@@ -34,7 +34,7 @@ Fristileaks 1.3 · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -64,15 +64,57 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-08-13-fristileaks/>
 Fristileaks 1.3
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-08-13T00:00:00Z>
+August 13, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+4-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/oscp/>OSCP</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/website-enumeration/>website enumeration</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/base64/>base64</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/rot13/>rot13</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/python/>python</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/privilege-escalation/>privilege escalation</a>
+</span></div>
+</div>
 </header>
+<div>
 <p><a href=https://www.vulnhub.com/entry/fristileaks-13,133/>Fristileaks</a> is a vulnerable machine found on the <a href="https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=0">NetSecFocus Trophy Room</a> list which I have been using as preparation for the OSCP. Below is a walkthrough to compromise this machine.</p>
 <p>First, after downloading and importing the machine into VMware, I had to figure out the IP address of the machine. I used <strong>netdiscover -i eth0</strong> until I came across the IP of this machine.</p>
 <p><img src=/assets/img/Fristileaks1.png alt="Fristileaks netdiscover"></p>
@@ -131,6 +173,9 @@ Fristileaks 1.3
 <p><img src=/assets/img/Fristileaks28.png alt="Fristileaks root shell"></p>
 <p>Success! We now have a root shell. Let&rsquo;s run <strong>cd /root</strong> followed by <strong>ls -al</strong>. There is a fristileaks_secrets.txt file here. Let&rsquo;s run <strong>cat fristileaks_secrets.txt</strong> to finish this box!</p>
 <p><img src=/assets/img/Fristileaks29.png alt="Fristileaks root flag"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

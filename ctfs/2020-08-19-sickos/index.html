@@ -34,7 +34,7 @@ Sick OS 1.2 · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -64,15 +64,53 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-08-19-sickos/>
 Sick OS 1.2
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-08-19T00:00:00Z>
+August 19, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+4-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/oscp/>OSCP</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/chkrootkit/>chkrootkit</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/privilege-escalation/>privilege escalation</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/curl/>curl</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/nmap-http-put/>nmap http-put</a>
+</span></div>
+</div>
 </header>
+<div>
 <p><a href=https://www.vulnhub.com/entry/sickos-12,144/>SickOS 1.2</a> a vulnerable machine found on the <a href="https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=0">NetSecFocus Trophy Room</a> list which I have been using as preparation for the OSCP. Below is a walkthrough to compromise this machine.</p>
 <p>First, after downloading and importing the machine into VMware, I had to figure out the IP address of the machine. I used <strong>netdiscover -i eth0</strong> until I came across the IP of this machine.</p>
 <p><img src=/assets/img/SickOS1.png alt="SickOS 1.2 netdiscover"></p>
@@ -124,6 +162,9 @@ Sick OS 1.2
 <p><img src=/assets/img/SickOS25.png alt="Sick OS 1.2 modify sudoers permissions"></p>
 <p>I then ran <strong>cd /root</strong> followed by <strong>ls -al</strong>. There was a flag file present, which I viewed the contents of with <strong>cat 7d03aaa2bf93d80040f3f22ec6ad9d5a.txt</strong>, which showed the information below!</p>
 <p><img src=/assets/img/SickOS26.png alt="Sick OS 1.2 root flag"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

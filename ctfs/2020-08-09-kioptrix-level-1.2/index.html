@@ -34,7 +34,7 @@ Kioptrix - Level 1.2 · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -64,15 +64,49 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-08-09-kioptrix-level-1.2/>
 Kioptrix - Level 1.2
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-08-09T00:00:00Z>
+August 9, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+5-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/oscp/>OSCP</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/lotuscms/>LotusCMS</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/mysql/>mysql</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/privilege-escalation/>privilege escalation</a>
+</span></div>
+</div>
 </header>
+<div>
 <p><a href=https://www.vulnhub.com/entry/kioptrix-level-12-3,24/>Kioptrix</a> Level 1.2 is a vulnerable machine found on the <a href="https://docs.google.com/spreadsheets/d/1dwSMIAPIam0PuRBkCiDI88pU3yzrqqHkDtBngUHNCw8/edit#gid=0">NetSecFocus Trophy Room</a> list which I have been using as preparation for the OSCP. Below is a walkthrough to compromise this machine.</p>
 <p>First, after downloading and importing the machine into VMware, I had to figure out the IP address of the machine. I used <strong>netdiscover -i eth0</strong> until I came across the IP of this machine.</p>
 <p><img src=/assets/img/KioptrixLevel31.png alt="Kioptrix Level 1.3 netdiscover"></p>
@@ -135,6 +169,9 @@ Kioptrix - Level 1.2
 <p>Next I ran <strong>cd /root</strong> followed by <strong>ls -al</strong> to list the contents. there is a <strong>Congrats.txt</strong> file here. Let&rsquo;s read it with <strong>cat Congrats.txt</strong>.</p>
 <p><img src=/assets/img/KioptrixLevel330.png alt="Kioptrix Level 1.2 root flag Congrats.txt"></p>
 <p>With that, this box is complete!</p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

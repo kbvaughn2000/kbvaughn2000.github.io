@@ -37,7 +37,7 @@ Source - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -67,15 +67,49 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-11-source-walkthrough/>
 Source - TryHackMe
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-11T00:00:00Z>
+July 11, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+2-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/source/>Source</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/tryhackme/>TryHackMe</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/webmin/>Webmin</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/cve-2019-15107/>CVE-2019-15107</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>This is an easy box on <a href=https://tryhackme.com>TryHackMe</a> based on a recent Webmin exploit. Here are the steps to follow to own this box.</p>
 <p>First, let&rsquo;s enumerate the box with nmap with <strong>nmap -p- -vv -T4 [machine ip]</strong>.</p>
 <p>This shows 2 ports open, 22 (ssh) and 10000 (typically used for webmin)</p>
@@ -96,6 +130,9 @@ Source - TryHackMe
 <p><img src=/assets/img/Source8.png alt="Source user flag"></p>
 <p>Next, let&rsquo;s navigate to /root with <strong>cd /root</strong> and run <strong>ls</strong>. You will see a file named root.txt. Let&rsquo;s view it&rsquo;s contents with <strong>cat root.txt</strong></p>
 <p><img src=/assets/img/Source9.png alt="Source root flag"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

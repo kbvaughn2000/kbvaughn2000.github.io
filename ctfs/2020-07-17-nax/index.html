@@ -37,7 +37,7 @@ Nax - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -67,15 +67,53 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-17-nax/>
 Nax - TryHackMe
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-17T00:00:00Z>
+July 17, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+3-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/nax/>Nax</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/tryhackme/>TryHackMe</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/steganography/>steganography</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/metasploit/>metasploit</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/nagios/>Nagios</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Nax is a medium difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. Below is a step by step walkthrough to root this box.</p>
 <p>Let&rsquo;s start by running <strong>nmap -A [machine ip]</strong>. We end up with the following results.</p>
 <p><img src=/assets/img/Nax1.png alt="Nax nmap"></p>
@@ -109,6 +147,9 @@ Nax - TryHackMe
 <p>Next, let&rsquo;s run <strong>cat /root/root.txt</strong>, which is the usual default location for root flags.</p>
 <p><img src=/assets/img/Nax14.png alt="Nax root.txt"></p>
 <p>And we&rsquo;re all done with this box.</p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

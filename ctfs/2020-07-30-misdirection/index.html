@@ -37,7 +37,7 @@ Misdirection - VulnHub · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -67,15 +67,49 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-30-misdirection/>
 Misdirection - VulnHub
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-30T00:00:00Z>
+July 30, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+3-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/misdirection/>Misdirection</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/vulnhub/>VulnHub</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/privilege-escalation/>privilege escalation</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/website-enumeration/>website enumeration</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Misdirection is labelled as a medium difficulty OSCP style box from <a href=https://www.vulnhub.com>VulnHub</a>. Below are the steps I took to root this box.</p>
 <p>First, I ran <strong>threader3000</strong> to see what ports were open.</p>
 <p><img src=/assets/img/Misdirection1.png alt="Misdirection threader3000"></p>
@@ -117,6 +151,9 @@ Misdirection - VulnHub
 <p><img src=/assets/img/Misdirection20.png alt="Misdirection root privesc"></p>
 <p>Now, just run <strong>cd /root</strong>, followed by <strong>ls</strong> and then finally <strong>cat root.txt</strong> to get the final flag.</p>
 <p><img src=/assets/img/Misdirection21.png alt="Misdirection root.txt"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

@@ -34,7 +34,7 @@ Biohazard - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -64,15 +64,49 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-14-biohazard/>
 Biohazard - TryHackMe
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-14T00:00:00Z>
+July 14, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+9-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/biohazard/>Biohazard</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/tryhackme/>TryHackMe</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/encryption/>encryption</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/puzzle/>puzzle</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Biohazard is a medium difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. This box is based on the Resident Evil/Biohazard video game series, and features several encryption puzzles. Below are the steps I took to root this box.</p>
 <h3 id=task-1>
 Task 1
@@ -201,6 +235,9 @@ Task 5
 <p><img src=/assets/img/Biohazard43.png alt="Biohazard credentials"></p>
 <p>We now have login credentials for weasker. His password is the answer to <strong>Question 4</strong> of Task 5. Let&rsquo;s run <strong>su weasker</strong> and enter his password we just uncovered. Next, run <strong>sudo -l</strong> and it shows that this user can run anything as sudo. Let&rsquo;s run <strong>sudo cat /root/root.txt</strong> to get the final flag in this challenge.</p>
 <p><img src=/assets/img/Biohazard44.png alt="Biohazard root.txt"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

@@ -40,7 +40,7 @@ Pickle Rick - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -70,15 +70,49 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-26-pickle-rick/>
 Pickle Rick - TryHackMe
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-26T00:00:00Z>
+July 26, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+3-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/wonderland/>Wonderland</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/tryhackme/>TryHackMe</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/privilege-escalation/>privilege escalation</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/website-enumeration/>website enumeration</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Pickle Rick is an easy rated difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. Below are the steps taken to root this box.</p>
 <p>First, I enumerated the open TCP ports with <strong>threader3000</strong>.</p>
 <p><img src=/assets/img/PickleRick1.png alt="Pickle Rick threader3000"></p>
@@ -118,6 +152,9 @@ Pickle Rick - TryHackMe
 <p><img src=/assets/img/PickleRick18.png alt="Pickle Rick shell upgrade python3"></p>
 <p>Let&rsquo;s run <strong>sudo su</strong> to switch to root and then <strong>cd /root</strong> followed by <strong>ls -al</strong> to see what&rsquo;s in root&rsquo;s home folder. There&rsquo;s a file called <strong>3rd.txt</strong>. Let&rsquo;s run <strong>cat 3rd.txt</strong> to get the 3rd flag and finish this box.</p>
 <p><img src=/assets/img/PickleRick19.png alt="Pickle Rick 3rd ingredient"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

@@ -37,7 +37,7 @@ Overpass - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -67,15 +67,49 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-18-overpass/>
 Overpass - TryHackMe
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-18T00:00:00Z>
+July 18, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+6-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/overpass/>Overpass</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/tryhackme/>TryHackMe</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/cron/>cron</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/authentication-bypass/>authentication bypass</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Overpass is an easy difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. Below are the steps taken to root this box.</p>
 <p>First, let&rsquo;s scan the box with <strong>nmap -A [machine ip]</strong>.</p>
 <p><img src=/assets/img/Overpass1.png alt="Overpass nmap"></p>
@@ -144,6 +178,9 @@ Overpass - TryHackMe
 <p><img src=/assets/img/Overpass31.png alt="Overpass nc root reverse shell"></p>
 <p>We now have a shell as root! This is due to the fact that this job ran as root based on the user listed in the system wide crontab. Let&rsquo;s navigate to root&rsquo;s home directory with <strong>cd /root</strong> and type <strong>cat root.txt</strong> to get the final flag.</p>
 <p><img src=/assets/img/Overpass32.png alt="Overpass root.txt"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

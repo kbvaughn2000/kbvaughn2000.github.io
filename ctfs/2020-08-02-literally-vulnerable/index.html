@@ -37,7 +37,7 @@ Literally Vulnerable - Vulnhub · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -67,15 +67,49 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-08-02-literally-vulnerable/>
 Literally Vulnerable - Vulnhub
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-08-02T00:00:00Z>
+August 2, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+6-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/website-enumeration/>website enumeration</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/anonymous-ftp/>anonymous ftp</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/privilege-escalation/>privilege escalation</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/vulnhub/>VulnHub</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Literally Vulnerable is an easy to medium difficulty OSCP style box from <a href=https://www.vulnhub.com>VulnHub</a>. Below are the steps taken to compromise this box.</p>
 <p>First, I enumerated open ports with <strong>threader3000</strong>.</p>
 <p><img src=/assets/img/LiterallyVulnerable1.png alt="Literally Vulnerable threader3000"></p>
@@ -153,6 +187,9 @@ Literally Vulnerable - Vulnhub
 <p><img src=/assets/img/LiterallyVulnerable38.png alt="Literally Vulnerable root shell"></p>
 <p>Now, we can run <strong>cd /root</strong> followed by <strong>ls</strong> and <strong>cat root.txt</strong> to get the root flag. We can also run <strong>cat /home/doe/local.txt</strong> to get the local.txt flag from earlier.</p>
 <p><img src=/assets/img/LiterallyVulnerable39.png alt="Literally Vulnerable root.txt local.txt"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

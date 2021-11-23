@@ -37,7 +37,7 @@ Anonymous - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -67,15 +67,49 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-13-anonymous/>
 Anonymous - TryHackMe
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-13T00:00:00Z>
+July 13, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+4-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/anonymous/>Anonymous</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/tryhackme/>TryHackMe</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/privilege-escalation/>privilege escalation</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/script-modification/>script modification</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Anonymous is a medium difficulty box on <a href=https://www.tryhackme.com>TryHackMe</a>. Below is a walkthrough of the steps involved to achieve root on this box.</p>
 <p>First, let&rsquo;s scan the box with nmap with <strong>nmap -sC -sV -T4 [machine ip]</strong>. The results of this scan are as shown below.</p>
 <p><img src=/assets/img/Anonymous1.png alt="Anonymous nmap"></p>
@@ -115,6 +149,9 @@ Anonymous - TryHackMe
 <p><img src=/assets/img/Anonymous16.png alt="Anonymous SUID"></p>
 <p><a href=https://gtfobins.github.io/>GTFOBins</a> is a great site to look up ways to exploit executables in Linux. env can be used for privilege escalation with <strong>./env /bin/sh -p</strong>. Now, if we run <strong>whoami</strong> we are the root user! We can now run <strong>cd /root</strong> followed by <strong>ls</strong>. root.txt is in this file, so let&rsquo;s run <strong>cat root.txt</strong> to get the root flag. This is the final challenge and the answer to <strong>Question 6</strong>.</p>
 <p><img src=/assets/img/Anonymous17.png alt="Anonymous root.txt"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

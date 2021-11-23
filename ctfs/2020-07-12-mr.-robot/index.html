@@ -34,7 +34,7 @@ Mr. Robot - TryHackMe · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -64,15 +64,41 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-07-12-mr.-robot/>
 Mr. Robot - TryHackMe
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-12T00:00:00Z>
+July 12, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+5-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/mr.-robot/>Mr. Robot</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/tryhackme/>TryHackMe</a>
+</span></div>
+</div>
 </header>
+<div>
 <p>Below are the steps to get the 3 flags on the Mr. Robot box on <a href=https://www.tryhackme.com>TryHackMe</a>.</p>
 <p>First, let&rsquo;s run nmap with <strong>nmap -sC -sV -O -T4 [machine ip]</strong>. This will return ssh which is marked as closed, and both ports 80 and 443 which are open.</p>
 <p><img src=/assets/img/MrRobot1.png alt="Mr. Robot 1"></p>
@@ -122,6 +148,9 @@ Mr. Robot - TryHackMe
 <p><img src=/assets/img/MrRobot23.png alt="Mr. Robot 23"></p>
 <p>Let&rsquo;s run <strong>cd /root</strong> followed by <strong>ls</strong>. You will see the 3rd key file there. Run <strong>cat key-3-of-3.txt</strong> to get the final key!</p>
 <p><img src=/assets/img/MrRobot24.png alt="Mr. Robot 24"></p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>

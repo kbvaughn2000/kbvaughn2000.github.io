@@ -37,7 +37,7 @@ CheeseyJack · Kiel Vaughn, CISSP
 <link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
 <link rel=apple-touch-icon href=/assets/img/cissp.ico>
 <link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.89.2">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body class="preload-transitions colorscheme-dark">
 <main class=wrapper>
@@ -67,15 +67,45 @@ Kiel Vaughn, CISSP
 </section>
 </nav>
 <div class=content>
-<section class="container page">
+<section class="container post">
 <article>
 <header>
+<div class=post-title>
 <h1 class=title>
 <a class=title-link href=http://www.kielvaughn.com/ctfs/2020-11-3-cheeseyjack/>
 CheeseyJack
 </a>
 </h1>
+</div>
+<div class=post-meta>
+<div class=date>
+<span class=posted-on>
+<i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-11-03T00:00:00Z>
+November 3, 2020
+</time>
+</span>
+<span class=reading-time>
+<i class="fa fa-clock-o" aria-hidden=true></i>
+4-minute read
+</span>
+</div>
+<div class=tags>
+<i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag>
+<a href=/tags/privilege-escalation/>privilege escalation</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/qdpm-exploitation/>QDPM exploitation</a>
+</span>
+<span class=separator>•</span>
+<span class=tag>
+<a href=/tags/insecure-passwords/>insecure passwords</a>
+</span></div>
+</div>
 </header>
+<div>
 <p><a href=https://www.vulnhub.com/entry/cheesey-cheeseyjack,578/>CheeseyJack</a> is a vulnerable system found on VulnHub. Below are the steps I utilized to compromise this vulnerable box.</p>
 <p>First, after importing the machine, I ran <strong>netdiscover -i eth0</strong> to discover the IP address of the host.</p>
 <p><img src=/assets/img/CheeseyJack1.png alt="CheeseyJack netdiscover"></p>
@@ -125,6 +155,9 @@ CheeseyJack
 <p>I next ran <strong>sudo -l</strong> to enumerate permissions for this user. It appears that this user can run anything as sudo in the <strong>/home/crab/.bin/</strong> directory, which makes privilege escalation easily attainable. I ran <strong>cp /bin/bash /home/crab/.bin/bash</strong> to copy over the bash shell to this folder, followed by by <strong>sudo /home/crab/.bin/bash -p</strong> to run bash in a privileged mode, this provided me with root access which was verified with <strong>whoami</strong>.</p>
 <p><img src=/assets/img/CheeseyJack24.png alt="CheeseyJack root.txt"></p>
 <p>Finally, I navigate to the root directory with <strong>cd /root</strong> and ran <strong>ls -al</strong>, there was a <strong>root.txt</strong> file present. Running <strong>cat root.txt</strong> provided the information in the screenshot above, finishing up this box!</p>
+</div>
+<footer>
+</footer>
 </article>
 </section>
 </div>
