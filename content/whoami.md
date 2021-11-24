@@ -6,127 +6,380 @@ aliases = ["about me", "resume"]
 author = "Kiel Vaughn"
 +++
 
-<center><H3>PROFESSIONAL SUMMARY</H3></center>
-
-<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1));">
+<center><H3>PROFESSIONAL SUMMARY</H3></center><hr>
 
 Highly motivated, solutions driven professional with several years of proven success in information security, system administration, project management, automation, process improvement, and business analysis. One of one hundred recipients of the [2019 SANS Institute's Cyber FastTrack Scholarship](https://medium.com/cyber-fasttrack/scholarships-awarded-to-100-cyber-fasttrack-finalists-287b209630). 
 
-<center><H3>COMPETENCIES & SKILLS</H3></center>
+<center><H3>COMPETENCIES & SKILLS</H3></center><HR>
 
-<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1));">
+**Technical Skills:** 
 
-<h5>Technical Skills</h5>
-Security Assessments, Vulnerability Management, Incident Response, VMWare Administration, Systems Administration, Citrix Administration, PowerShell Scripting, Automation, Firewall Management
+- Security Assessments
+- Vulnerability Management
+- Incident Response
+- VMWare Administration
+- Systems Administration
+- Citrix Administration
+- PowerShell Scripting
+- Automation
+- Firewall Management
 
-<h5>Tools</h5> 
-Burp Suite, nmap, Metasploit, Nessus, John the Ripper, Hashcat, tcpdump, Wireshark, Zeek, InsightIDR, InsightVM, SonarQube, Docker, Jenkins, Apache Tomcat, SQL, Active Directory, LDAP
+**Tools:**
 
-<h5>Hardware/OS</h5> 
-Linux, AIX, Windows, Checkpoint Firewalls, IBM Power7/Power8 Servers, Dell Servers, VMWare
+- Burp Suite
+- nmap
+- Metasploit
+- Nessus
+- John the Ripper
+- Hashcat
+- tcpdump
+- Wireshark
+- Zeek
+- InsightIDR
+- InsightVM
+- SonarQube
+- Docker
+- Jenkins
+- Apache Tomcat
+- SQL
+- Active Directory 
+- LDAP
 
-<h5>Professional</h5> 
-Collaboration, Team Oriented, Documentation, Critical Thinker, Project Management, Vendor Management, Mentoring, Cross Training
+**Hardware/OS:**
 
-<center><H3>CERTIFICATIONS</H3></center>
+- Linux
+- AIX
+- Windows
+- Checkpoint Firewalls
+- IBM Power7/Power8 Servers
+- Dell Servers
+- VMWare
 
-<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1));">
+**Professional:**
 
-<h5>GIAC:</h5> 
-GCIA, GPEN, GCIH, GDSA, GSEC, GFACT, GSTRT, GCPM, SSAP
+- Collaboration
+- Team Oriented
+- Documentation
+- Critical Thinker
+- Project Management
+- Vendor Management
+- Mentoring
+- Cross Training
 
-<h5>(ISC)<sup>2</sup>:</h5> 
-CISSP, CCSP, SSCP
+<center><H3>PROFESSIONAL TIMELINE</H3></center><HR>
 
-<h5>CompTIA:</h5> 
-A+, Network+, Security+, Pentest+, Project+
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+  box-sizing: border-box;
+}
 
-<h5>PMI:</h5> 
-CAPM
+body {
+  background-color: #222222;
+  font-family: Helvetica, sans-serif;
+}
 
-<h5>EC-Council:</h5> 
-CEH Practical
+/* The actual timeline (the vertical ruler) */
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-<h5>Rapid7:</h5> 
-InsightIDR Certified Specialist, InsightVM Certified Administrator
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  background-color: #333333;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+}
 
-<center><H3>EDUCATION</H3></center>
+/* Container around content */
+.container {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+}
 
-<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1));">
+/* The circles on the timeline */
+.container::after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: -17px;
+  background-color: gray;
+  border: 4px solid #444444;
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+}
 
-<h5>SANS Technology Institute:</h5> M.S. Information Security Engineering - October 2022
+/* Place the container to the left */
+.left {
+  left: 0;
+}
 
-<h5>Western Governors University:</h5> M.S. Information Technology Management - July 2019
+/* Place the container to the right */
+.right {
+  left: 50%;
+}
 
-<h5>Western Governors University:</h5> B.S. Cybersecurity and Information Assurance - June 2018
+/* Add arrows to the left container (pointing right) */
+.left::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  right: 30px;
+  border: medium solid white;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent #ababab;
+}
 
-<center><H3>PROFESSIONAL EXPERIENCE</H3></center>
+/* Add arrows to the right container (pointing left) */
+.right::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  left: 30px;
+  border: medium solid white;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #ababab transparent transparent;
+}
 
-<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1));">
+/* Fix the circle for containers on the right side */
+.right::after {
+  left: -16px;
+}
 
-<h4>Engineer - Cloud Security</h4>
+/* The actual content */
+.content {
+  padding: 20px 30px;
+  background-color: #ababab;
+  position: relative;
+  border-radius: 6px;
+}
 
-*Credit Acceptance* - **2021-Present**
+/* Media queries - Responsive timeline on screens less than 600px wide */
+@media screen and (max-width: 600px) {
+  /* Place the timelime to the left */
+  .timeline::after {
+  left: 31px;
+  }
+  
+  /* Full-width containers */
+  .container {
+  width: 100%;
+  padding-left: 70px;
+  padding-right: 25px;
+  }
+  
+  /* Make sure that all arrows are pointing leftwards */
+  .container::before {
+  left: 60px;
+  border: medium solid white;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #ababab transparent transparent;
+  }
 
-- Facilitates coordination with cross-functional application teams to define, estimate, and implement cloud security requirements for projects and system development.
-- Supports security configurations for cloud platforms, including Amazon Web Services (AWS), Microsoft Azure, and containerization platforms such as Docker and VMWare.
-- Helps to drive the technical cloud strategy of the Security team, including evaluating and adopting tools, technologies, and processes.
-- Performs periodic risk assessments for cloud platforms to identify, classify, and remediate threats and vulnerabilities.
-- Oversees third-party vendors to execute independent cloud security assessments.
-- Assists with the response for cloud security incidents, adhering to the established incident response process.
-- Coordinates with Corporate Legal to ensure compliance with federal, state, and local regulations.
-- Supports more junior staff in the development of their skills.
-- Serves as a 24/7 escalation point for the team for Cloud related risks.
+  /* Make sure all circles are at the same spot */
+  .left::after, .right::after {
+  left: 15px;
+  }
+  
+  /* Make all right containers behave like the left ones */
+  .right {
+  left: 0%;
+  }
+}
+</style>
+</head>
 
-<h4>Application Security Analyst</h4>
 
-*Credit Acceptance* - **2020-Present**
+<div class="timeline">
+  <div class="container left">
+    <div class="content">
+      <h2>October 2021</h2>
+      <p>GCPM Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>August 2021</h2>
+      <p>AWS Certified Cloud Practitioner</p>
+    </div>
+  </div>
+  <div class="container left">
+    <div class="content">
+      <h2>July 2021</h2>
+      <p>GFACT Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>May 2021</h2>
+      <p>Pentest+ Certified</p>
+    </div>
+  </div>
+  <div class="container left">
+    <div class="content">
+      <h2>May 2021</h2>
+      <p>GDSA Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>March 2021</h2>
+      <p>GCIA Certified</p>
+    </div>
+  </div>
 
-- Perform application security assessments for both new and existing applications.
-- Develop and maintain a repeatable security assessment framework.
-- Document and report application vulnerabilities and suggest mitigation methods and strategies.
-- Develop and manage a repeatable secure development process.
-- Analyze industry security threats and develop strategies to detect and mitigate.
-- Discuss and present technical solutions to all levels of employees across the organization.
+  <div class="container left">
+    <div class="content">
+      <h2>January 2021</h2>
+      <p>SSAP Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>November 2020</h2>
+      <p>GSTRT Certified</p>
+    </div>
+  </div>
 
-<h4>Systems Administrator</h4>
+  <div class="container left">
+    <div class="content">
+      <h2>November 2020</h2>
+      <p>Master's Degree Started (SANS Institute)</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>July 2020</h2>
+      <p>CEH Practical Certified</p>
+    </div>
+  </div>
 
-*Michigan Schools and Government Credit Union* - **2015-2020**
+  <div class="container left">
+    <div class="content">
+      <h2>June 2020</h2>
+      <p>GPEN Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>May 2020</h2>
+      <p>InsightVM Certified Administrator</p>
+    </div>
+  </div>
 
--  Maintain and administer core banking systems ensuring 99.999% availability.
-- Led implementation of Rapid7 InsightVM and InsightIDR.
-- Lead incident handler for organization.
-- Assisted risk management team with internal and external audits.
-- Lead disaster recovery for core banking system and ancillary connections.
-- Automated over 250 processes throughout the organization.
-- Lead projects to implement new or replace/update existing systems.
+  <div class="container left">
+    <div class="content">
+      <h2>May 2020</h2>
+      <p>Insight IDR Certified Specialist</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>May 2020</h2>
+      <p>GCIH Certified</p>
+    </div>
+  </div>
 
-<h4>Systems Operations Specialist</h4>
+  <div class="container left">
+    <div class="content">
+      <h2>February 2020</h2>
+      <p>GSEC Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>February 2020</h2>
+      <p>CCSP Certified (test previously passed in 2018)</p>
+    </div>
+  </div>
 
-*Michigan Schools and Government Credit Union* - **2014-2015**
+  <div class="container left">
+    <div class="content">
+      <h2>January 2021</h2>
+      <p>CISSP Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>July 2019</h2>
+      <p>Master's Degree Completed (WGU)</p>
+    </div>
+  </div>
 
--  Responsible for daily, monthly, and annual scheduled operational tasks.
-- Worked with business analysts to develop or improve over fifty new processes.
-- Acted as front-line support for Symitar core banking system.
-- Assisted network engineers with infrastructure and hardware replacement projects.
+  <div class="container left">
+    <div class="content">
+      <h2>April 2019</h2>
+      <p>CAPM Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>September 2018</h2>
+      <p>Master's Degree Started (WGU)</p>
+    </div>
+  </div>
 
-<h4>Technical Support Specialist</h4>
+  <div class="container left">
+    <div class="content">
+      <h2>June 2018</h2>
+      <p>Bachelor's Degree Completed (WGU)</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>January 2018</h2>
+      <p>SSCP Certified</p>
+    </div>
+  </div>
 
-*Extra Credit Union* - **2013-2014**
+  <div class="container left">
+    <div class="content">
+      <h2>October 2017</h2>
+      <p>Security+ Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>August 2017</h2>
+      <p>Project+ Certified</p>
+    </div>
+  </div>
 
-- Administered and maintained core banking system.
-- Managed ShoreTel phone system, including system maintenance and user setup.
-- Responsible for front line support for entire organization of 100 employees.
-- Led migration of desktop systems from Windows XP to Windows 7 for 200 PCs.
-- Led implementation of GFI Cloud for asset and vulnerability management.
+  <div class="container left">
+    <div class="content">
+      <h2>August 2017</h2>
+      <p>Network+ Certified</p>
+    </div>
+  </div>
+  <div class="container right">
+    <div class="content">
+      <h2>June 2017</h2>
+      <p>A+ Certified</p>
+    </div>
+  </div>
 
-<center><H3>PERSONAL PROJECTS/ACHIEVEMENTS</H3></center>
-
-<hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1));">
-
-- Developed a curated list of additional resources for the SANS Institute’s undergraduate program.
-- Participant in Hack the Box challenges achieving the rank of Pro Hacker with 29 systems rooted.
-- Top 1% of users on TryHackMe.
-- Active member of GIAC Advisory Board.
-- Serve as Crusader for [Cybersecurity Gatebreakers](https://www.cybersecuritygatebreakers.org/).
-- Built out home lab to test out several exploits, including Kerberoasting, SQL injection, Linux/Windows privilege escalation, and OWASP Top 10 web application exploits.
+  <div class="container left">
+    <div class="content">
+      <h2>March 2017</h2>
+      <p>Bachelor's Degree Started (WGU)</p>
+    </div>
+  </div>
+</div>
