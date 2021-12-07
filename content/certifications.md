@@ -19,6 +19,7 @@ Below are a list of the certifications I actively hold. Click on any of the imag
 <a href="https://www.youracclaim.com/badges/06f33816-931e-45fe-a185-7c4b34b426ec/public_url"><img src="/assets/img/giac-penetration-tester-gpen.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/6ed0cdf8-f66e-42a5-bda6-be481e265560/public_url"><img src="/assets/img/giac-certified-intrusion-analyst-gcia.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/26d2412b-014e-471a-b986-71e32350a831/public_url"><img src="/assets/img/giac-defensible-security-architecture-gdsa.png" style="width:225px"></a>
+<a href="https://www.credly.com/badges/90da19bd-4e43-4008-92a9-8fdd5b7fbf6b/public_url"><img src="/assets/img/giac-public-cloud-security-gpcs.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/8d0e45cc-36b5-4737-83ac-69e730e6f292/public_url"><img src="/assets/img/giac-strategic-planning-policy-and-leadership-gstrt.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/71124a4c-7bed-4f9b-a3df-ba92ea3668d1/public_url"><img src="/assets/img/giac-certified-project-manager-gcpm.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/64f98112-b4ed-4a22-8292-295d7b6498d8/public_url"><img src="/assets/img/giac-foundational-cybersecurity-technologies-gfact.png" style="width:225px"></a>
