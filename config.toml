@@ -1,4 +1,4 @@
-baseURL = "http://www.kielvaughn.com"
+baseURL = "https://www.kielvaughn.com"
 title = "Kiel Vaughn, CISSP"
 theme = "hugo-coder"
 languageCode = "en"
