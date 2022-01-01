@@ -68,7 +68,7 @@ Highly motivated, solutions driven professional with several years of proven suc
 
 <center><H3>CERTIFICATIONS</H3></center><HR>
 
-**GIAC:** GCIA, GPEN, GCIH, GDSA, GSEC, GFACT, GSTRT, GCPM, SSAP
+**GIAC:** GCIA, GPEN, GCIH, GDSA, GPCS, GSEC, GFACT, GSTRT, GCPM, SSAP
 
 **(ISC)<sup>2</sup>:** CISSP, CCSP, SSCP
 
@@ -140,3 +140,4 @@ Highly motivated, solutions driven professional with several years of proven suc
 - Active member of GIAC Advisory Board.
 - Serve as Crusader for [Cybersecurity Gatebreakers](https://www.cybersecuritygatebreakers.org/).
 - Built out home lab to test out several exploits, including Kerberoasting, SQL injection, Linux/Windows privilege escalation, and OWASP Top 10 web application exploits.
+
