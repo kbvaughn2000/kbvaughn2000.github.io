@@ -17,6 +17,7 @@ Below are a list of the certifications I actively hold. Click on any of the imag
 <a href="https://www.youracclaim.com/badges/3315df69-65d8-46e8-81e3-6b39c4aafb1d/public_url"><img src="/assets/img/giac-security-essentials-certification-gsec.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/9dee7745-419d-41d0-85aa-a75c7c40c885/public_url"><img src="/assets/img/giac-certified-incident-handler-gcih.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/06f33816-931e-45fe-a185-7c4b34b426ec/public_url"><img src="/assets/img/giac-penetration-tester-gpen.png" style="width:225px"></a>
+<a href="https://www.credly.com/badges/d0f304e8-40c8-42c7-b9e7-cb4f2faef5aa/public_url"><img src="/assets/img/giac-exploit-researcher-and-advanced-penetration-tester-gxpn.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/6ed0cdf8-f66e-42a5-bda6-be481e265560/public_url"><img src="/assets/img/giac-certified-intrusion-analyst-gcia.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/26d2412b-014e-471a-b986-71e32350a831/public_url"><img src="/assets/img/giac-defensible-security-architecture-gdsa.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/90da19bd-4e43-4008-92a9-8fdd5b7fbf6b/public_url"><img src="/assets/img/giac-public-cloud-security-gpcs.png" style="width:225px"></a>
