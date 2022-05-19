@@ -98,14 +98,14 @@ Highly motivated, solutions driven professional with several years of proven suc
 <center><H3>PROFESSIONAL EXPERIENCE</H3></center><HR>
 
 ### Cloud Security Engineer
+  
+*Credit Acceptance* - **2021-Present**
 
 -	Design and implement security configurations for over 250 resources in AWS, Azure and Oracle Cloud.
 -	Drive the technical cloud strategy of the Security team, including evaluating and adopting tools, technologies, and processes.
 -	Identify, classify, and remediate vulnerabilities within established SLAs for cloud resources.
 -	Respond to cloud security incidents, adhering to the established incident response process.
 -	Serve as a 24/7 escalation point for the team for Cloud related risks.
-  
-*Credit Acceptance* - **2021-Present**
   
 ### Application Security Analyst
 
