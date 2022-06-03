@@ -10,7 +10,7 @@ comments: false
 
 # CyberHeroes
 
-CyberHeroes is an easy rated buffer overflow box on [Try Hack Me](https://tryhackme.com/room/cyberheroes).
+CyberHeroes is an easy rated box on [Try Hack Me](https://tryhackme.com/room/cyberheroes).
 
 <details><summary><strong>Room Hints</strong></summary>
 <ul>
