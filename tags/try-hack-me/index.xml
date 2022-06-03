@@ -3,5 +3,9 @@ Room Hints Have you reviewed the source code? Walkthrough Full Walkthrough Task 
 threader3000
 Once complete, let it complete it&amp;rsquo;s recommended nmap scan.
 It appears that the only thing hosted is a website on port 80, let&amp;rsquo;s take a look at it.
-The login page presents us with a screen similar to the following:</description></item><item><title>Brainstorm</title><link>https://www.kielvaughn.com/ctfs/2021-06-10-brainstorm/</link><pubDate>Thu, 10 Jun 2021 00:00:00 +0000</pubDate><guid>https://www.kielvaughn.com/ctfs/2021-06-10-brainstorm/</guid><description>Brainstorm Brainstorm is a medium rated buffer overflow box on Try Hack Me.
+The login page presents us with a screen similar to the following:</description></item><item><title>Tech_Supp0rt: 1</title><link>https://www.kielvaughn.com/ctfs/2022-06-02-techsupp0rt1/</link><pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate><guid>https://www.kielvaughn.com/ctfs/2022-06-02-techsupp0rt1/</guid><description>Tech_Supp0rt: 1 Tech_Supp0rt: 1 is an easy rated box on Try Hack Me.
+Room Hints Have you reviewed the source code? Walkthrough Full Walkthrough Task 1 - Uncover the root.txt file First, let&amp;rsquo;s enumerate the open ports with:
+threader3000
+Once complete, let it complete it&amp;rsquo;s recommended nmap scan.
+It appears that there&amp;rsquo;s a website running on port 80, and SMB is also open. Based on the Windows version listed (6.</description></item><item><title>Brainstorm</title><link>https://www.kielvaughn.com/ctfs/2021-06-10-brainstorm/</link><pubDate>Thu, 10 Jun 2021 00:00:00 +0000</pubDate><guid>https://www.kielvaughn.com/ctfs/2021-06-10-brainstorm/</guid><description>Brainstorm Brainstorm is a medium rated buffer overflow box on Try Hack Me.
 Task 1 Hints Have you started the machine? Have you enumerated ALL TCP ports? Task 2 Hints One of the services you uncovered can be logged into anonymously, have you found it? Task 3 Hints Follow the hints given in this task, if you are still unsure, The Cyber Mentor does a good hands on walkthrough of a similar box.</description></item></channel></rss>
