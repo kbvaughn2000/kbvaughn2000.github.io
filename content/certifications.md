@@ -26,6 +26,8 @@ Below are a list of the certifications I actively hold. Click on any of the imag
 <a href="https://www.credly.com/badges/64f98112-b4ed-4a22-8292-295d7b6498d8/public_url"><img src="/assets/img/giac-foundational-cybersecurity-technologies-gfact.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/c592ad34-1114-4e6d-b521-6d5f87ccfdea/public_url"><img src="/assets/img/sans-security-awareness-professional-ssap.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/f22c7545-42b4-4ac6-9088-d893a209dd09/public_url"><img src="/assets/img/aws-certified-cloud-practitioner.png" style="width:225px"></a>
+<a href="https://www.credly.com/badges/a0e9f573-a55b-44e7-9f82-161f94c994ce/public_url"><img src="/assets/img/microsoft-certified-security-compliance-and-identity-fundamentals.png" style="width:225px"></a>
+<a href="https://verified.elearnsecurity.com/certificates/fdb19274-4d68-4c9e-9c94-62e9befc993c"><img src="/assets/img/eCPPTv2.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/868c2935-c40b-4c52-9ac6-be66ef7ca36e/public_url"><img src="/assets/img/SecurityPlus-Logo-Certified-CE.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/b73b2caa-d39a-4700-895d-527af34f44ae/public_url"><img src="/assets/img/NetworkPlus-Logo-Certified-CE.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/f203cf59-f60f-4737-a0f0-2ad6c123cea2/public_url"><img src="/assets/img/Aplus-Logo-Certified-CE.png" style="width:225px"></a>

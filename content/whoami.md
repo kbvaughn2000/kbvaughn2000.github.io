@@ -68,21 +68,28 @@ Highly motivated, solutions driven professional with several years of proven suc
 
 <center><H3>CERTIFICATIONS</H3></center><HR>
 
-**GIAC:** GCIA, GPEN, GCIH, GDSA, GPCS, GSEC, GFACT, GSTRT, GCPM, SSAP
+**GIAC:** GCIA, GXPN, GPEN, GCIH, GDSA, GPCS, GSEC, GFACT, GSTRT, GCPM, SSAP
 
 **(ISC)<sup>2</sup>:** CISSP, CCSP, SSCP
 
-**CompTIA:** A+, Network+, Security+, Project+
+**CompTIA:** A+, Network+, Security+, Pentest+, Project+
 
 **PMI:** CAPM
 
-**EC-Council:** CEH Practical
+**eLearnSecurity:** eCPPTv2
 
 **Rapid7:** InsightIDR Certified Specialist, InsightVM Certified Administrator
+  
+**AWS:** Certified Cloud Practitioner
+
+**Microsoft:** Security, Compliance, and Identity Fundamentals
+
+
+**EC-Council:** CEH Practical
 
 <center><H3>EDUCATION</H3></center><HR>
 
-**SANS Technology Institute:** M.S. Information Security Engineering - June 2022
+**SANS Technology Institute:** M.S. Information Security Engineering - September 2022
 
 **Western Governors University:** M.S. Information Technology Management - July 2019
 
@@ -90,9 +97,19 @@ Highly motivated, solutions driven professional with several years of proven suc
 
 <center><H3>PROFESSIONAL EXPERIENCE</H3></center><HR>
 
+### Cloud Security Engineer
+  
+*Credit Acceptance* - **2021-Present**
+
+-	Design and implement security configurations for over 250 resources in AWS, Azure and Oracle Cloud.
+-	Drive the technical cloud strategy of the Security team, including evaluating and adopting tools, technologies, and processes.
+-	Identify, classify, and remediate vulnerabilities within established SLAs for cloud resources.
+-	Respond to cloud security incidents, adhering to the established incident response process.
+-	Serve as a 24/7 escalation point for the team for Cloud related risks.
+  
 ### Application Security Analyst
 
-*Credit Acceptance* - **2020-Present**
+*Credit Acceptance* - **2020-2021**
 
 - Perform application security assessments for both new and existing applications.
 - Develop and maintain a repeatable security assessment framework.
