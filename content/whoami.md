@@ -89,7 +89,7 @@ Highly motivated, solutions driven professional with several years of proven suc
 
 <center><H3>EDUCATION</H3></center><HR>
 
-**SANS Technology Institute:** M.S. Information Security Engineering - September 2022
+**SANS Technology Institute:** M.S. Information Security Engineering - November 2022
 
 **Western Governors University:** M.S. Information Technology Management - July 2019
 
@@ -155,6 +155,7 @@ Highly motivated, solutions driven professional with several years of proven suc
 - Participant in Hack the Box challenges achieving the rank of Pro Hacker with 29 systems rooted.
 - Top 1% of users on TryHackMe.
 - Active member of GIAC Advisory Board.
-- Serve as Crusader for [Cybersecurity Gatebreakers](https://www.cybersecuritygatebreakers.org/).
+- Player Ambassador for [National Cyber League](https://nationalcyberleague.org//).
+- Volunteer for [Pathful Connect](https://pathful.com/).
 - Built out home lab to test out several exploits, including Kerberoasting, SQL injection, Linux/Windows privilege escalation, and OWASP Top 10 web application exploits.
 
