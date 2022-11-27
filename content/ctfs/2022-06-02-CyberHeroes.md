@@ -12,6 +12,8 @@ comments: false
 
 CyberHeroes is an easy rated box on [Try Hack Me](https://tryhackme.com/room/cyberheroes).
 
+## Hints
+
 <details><summary><strong>Room Hints</strong></summary>
 <ul>
     <li>Have you reviewed the source code?
