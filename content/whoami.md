@@ -1,7 +1,7 @@
 +++
 title = "whoami"
 description = "whoami"
-date = "2021-10-29"
+date = "2023-03-04"
 aliases = ["about me", "resume"]
 author = "Kiel Vaughn"
 +++
@@ -27,7 +27,7 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 
 **Application Security Analyst - November 2020 - August 2021**
 
--Performed over 25 security assessments for both custom developed and commercial applications.
+- Performed over 25 security assessments for both custom developed and commercial applications.
 - Integrated SAST scanning (SonarQube) into DevOps CI/CD pipeline utilized by 15 development teams.
 - Implemented a security assessment framework, resulting in a 20% reduction in assessment times.
 - Analyzed industry security threats and developed strategies for detection and mitigation.
