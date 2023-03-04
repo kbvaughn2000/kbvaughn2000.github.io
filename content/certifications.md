@@ -37,7 +37,8 @@ Below are a list of the certifications I actively hold. Click on any of the imag
 <a href="https://www.youracclaim.com/badges/7fc98686-0352-45bd-bced-ba95bc880ac2/public_url"><img src="/assets/img/insightidr-certified-specialist.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/bb9d0b46-c0fc-4c94-9b7c-cd997f998d1a/public_url"><img src="/assets/img/insightvm-certified-administrator.png" style="width:225px"></a>
 <a href="https://www.youracclaim.com/badges/67d81255-a491-4a90-8e8f-e133ac258770/public_url"><img src="/assets/img/certified-associate-in-project-management-capm.png" style="width:225px"></a>
-<a href="https://aspen.eccouncil.org/VerifyBadge?type=certification&a=sgl13SrfavYZ8bjOS+1ss8/Ujuo/97o0p74t0HLjXeU="><img src="/assets/img/ECC-CEHPractical.png" style="width:225px"></a>
+<a href="https://www.youracclaim.com/badges/67d81255-a491-4a90-8e8f-e133ac258770/public_url"><img src="/assets/img/certified-associate-in-project-management-capm.png" style="width:225px"></a>
+<a href="https://www.credential.net/e90457cf-4aa1-411a-aed9-6b077c93e2aa"><img src="/assets/img/CCRTA.png" style="width:225px"></a>
 </figure></center>
 <hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1));">
 <center><p style="font-size:24px;font-weight:bold;text-align:center;"> Associations</p></center>

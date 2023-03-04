@@ -6,67 +6,73 @@ aliases = ["about me", "resume"]
 author = "Kiel Vaughn"
 +++
 
-<center><H3>PROFESSIONAL SUMMARY</H3></center><hr>
+### PROFESSIONAL SUMMARY
 
-Highly motivated, solutions driven professional with several years of proven success in information security, system administration, project management, automation, process improvement, and business analysis. One of one hundred recipients of the [2019 SANS Institute's Cyber FastTrack Scholarship](https://medium.com/cyber-fasttrack/scholarships-awarded-to-100-cyber-fasttrack-finalists-287b209630). 
+<hr>
 
-<center><H3>COMPETENCIES & SKILLS</H3></center><HR>
+Cyber security professional with over ten years of experience in Cybersecurity and Information Technology with two verified CVEs, CISSP, CCSP, GXPN and GPEN certifications, and a SANS published whitepaper. Highlights of professional experience include performing security assessments on a wide range of applications, implementing Prowler to audit a multi account AWS environment, automating over 250 tasks as a systems administrator, and implementing vulnerability management systems for two different organizations. 
 
-**Technical Skills:** 
+### EXPERIENCE
+<hr>
 
-- Security Assessments
-- Vulnerability Management
-- Incident Response
-- VMWare Administration
-- Systems Administration
-- Citrix Administration
-- PowerShell Scripting
-- Automation
-- Firewall Management
+#### CREDIT ACCEPTANCE
 
-**Tools:**
+**Cloud Security Engineer - August 2021 - Present**
 
-- Burp Suite
-- nmap
-- Metasploit
-- Nessus
-- John the Ripper
-- Hashcat
-- tcpdump
-- Wireshark
-- Zeek
-- InsightIDR
-- InsightVM
-- SonarQube
-- Docker
-- Jenkins
-- Apache Tomcat
-- SQL
-- Active Directory 
-- LDAP
+- Designed and implemented security controls for over 3000 resources in AWS, Azure, and Oracle Cloud.
+- Developed over 25 incident response playbooks for multiple cloud platforms.
+- Implemented Prowler for automated scans on 20+ AWS accounts to ensure adherence to CIS Standards.
+- Led incident response efforts for cloud security incidents.
 
-**Hardware/OS:**
 
-- Linux
-- AIX
-- Windows
-- Checkpoint Firewalls
-- IBM Power7/Power8 Servers
-- Dell Servers
-- VMWare
+**Application Security Analyst - November 2020 - August 2021**
 
-**Professional:**
+-Performed over 25 security assessments for both custom developed and commercial applications.
+- Integrated SAST scanning (SonarQube) into DevOps CI/CD pipeline utilized by 15 development teams.
+- Implemented a security assessment framework, resulting in a 20% reduction in assessment times.
+- Analyzed industry security threats and developed strategies for detection and mitigation.
+</ul>
 
-- Collaboration
-- Team Oriented
-- Documentation
-- Critical Thinker
-- Project Management
-- Vendor Management
-- Mentoring
-- Cross Training
+#### MICHIGAN SCHOOLS AND GOVERNMENT CREDIT UNION
 
-<center><H3>CERTIFICATIONS</H3></center><HR>
+**Systems Administrator - April 2015 – November 2020**
+
+- Maintained core banking systems to ensure 99.999% availability.
+- Led implementation of Rapid7 InsightVM and InsightIDR for over 1,500 computing resources.
+- Automated over 250 processes across the organization.
+- Designed and led disaster recovery efforts for core banking system and ancillary connections.
+
+
+**Systems Operations Specialist - May 2014 – April 2015**
+- Redesigned over 50 operational processes to improve efficiency and reduce potential for errors.
+- Acted as front-line support lead for Symitar core banking system..
+- Assisted engineering team with infrastructure and hardware replacement projects.
+
+#### EXTRA CREDIT UNION
+
+**Technical Support Specialist - September 2013 – May 2014**
+
+- Implemented GFI Cloud for over 500 servers and desktops.
+- Supported over 100 employees with a wide range of technical questions.
+- Migrated over 200 computers from Windows XP to Windows 7.
+
+### EDUCATION
+<hr>
+
+**SANS Technology Institute:** M.S. Information Security Engineering - November 2022
+
+**Western Governors University:** M.S. Information Technology Management - July 2019
+
+**Western Governors University:** B.S. Cybersecurity and Information Assurance - June 2018
+
+### CVEs
+<hr>
+
+- CVE-2021-38602 – PluXML 5.8.7 – Stored XSS 
+- CVE-2021-38603 – PluXML 5.8.7 – Stored XSS
+
+### CERTIFICATIONS
+<hr>
 
 **GIAC:** GCIA, GXPN, GPEN, GCIH, GDSA, GPCS, GSEC, GFACT, GSTRT, GCPM, SSAP
 
@@ -78,84 +84,31 @@ Highly motivated, solutions driven professional with several years of proven suc
 
 **eLearnSecurity:** eCPPTv2
 
+**CyberWarfare Labs:** CCRTA
+
 **Rapid7:** InsightIDR Certified Specialist, InsightVM Certified Administrator
-  
+
 **AWS:** Certified Cloud Practitioner
 
-**Microsoft:** Security, Compliance, and Identity Fundamentals
-
+**Microsoft:** Security, Compliance, and Identity Fundamentals, Azure Fundamentals
 
 **EC-Council:** CEH Practical
 
-<center><H3>EDUCATION</H3></center><HR>
+### TECHNICAL COMPETENCIES
+<HR>
 
-**SANS Technology Institute:** M.S. Information Security Engineering - November 2022
+- Windows: PowerShell, Batch Scripting, Registry, Group Policy, System Hardening
+- Vulnerability Management: InsightVM, GFI Cloud, Qualys, Nessus, OpenVAS
+- Offensive Security Tools: Metasploit, Burp Suite, Zaproxy, Nmap, WPScan, Nikto, Dirb, Gobuster, Dirsearch, SQLMap, Impacket, John, Hashcat
+- Virtualization: ESXi, VMWare, Virtualbox, Docker, Amazon EC2
+- Additional Technical Skills: Automation, incident response, Active Directory
 
-**Western Governors University:** M.S. Information Technology Management - July 2019
 
-**Western Governors University:** B.S. Cybersecurity and Information Assurance - June 2018
+### ACHIEVEMENTS AND PUBLICATIONS
+<hr>
 
-<center><H3>PROFESSIONAL EXPERIENCE</H3></center><HR>
-
-### Cloud Security Engineer
-  
-*Credit Acceptance* - **2021-Present**
-
--	Design and implement security configurations for over 250 resources in AWS, Azure and Oracle Cloud.
--	Drive the technical cloud strategy of the Security team, including evaluating and adopting tools, technologies, and processes.
--	Identify, classify, and remediate vulnerabilities within established SLAs for cloud resources.
--	Respond to cloud security incidents, adhering to the established incident response process.
--	Serve as a 24/7 escalation point for the team for Cloud related risks.
-  
-### Application Security Analyst
-
-*Credit Acceptance* - **2020-2021**
-
-- Perform application security assessments for both new and existing applications.
-- Develop and maintain a repeatable security assessment framework.
-- Document and report application vulnerabilities and suggest mitigation methods and strategies.
-- Develop and manage a repeatable secure development process.
-- Analyze industry security threats and develop strategies to detect and mitigate.
-- Discuss and present technical solutions to all levels of employees across the organization.
-
-### Systems Administrator
-
-*Michigan Schools and Government Credit Union* - **2015-2020**
-
--  Maintain and administer core banking systems ensuring 99.999% availability.
-- Led implementation of Rapid7 InsightVM and InsightIDR.
-- Lead incident handler for organization.
-- Assisted risk management team with internal and external audits.
-- Lead disaster recovery for core banking system and ancillary connections.
-- Automated over 250 processes throughout the organization.
-- Lead projects to implement new or replace/update existing systems.
-
-### Systems Operations Specialist
-
-*Michigan Schools and Government Credit Union* - **2014-2015**
-
--  Responsible for daily, monthly, and annual scheduled operational tasks.
-- Worked with business analysts to develop or improve over fifty new processes.
-- Acted as front-line support for Symitar core banking system.
-- Assisted network engineers with infrastructure and hardware replacement projects.
-
-### Technical Support Specialist
-
-*Extra Credit Union* - **2013-2014**
-
-- Administered and maintained core banking system.
-- Managed ShoreTel phone system, including system maintenance and user setup.
-- Responsible for front line support for entire organization of 100 employees.
-- Led migration of desktop systems from Windows XP to Windows 7 for 200 PCs.
-- Led implementation of GFI Cloud for asset and vulnerability management.
-
-<center><H3>PERSONAL PROJECTS/ACHIEVEMENTS</H3></center><HR>
-
-- Developed a curated list of additional resources for the SANS Institute’s undergraduate program.
-- Participant in Hack the Box challenges achieving the rank of Pro Hacker with 29 systems rooted.
-- Top 1% of users on TryHackMe.
-- Active member of GIAC Advisory Board.
-- Player Ambassador for [National Cyber League](https://nationalcyberleague.org//).
-- Volunteer for [Pathful Connect](https://pathful.com/).
-- Built out home lab to test out several exploits, including Kerberoasting, SQL injection, Linux/Windows privilege escalation, and OWASP Top 10 web application exploits.
+- GIAC Advisory Board – 2020 
+- National Cyber League – Spring 2021 – 81/4180 Individual Game and 7/922 Team Game
+- National Cyber League – Fall 2021 – 66/6480 Individual Game and 18/3910 Team Game
+- SANS Whitepaper – Is Your Cloud Environment Secure? How Do You Know?
 
