@@ -17,7 +17,7 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 
 #### CREDIT ACCEPTANCE
 
-**Cloud Security Engineer - August 2021 - Present**
+**Cloud Security Engineer – August 2021 – Present**
 
 - Designed and implemented security controls for over 3000 resources in AWS, Azure, and Oracle Cloud.
 - Developed over 25 incident response playbooks for multiple cloud platforms.
@@ -25,7 +25,7 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 - Led incident response efforts for cloud security incidents.
 
 
-**Application Security Analyst - November 2020 - August 2021**
+**Application Security Analyst – November 2020 – August 2021**
 
 - Performed over 25 security assessments for both custom developed and commercial applications.
 - Integrated SAST scanning (SonarQube) into DevOps CI/CD pipeline utilized by 15 development teams.
@@ -35,7 +35,7 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 
 #### MICHIGAN SCHOOLS AND GOVERNMENT CREDIT UNION
 
-**Systems Administrator - April 2015 – November 2020**
+**Systems Administrator – April 2015 – November 2020**
 
 - Maintained core banking systems to ensure 99.999% availability.
 - Led implementation of Rapid7 InsightVM and InsightIDR for over 1,500 computing resources.
@@ -43,14 +43,14 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 - Designed and led disaster recovery efforts for core banking system and ancillary connections.
 
 
-**Systems Operations Specialist - May 2014 – April 2015**
+**Systems Operations Specialist – May 2014 – April 2015**
 - Redesigned over 50 operational processes to improve efficiency and reduce potential for errors.
 - Acted as front-line support lead for Symitar core banking system..
 - Assisted engineering team with infrastructure and hardware replacement projects.
 
 #### EXTRA CREDIT UNION
 
-**Technical Support Specialist - September 2013 – May 2014**
+**Technical Support Specialist – September 2013 – May 2014**
 
 - Implemented GFI Cloud for over 500 servers and desktops.
 - Supported over 100 employees with a wide range of technical questions.
