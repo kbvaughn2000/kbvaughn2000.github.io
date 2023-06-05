@@ -17,7 +17,14 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 
 #### CREDIT ACCEPTANCE
 
-**Cloud Security Engineer – August 2021 – Present**
+**Senior Application Security Analyst – March 2023 – Present**
+
+-	Perform security assessments for both custom developed and commercial applications.
+-	Designed and implemented organizational standards for Kubernetes.
+-	Led initiative to develop KPIs as part of the next step in the maturation process of the Application Security Team.
+
+
+**Cloud Security Engineer – August 2021 – March 2023**
 
 - Designed and implemented security controls for over 3000 resources in AWS, Azure, and Oracle Cloud.
 - Developed over 25 incident response playbooks for multiple cloud platforms.
