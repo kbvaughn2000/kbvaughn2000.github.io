@@ -7,7 +7,7 @@ tags: [CNCF, CKA, certification]
 comments: false
 ---
 
-I recently successfully completed the <a href="https://www.cncf.io/certification/cka/>Cloud Native Computing Foundation Certified Kubernetes Administrator</a> certification. This happened to be one of the most enjoyable certifications I have completed in recent memory.
+I recently successfully completed the <a href="https://www.cncf.io/certification/cka/">Cloud Native Computing Foundation Certified Kubernetes Administrator</a> certification. This happened to be one of the most enjoyable certifications I have completed in recent memory.
 
 ![CKA Badge](/assets/img/cka-certified-kubernetes-administrator.png)
 
