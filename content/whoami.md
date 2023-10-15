@@ -22,6 +22,7 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 -	Perform security assessments for both custom developed and commercial applications.
 -	Designed and implemented organizational standards for Kubernetes.
 -	Led initiative to develop KPIs as part of the next step in the maturation process of the Application Security Team.
+-	Perform threat modelling and security architecture reviews on new and existing systems and integrations.
 
 
 **Cloud Security Engineer – August 2021 – March 2023**
@@ -52,7 +53,7 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 
 **Systems Operations Specialist – May 2014 – April 2015**
 - Redesigned over 50 operational processes to improve efficiency and reduce potential for errors.
-- Acted as front-line support lead for Symitar core banking system..
+- Acted as front-line support lead for Symitar core banking system.
 - Assisted engineering team with infrastructure and hardware replacement projects.
 
 #### EXTRA CREDIT UNION
