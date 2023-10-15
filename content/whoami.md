@@ -87,6 +87,8 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 
 **CompTIA:** A+, Network+, Security+, Pentest+, Project+
 
+**CNCF:** CKS
+
 **PMI:** CAPM
 
 **eLearnSecurity:** eCPPTv2
@@ -99,16 +101,14 @@ Cyber security professional with over ten years of experience in Cybersecurity a
 
 **Microsoft:** Security, Compliance, and Identity Fundamentals, Azure Fundamentals
 
-**EC-Council:** CEH Practical
-
 ### TECHNICAL COMPETENCIES
 <HR>
 
 - Windows: PowerShell, Batch Scripting, Registry, Group Policy, System Hardening
 - Vulnerability Management: InsightVM, GFI Cloud, Qualys, Nessus, OpenVAS
 - Offensive Security Tools: Metasploit, Burp Suite, Zaproxy, Nmap, WPScan, Nikto, Dirb, Gobuster, Dirsearch, SQLMap, Impacket, John, Hashcat
-- Virtualization: ESXi, VMWare, Virtualbox, Docker, Amazon EC2
-- Additional Technical Skills: Automation, incident response, Active Directory
+- Virtualization: ESXi, VMWare, Virtualbox, Docker, Amazon EC2, Kubernetes
+- Additional Technical Skills: Automation, Incident Response, Active Directory, Threat Modelling, Security Architecture Review
 
 
 ### ACHIEVEMENTS AND PUBLICATIONS
