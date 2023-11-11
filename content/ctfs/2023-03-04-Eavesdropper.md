@@ -10,7 +10,7 @@ comments: false
 
 # Eavesdropper
 
-[Wreath](https://tryhackme.com/room/eavesdropper) is a Medium difficulty room available on [TryHackMe](https://tryhackme.com). The main challenge focuses on your enumeration skills to find something you can listen to to uncover the root user's password.
+[Eavesdropper](https://tryhackme.com/room/eavesdropper) is a Medium difficulty room available on [TryHackMe](https://tryhackme.com). The main challenge focuses on your enumeration skills to find something you can listen to to uncover the root user's password.
 
 ## Hints
 
