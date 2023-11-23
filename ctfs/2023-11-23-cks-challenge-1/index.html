@@ -1,0 +1,99 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=Content-Language content="en"><meta name=color-scheme content="light dark"><meta http-equiv=Content-Security-Policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;"><meta name=author content="Kiel Vaughn"><meta name=description content="CKS Challenge 1 CKS Challenge 1 is a &ldquo;set of complex challenges that will assist you in mastering Kubernetes Security concepts and getting ready for the coveted Certified Kubernetes Security Specialist Certification&rdquo;. This particular challenge required the completion of several steps, which are outlined below. The overall requirements for this challenge are as follows.
+First, I utilized crictl image to list the images present in this Kubernetes environment. Since we know we&rsquo;re using Nginx based on the container name in the provided deployment file, we know we can narrow the results below to run Trivy on to the Nginx images."><meta name=keywords content="blog,cybersecurity,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="CKS Challenge 1"><meta name=twitter:description content="CKS Challenge 1 CKS Challenge 1 is a &ldquo;set of complex challenges that will assist you in mastering Kubernetes Security concepts and getting ready for the coveted Certified Kubernetes Security Specialist Certification&rdquo;. This particular challenge required the completion of several steps, which are outlined below. The overall requirements for this challenge are as follows.
+First, I utilized crictl image to list the images present in this Kubernetes environment. Since we know we&rsquo;re using Nginx based on the container name in the provided deployment file, we know we can narrow the results below to run Trivy on to the Nginx images."><meta property="og:title" content="CKS Challenge 1"><meta property="og:description" content="CKS Challenge 1 CKS Challenge 1 is a &ldquo;set of complex challenges that will assist you in mastering Kubernetes Security concepts and getting ready for the coveted Certified Kubernetes Security Specialist Certification&rdquo;. This particular challenge required the completion of several steps, which are outlined below. The overall requirements for this challenge are as follows.
+First, I utilized crictl image to list the images present in this Kubernetes environment. Since we know we&rsquo;re using Nginx based on the container name in the provided deployment file, we know we can narrow the results below to run Trivy on to the Nginx images."><meta property="og:type" content="article"><meta property="og:url" content="https://www.kielvaughn.com/ctfs/2023-11-23-cks-challenge-1/"><meta property="article:section" content="ctfs"><meta property="article:published_time" content="2023-11-23T00:00:00+00:00"><meta property="article:modified_time" content="2023-11-23T00:00:00+00:00"><title>CKS Challenge 1 · Kiel Vaughn, CISSP
+</title><link rel=canonical href=https://www.kielvaughn.com/ctfs/2023-11-23-cks-challenge-1/><link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.216fdd344aee259067eaade5e8108697c18f6d1e6d5d9ec7e1269f4cf0d39d56.css integrity="sha256-IW/dNEruJZBn6q3l6BCGl8GPbR5tXZ7H4SafTPDTnVY=" crossorigin=anonymous media=screen><link rel=icon type=image/png href=/assets/img/cissp.ico sizes=32x32><link rel=icon type=image/png href=/assets/img/cissp.ico sizes=16x16><link rel=apple-touch-icon href=/assets/img/cissp.ico><link rel=apple-touch-icon sizes=180x180 href=/assets/img/cissp.ico><meta name=generator content="Hugo 0.120.4"></head><body class="preload-transitions colorscheme-light"><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=/>Kiel Vaughn, CISSP
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/whoami/>whoami</a></li><li class=navigation-item><a class=navigation-link href=/certifications/>certifications</a></li><li class=navigation-item><a class=navigation-link href=/posts/>blog</a></li><li class=navigation-item><a class=navigation-link href=/ctfs/>vulnerable machine walkthroughs</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://www.kielvaughn.com/ctfs/2023-11-23-cks-challenge-1/>CKS Challenge 1</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2023-11-23T00:00:00Z>November 23, 2023
+</time></span><span class=reading-time><i class="fa fa-clock-o" aria-hidden=true></i>
+4-minute read</span></div><div class=tags><i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/kodekloud/>KodeKloud</a>
+</span><span class=separator>•</span>
+<span class=tag><a href=/tags/cks/>CKS</a></span></div></div></header><div><h1 id=cks-challenge-1>CKS Challenge 1
+<a class=heading-link href=#cks-challenge-1><i class="fa fa-link" aria-hidden=true></i></a></h1><p><a href=https://kodekloud.com/courses/cks-challenges/>CKS Challenge 1</a> is a &ldquo;set of complex challenges that will assist you in mastering Kubernetes Security concepts and getting ready for the coveted Certified Kubernetes Security Specialist Certification&rdquo;. This particular challenge required the completion of several steps, which are outlined below. The overall requirements for this challenge are as follows.</p><p><img src=/assets/img/CKS-Challenge1-1.png alt="CKS Challenge 1 - Summary"></p><p>First, I utilized <code>crictl image</code> to list the images present in this Kubernetes environment. Since we know we&rsquo;re using Nginx based on the container name in the provided deployment file, we know we can narrow the results below to run Trivy on to the Nginx images.</p><p><img src=/assets/img/CKS-Challenge1-2.png alt="CKS Challenge 1 - critctl image"></p><p>Next, to run Trivy and parse the data for viewing the total number of critical vulnerabiltiies, run commands similar to the one below:</p><p><code>trivy -s CRITICAL image &lt;image name>|grep CRITICAL:</code></p><p>Doing this against all of the nginx images reveals that the <code>nginx:alpine</code> image is the one with the least amount of critical vulnerabilities (0).</p><p><img src=/assets/img/CKS-Challenge1-3.png alt="CKS Challenge 1 - trivy"></p><p>With this information, we can start editing the provided <code>alpha-xyz.yaml</code> deployment file and we can update the container image name to <code>nginx:alpine</code> as shown below:</p><p><img src=/assets/img/CKS-Challenge1-4.png alt="CKS Challenge 1 - update deployment - update image"></p><p>Next, we need to implement the provided apparmor custom profile named <code>usr.sbin.nginx</code>. First, we need to copy this into the /etc/apparmor.d folder, and then utilize <code>apparmor_parser</code> to load this profile:</p><p><img src=/assets/img/CKS-Challenge1-5.png alt="CKS Challenge 1 - load apparmor profile"></p><p>Next, we will need to adjust the deployment file by adding in an annotation under the metadata section that is underneath the container template. Apparmor is enforced at the container level, so it will not work if it is listed under the general metadata area for the entire deployment. This should look like the following:</p><p><img src=/assets/img/CKS-Challenge1-6.png alt="CKS Challenge 1 - update deployment - add apparmor"></p><p>While clicking on the individual components, you will notice that there is a PersistentVolume and a PersistentVolumeClaim. Upon review of these, the PersistentVolume is setup as <code>RWX</code>, which stands for ReadWriteMany. Reviewing the configuration of the PersistentVolumeClaim shows that is is configured as <code>ReadWriteOnce</code>, which would make these incompatible with each other. These are also looking for a Storage Class named <code>local-storage</code>, which currently does not exist.</p><p><img src=/assets/img/CKS-Challenge1-7.png alt="CKS Challenge 1 - review pv/pvc/storageclass configuration"></p><p>First, let&rsquo;s create the Storage Class which should be configured as shown below:</p><p><img src=/assets/img/CKS-Challenge1-8.png alt="CKS Challenge 1 - configure storageclass"></p><p>In this case, I saved this as storageclass.yaml and then I loaded it into kubernetes by running</p><p><code>kubectl apply -f storageclass.yaml</code> (kubectl is using an alias of &lsquo;k&rsquo; in the screenshot below):</p><p><img src=/assets/img/CKS-Challenge1-9.png alt="CKS Challenge 1 - implement storageclass"></p><p>Next, I recreated the Persistent Volume Claim. First, I copied the existing configuration to a YAML file with:</p><p><code>k get pvc -A -o yaml > pvc.yaml</code></p><p>Next, I modified the output to adjust the Access Mode and clean up some of the other information that was not required. The final Persistent Volume Claim YAML file is shown below:</p><p><img src=/assets/img/CKS-Challenge1-10.png alt="CKS Challenge 1 - updated pvc configuration"></p><p>I then deleted the existing improperly configured Persistent Volume Claim and recreated it with:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>kubectl delete pvc -n alpha alpha-pvc
+</span></span><span style=display:flex><span>kubectl apply -f pvc.yaml
+</span></span></code></pre></div><p><img src=/assets/img/CKS-Challenge1-11.png alt="CKS Challenge 1 - recreate pvc"></p><p>Next, we need to ensure that the PVC is mounted on the pod in the deployment. This is done by updating the deployment configuration file to add in a Volume (which uses the Persisttent Volume Claim we just reconfigured) and Volume Mount as shown below:</p><p><img src=/assets/img/CKS-Challenge1-12.png alt="CKS Challenge 1 - update deployment - add in volume/volumemount"></p><p>Once updated, we can now create this deployment by running:</p><p><code>kubectl apply -f alpha-xyz.yaml</code></p><p><img src=/assets/img/CKS-Challenge1-13.png alt="CKS Challenge 1 - create deployment"></p><p>Next, we need to create a Network Policy to limit what can access resources in the alpha namespace. This is done by creating an Ingress Network Policy that uses podSelector labels to only allow the &ldquo;middleware&rdquo; pod to communicate with other resources in the alpha namespace. The final configuration of the network policy is shown below:</p><p><img src=/assets/img/CKS-Challenge1-14.png alt="CKS Challenge 1 - create networkpolicy"></p><p>Next, we will need to apply this policy like we have done with previous YAML files, which is done with:</p><p><code>kubectl apply -f networkpolicy.yaml</code></p><p>The final task to complete this challenge is to create a service named <code>alpha-svc</code> and expose it as a ClusterIP service over port 80 with a target port of 80 as well. This can be done by running the following:</p><p><code>k expose deployment/alpha-xyz --namespace alpha --port=80 --target-port=80 --protocol=TCP --name=alpha-svc --type=ClusterIP</code></p><p><img src=/assets/img/CKS-Challenge1-15.png alt="CKS Challenge 1 - expose deployment"></p><p>This will expose the deployment as requested using a ClusterIP over port 80. At this point, you should be able to run a final check, which should return the challenge as completed!</p><p><img src=/assets/img/CKS-Challenge1-16.png alt="CKS Challenge 1 - completion"></p><hr><p>Below are the final configurations of the YAML files utilized during this challenge:</p><h3 id=storageclassyaml>storageclass.yaml
+<a class=heading-link href=#storageclassyaml><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>apiVersion: storage.k8s.io/v1
+</span></span><span style=display:flex><span>kind: StorageClass
+</span></span><span style=display:flex><span>metadata:
+</span></span><span style=display:flex><span>  name: local-storage
+</span></span><span style=display:flex><span>provisioner: kubernetes.io/no-provisioner
+</span></span><span style=display:flex><span>volumeBindingMode: WaitForFirstConsumer
+</span></span></code></pre></div><h3 id=pvcyaml>pvc.yaml
+<a class=heading-link href=#pvcyaml><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>apiVersion: v1
+</span></span><span style=display:flex><span>items:
+</span></span><span style=display:flex><span>- apiVersion: v1
+</span></span><span style=display:flex><span>  kind: PersistentVolumeClaim
+</span></span><span style=display:flex><span>  metadata:
+</span></span><span style=display:flex><span>    name: alpha-pvc
+</span></span><span style=display:flex><span>    namespace: alpha
+</span></span><span style=display:flex><span>  spec:
+</span></span><span style=display:flex><span>    accessModes:
+</span></span><span style=display:flex><span>    - ReadWriteMany
+</span></span><span style=display:flex><span>    resources:
+</span></span><span style=display:flex><span>      requests:
+</span></span><span style=display:flex><span>        storage: 1Gi
+</span></span><span style=display:flex><span>    storageClassName: local-storage
+</span></span><span style=display:flex><span>    volumeMode: Filesystem
+</span></span><span style=display:flex><span>kind: List
+</span></span><span style=display:flex><span>metadata:
+</span></span><span style=display:flex><span>  resourceVersion: &#34;&#34;
+</span></span><span style=display:flex><span>  selfLink: &#34;&#34;
+</span></span></code></pre></div><h3 id=alpha-xyzyaml>alpha-xyz.yaml
+<a class=heading-link href=#alpha-xyzyaml><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>apiVersion: apps/v1
+</span></span><span style=display:flex><span>kind: Deployment
+</span></span><span style=display:flex><span>metadata:
+</span></span><span style=display:flex><span>  creationTimestamp: null
+</span></span><span style=display:flex><span>  labels:
+</span></span><span style=display:flex><span>    app: alpha-xyz
+</span></span><span style=display:flex><span>  name: alpha-xyz
+</span></span><span style=display:flex><span>  namespace: alpha
+</span></span><span style=display:flex><span>spec:
+</span></span><span style=display:flex><span>  replicas: 1
+</span></span><span style=display:flex><span>  selector:
+</span></span><span style=display:flex><span>    matchLabels:
+</span></span><span style=display:flex><span>      app: alpha-xyz
+</span></span><span style=display:flex><span>  strategy: {}
+</span></span><span style=display:flex><span>  template:
+</span></span><span style=display:flex><span>    metadata:
+</span></span><span style=display:flex><span>      annotations:
+</span></span><span style=display:flex><span>        container.apparmor.security.beta.kubernetes.io/nginx: localhost/custom-nginx
+</span></span><span style=display:flex><span>      creationTimestamp: null
+</span></span><span style=display:flex><span>      labels:
+</span></span><span style=display:flex><span>        app: alpha-xyz
+</span></span><span style=display:flex><span>    spec:
+</span></span><span style=display:flex><span>      containers:
+</span></span><span style=display:flex><span>      - image: nginx:alpine
+</span></span><span style=display:flex><span>        name: nginx
+</span></span><span style=display:flex><span>        volumeMounts:
+</span></span><span style=display:flex><span>          - name: data-volume
+</span></span><span style=display:flex><span>            mountPath: &#39;/usr/share/nginx/html&#39;
+</span></span><span style=display:flex><span>      volumes:
+</span></span><span style=display:flex><span>      - name: data-volume
+</span></span><span style=display:flex><span>        persistentVolumeClaim:
+</span></span><span style=display:flex><span>          claimName: alpha-pvc
+</span></span></code></pre></div><h3 id=networkpolicyyaml>networkpolicy.yaml
+<a class=heading-link href=#networkpolicyyaml><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback><span style=display:flex><span>apiVersion: networking.k8s.io/v1
+</span></span><span style=display:flex><span>kind: NetworkPolicy
+</span></span><span style=display:flex><span>metadata:
+</span></span><span style=display:flex><span>  name: restrict-inbound
+</span></span><span style=display:flex><span>  namespace: alpha
+</span></span><span style=display:flex><span>spec:
+</span></span><span style=display:flex><span>  podSelector:
+</span></span><span style=display:flex><span>    matchLabels:
+</span></span><span style=display:flex><span>      app: alpha-xyz
+</span></span><span style=display:flex><span>  policyTypes:
+</span></span><span style=display:flex><span>    - Ingress
+</span></span><span style=display:flex><span>  ingress:
+</span></span><span style=display:flex><span>    - from:
+</span></span><span style=display:flex><span>        - podSelector:
+</span></span><span style=display:flex><span>            matchLabels:
+</span></span><span style=display:flex><span>              app: middleware
+</span></span><span style=display:flex><span>      ports:
+</span></span><span style=display:flex><span>        - protocol: TCP
+</span></span><span style=display:flex><span>          port: 80
+</span></span></code></pre></div></div><footer></footer></article></section></div><footer class=footer><section class=container>©
+2020 -
+2023
+Kiel Vaughn</section></footer></main><script src=/js/coder.min.cb0c595e02234420f3ad3886bf4a9bd2874d0e1e78e090138a9ef158b35aaf17.js integrity="sha256-ywxZXgIjRCDzrTiGv0qb0odNDh544JATip7xWLNarxc="></script></body></html>
