@@ -24,7 +24,6 @@ Below are a list of the certifications I actively hold. Click on any of the imag
 <a href="https://www.credly.com/badges/8d0e45cc-36b5-4737-83ac-69e730e6f292/public_url"><img src="/assets/img/giac-strategic-planning-policy-and-leadership-gstrt.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/71124a4c-7bed-4f9b-a3df-ba92ea3668d1/public_url"><img src="/assets/img/giac-certified-project-manager-gcpm.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/64f98112-b4ed-4a22-8292-295d7b6498d8/public_url"><img src="/assets/img/giac-foundational-cybersecurity-technologies-gfact.png" style="width:225px"></a>
-<a href="https://www.credly.com/badges/c592ad34-1114-4e6d-b521-6d5f87ccfdea/public_url"><img src="/assets/img/sans-security-awareness-professional-ssap.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/47aa816c-979d-41e6-8315-649dfd2afaf6/public_url"><img src="/assets/img/cka-certified-kubernetes-administrator.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/f22c7545-42b4-4ac6-9088-d893a209dd09/public_url"><img src="/assets/img/aws-certified-cloud-practitioner.png" style="width:225px"></a>
 <a href="https://www.credly.com/badges/98938436-9de6-4b21-b95a-f6bb06789aea/public_url"><img src="/assets/img/microsoft-certified-azure-fundamentals.png" style="width:225px"></a>
