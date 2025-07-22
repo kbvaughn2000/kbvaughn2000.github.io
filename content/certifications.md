@@ -44,3 +44,4 @@ Below are a list of the certifications I actively hold. Click on any of the imag
 <hr style="border: 0; height: 1px; background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1));"><br>
 <center><a href="https://www.credly.com/badges/7a183b5b-ab92-40c9-97ff-1f54ffedee06/public_url"><img src="/assets/img/giac-advisory-board.png"></a></center>
 
+ 
