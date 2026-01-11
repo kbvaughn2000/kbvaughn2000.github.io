@@ -2,7 +2,7 @@ name: Deploy Hugo site with Pagefind
 
 on:
   push:
-    branches: ["main"] # Ensure this matches your branch name (main or master)
+    branches: ["main"] 
   workflow_dispatch:
 
 permissions:
@@ -22,7 +22,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.128.0 # Use your preferred Hugo version
+      HUGO_VERSION: 0.128.0
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,13 +41,16 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Build Hugo Site
+        # We removed the --baseURL flag here so Hugo uses the 
+        # baseURL defined in your hugo.toml file instead.
         run: |
           hugo \
             --gc \
-            --minify \
-            --baseURL "${{ steps.pages.outputs.base_url }}/"
+            --minify
 
       - name: Run Pagefind
+        # This indexes your search results based on the static files 
+        # generated in the /public folder.
         run: |
           npx pagefind --site "public"
 
