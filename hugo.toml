@@ -1,4 +1,4 @@
-baseURL = 'https://www.kielvaughn.com/'
+baseURL = 'https://www.kielvaughn.com'
 languageCode = 'en-us'
 title = 'Kiel Vaughn, CISSP'
 disableKinds = ["taxonomy", "term"]
