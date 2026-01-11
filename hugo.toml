@@ -1,0 +1,34 @@
+baseURL = 'https://www.kielvaughn.com/'
+languageCode = 'en-us'
+title = 'Kiel Vaughn, CISSP'
+disableKinds = ["taxonomy", "term"]
+
+[params]
+    author = "Kiel Vaughn"
+    description = "Cybersecurity Professional "
+    profile_img = "images/kiel-circle.png"
+    github = "https://github.com/KielVaughn"
+    linkedin = "https://linkedin.com/in/kiel-vaughn"
+    email = "kiel@kielvaughn.com"
+
+[menu]
+    [[menu.main]]
+        name = "whoami"
+        url = "/whoami/"
+        weight = 2
+    [[menu.main]]
+        name = "certifications"
+        url = "/certifications/"
+        weight = 3
+    [[menu.main]]
+        name = "ctf writeups"
+        url = "/ctf-writeups/"
+        weight = 4
+    [[menu.main]]
+        name = "blog"
+        url = "/blog/"
+        weight = 5
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true # Required for skills grid HTML

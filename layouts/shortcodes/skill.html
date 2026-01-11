@@ -1,0 +1,14 @@
+<div class="skill-item-wrapper" style="border: 1px solid var(--primary); padding: 15px; background: rgba(0, 0, 0, 0.3); transition: all 0.3s ease;">
+    <div class="skill-header" style="display: flex; justify-content: space-between; align-items: baseline;">
+        <span class="skill-name" style="color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">
+            > {{ .Get "name" }}
+        </span>
+        <span class="skill-percentage" style="color: var(--primary); font-size: 0.85rem; font-family: monospace;">
+            {{ .Get "level" }}%
+        </span>
+    </div>
+    
+    <div class="skill-bar-container" style="width: 100%; height: 10px; background-color: rgba(0, 0, 0, 0.5); border: 1px solid var(--primary-dim); box-sizing: border-box; position: relative;">
+        <div class="skill-bar-fill" style="width: {{ .Get "level" }}%; height: 100%; background-color: var(--primary); box-shadow: var(--glow); transition: width 1.5s ease-in-out;"></div>
+    </div>
+</div>

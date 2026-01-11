@@ -1,0 +1,7 @@
+name = "Cyber Amber"
+description = "Amber CRT Terminal Theme"
+license = "MIT"
+min_hugo_version = "0.60.0"
+
+[author]
+  name = "Kiel"

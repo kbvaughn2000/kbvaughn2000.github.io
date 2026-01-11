@@ -1,0 +1,138 @@
+{{ define "main" }}
+<div class="container writeup-container">
+<article data-pagefind-body>
+    <div class="post-path">
+        <span class="primary">guest@terminal</span>:<span class="secondary">~/ctf-writeups</span>$ 
+        <span id="typing-command"></span><span id="command-cursor" class="cursor">_</span>
+    </div>
+
+    <div id="blog-content" class="writeup-anim-layer" style="opacity: 0; transform: translateY(5px); transition: opacity 0.8s ease-out, transform 0.8s ease-out;">
+        <header class="post-header">
+            <h1 class="terminal-header">> REPORT: {{ .Title }}</h1>
+            <div class="post-metadata">
+                <div class="meta-line"><span class="label">[TIMESTAMP]:</span> <span class="value">{{ .Date.Format "01/02/06" }}</span></div>
+                {{ if .Params.difficulty }}<div class="meta-line"><span class="label">[DIFFICULTY]:</span> <span class="value" style="color: var(--primary);">{{ .Params.difficulty }}</span></div>{{ end }}
+                {{ if .Params.os }}<div class="meta-line"><span class="label">[OS]:</span> <span class="value">{{ .Params.os }}</span></div>{{ end }}
+                {{ if .Params.platform }}<div class="meta-line"><span class="label">[PLATFORM]:</span> <span class="value">{{ .Params.platform }}</span></div>{{ end }}
+            </div>
+        </header>
+
+        <hr class="terminal-divider" style="margin-bottom: 40px;">
+
+        <div class="post-content writeup-content">
+            {{ .Content }}
+            <div class="eof-marker">[END_OF_FILE]</div>
+        </div>
+
+        <footer class="post-footer">
+            <hr class="terminal-divider" style="width: 100%; margin-bottom: 25px;">
+            <a href="/ctf-writeups" class="nav-item">
+                << RETURN_TO_ARCHIVE
+            </a>
+        </footer>
+    </div>
+    </article>
+</div>
+
+<div id="zoom-overlay"></div>
+<img id="zoom-img" src="">
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Setup Typing Animation
+        const commandText = "cat {{ if .File }}{{ .File.LogicalName }}{{ else }}report.md{{ end }}";
+        const typingElement = document.getElementById('typing-command');
+        const content = document.getElementById('blog-content');
+        let i = 0;
+
+        function typeCommand() {
+            if (i < commandText.length) {
+                typingElement.textContent += commandText.charAt(i);
+                i++;
+                setTimeout(typeCommand, 40);
+            } else {
+                document.getElementById('command-cursor').style.display = 'none';
+                setTimeout(() => {
+                    content.style.opacity = '1';
+                    content.style.transform = 'translateY(0)';
+                    processCodeBlocks();
+                    setupZoom();
+                }, 200);
+            }
+        }
+
+        // 2. Terminal Code Block Enhancement
+        function processCodeBlocks() {
+            const preBlocks = document.querySelectorAll('.post-content pre');
+            preBlocks.forEach(pre => {
+                const codeElement = pre.querySelector('code');
+                if (!codeElement) return;
+
+                const originalText = codeElement.innerText.trim();
+                
+                // Detection Logic
+                let lang = "";
+                const langClass = Array.from(codeElement.classList).find(c => c.startsWith('language-'));
+                const bashSigns = [/^\$/, /^sudo /m, /^nc /m, /^nmap /m, /^cat /m, /^ls -/m, /^# /m, /^whoami/m, /^curl /m];
+                const isLikelyBash = bashSigns.some(rx => rx.test(originalText));
+
+                if (langClass) {
+                    lang = langClass.replace('language-', '');
+                } else if (isLikelyBash) {
+                    lang = "bash";
+                } else {
+                    const result = hljs.highlightAuto(originalText);
+                    lang = result.language || "text";
+                }
+
+                // Apply logic & Header
+                codeElement.className = ''; 
+                codeElement.classList.add(`language-${lang}`);
+
+                const header = document.createElement('div');
+                header.className = 'code-window-header';
+                header.innerHTML = `
+                    <div class="code-window-left">
+                        <span class="code-window-dots">● ● ●</span>
+                        <span class="code-lang-tag">${lang.toUpperCase()}</span>
+                    </div>
+                    <button class="copy-btn">COPY</button>
+                `;
+                pre.insertBefore(header, pre.firstChild);
+
+                // Highlight using Global HLJS
+                hljs.highlightElement(codeElement);
+
+                // Copy logic
+                const copyBtn = header.querySelector('.copy-btn');
+                copyBtn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(originalText).then(() => {
+                        copyBtn.innerText = 'COPIED!';
+                        setTimeout(() => { copyBtn.innerText = 'COPY'; }, 2000);
+                    });
+                });
+            });
+        }
+
+        // 3. Setup Image Zoom
+        function setupZoom() {
+            const images = document.querySelectorAll('.writeup-content img');
+            const overlay = document.getElementById('zoom-overlay');
+            const bigImg = document.getElementById('zoom-img');
+            images.forEach(img => {
+                img.onclick = () => {
+                    bigImg.src = img.src;
+                    overlay.style.display = 'block';
+                    bigImg.style.display = 'block';
+                };
+            });
+            overlay.onclick = bigImg.onclick = () => {
+                overlay.style.display = 'none';
+                bigImg.style.display = 'none';
+            };
+        }
+
+        setTimeout(typeCommand, 300);
+    });
+</script>
+{{ end }}

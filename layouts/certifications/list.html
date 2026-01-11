@@ -1,0 +1,159 @@
+{{ define "main" }}
+<div class="container whoami-page">
+    <article data-pagefind-body>
+    <span data-pagefind-meta="title" style="display: none;">{{ .Title }}</span>
+    <h1 class="terminal-title">
+        <span id="typewriter-cert"></span><span class="cursor typing"></span>
+    </h1>    
+
+    <div id="cert-content" style="display: none; opacity: 0; transition: opacity 0.8s ease;">
+        
+        <div class="active-certs">
+            {{ $activePages := where .Pages "Params.archived" "!=" true }}
+            {{ $groups := $activePages.GroupByParam "issuer" }}
+            {{ $totalGroups := len $groups }}
+            
+            <hr class="terminal-divider">
+            
+            {{ range $index, $group := sort $groups "Key" "asc" }}
+            <div class="issuer-group">
+                <h2 class="role-title" style="display: block; margin-bottom: 25px;">>> ISSUER: {{ .Key }}</h2>
+                
+                <div class="cert-grid"> 
+                    {{ range .Pages.ByTitle }}
+                    <div class="cert-box">
+                        <div class="cert-info">
+                            <div class="company-line" style="font-weight: bold;">> {{ .Title }}</div>
+                            
+                            {{ if .Params.expired_date }}
+                            <div style="font-size: 0.7rem; color: #ff5555; margin-top: 5px; opacity: 0.8; font-family: monospace;">
+                                EXPIRY_DATE: {{ .Params.expired_date | time.AsTime | time.Format "01/02/2006" }}
+                            </div>
+                            {{ end }}
+                        </div>
+                        
+                        <div class="cert-box-footer">
+                            <div class="summary-text" style="font-size: 0.8rem; opacity: 0.6; white-space: nowrap;">
+                                ISSUED: {{ if ne (.Date.Format "2006") "0001" }}{{ .Date.Format "01/02/2006" }}{{ else }}N/A{{ end }}
+                                
+                                {{ if .Params.badges }}
+                                <span style="margin: 0 4px; opacity: 0.3;">|</span>
+                                {{ range .Params.badges }}
+                                    <span class="mini-badge" style="margin-right: 4px;">[{{ . }}]</span>
+                                {{ end }}
+                                {{ end }}
+                            </div>
+
+                            {{ if .Params.verify_url }}
+                            <div class="cert-actions">
+                                <a href="{{ .Params.verify_url }}" target="_blank" class="verify-btn">
+                                     [ VERIFY ]
+                                </a>
+                            </div>
+                            {{ end }}
+                        </div>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+
+            {{ if lt (add $index 1) $totalGroups }}
+                <hr class="terminal-divider">
+            {{ end }}
+            {{ end }}
+            
+            <hr class="terminal-divider">
+        </div>
+
+        {{ if gt (len (where .Pages "Params.archived" "==" true)) 0 }}
+        
+        <div class="archive-separator" style="margin: 20px 0 20px 0; text-align: center;">
+            <div class="divider-text" style="font-size: 1.1rem; font-weight: bold; letter-spacing: 2px; color: var(--primary); opacity: 0.8; margin-bottom: 20px;">
+                [!] DEPRECATED_RECORDS_FOUND [!]
+            </div>
+        </div>
+
+        <div class="archived-section">
+            {{ $archivedPages := where .Pages "Params.archived" "==" true }}
+            {{ $archivedGroups := $archivedPages.GroupByParam "issuer" }}
+            {{ $totalArchived := len $archivedGroups }}
+
+            <hr class="terminal-divider">
+
+            {{ range $idx, $group := sort $archivedGroups "Key" "asc" }}
+            <div class="issuer-group archived-group" style="margin-top: 20px;">
+                <h2 class="role-title" style="opacity: 0.4; font-size: 1rem; margin-bottom: 20px;">>> LEGACY_SOURCE: {{ .Key }}</h2>
+                
+                <div class="cert-grid" style="opacity: 0.5;">
+                    {{ range .Pages.ByTitle }}
+                    <div class="cert-box" style="border-style: dotted;">
+                        <div class="company-line" style="font-size: 0.9rem; font-weight: bold;">[DEPRECATED] {{ .Title }}</div>
+                        
+                        <div class="archived-dates" style="margin-top: 8px; font-size: 0.75rem; font-family: monospace; line-height: 1.6;">
+                            <div class="date-row" style="opacity: 0.7;">ISSUED: {{ if ne (.Date.Format "2006") "0001" }}{{ .Date.Format "01/02/2006" }}{{ else }}UNKNOWN{{ end }}</div>
+                            <div class="date-row" style="color: #ff5555; font-weight: bold;">
+                                EXPIRED: {{ if .Params.expired_date }}{{ .Params.expired_date | time.AsTime | time.Format "01/02/2006" }}{{ else }}DATA_EXPIRATION_UNKNOWN{{ end }}
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+            
+            {{ if lt (add $idx 1) $totalArchived }}
+                <hr class="terminal-divider" style="opacity: 0.2;">
+            {{ end }}
+            {{ end }}
+
+            <hr class="terminal-divider" style="opacity: 0.2;">
+        </div>
+        {{ end }}
+
+        <footer class="post-footer">
+            <div class="share-block"><span>[MANIFEST_END]</span></div>
+            <a href="/" class="nav-item">
+                << RETURN_TO_ROOT
+            </a>
+        </footer>
+    </div> 
+</article>
+</div>
+
+<script type="text/javascript">
+(function() {
+    const text = "> ACCESSING: CERTIFICATION MANIFEST...";
+    let i = 0;
+
+    setTimeout(() => {
+        const target = document.getElementById("typewriter-cert");
+        const content = document.getElementById("cert-content");
+        const cursor = document.querySelector(".cursor");
+
+        function reveal() {
+            if (content) {
+                content.style.display = "block";
+                setTimeout(() => { content.style.opacity = "1"; }, 50);
+            }
+            if (cursor) {
+                cursor.classList.remove("typing");
+                cursor.classList.add("blink");
+            }
+        }
+
+        function typeWriter() {
+            if (target && i < text.length) {
+                target.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 35);
+            } else {
+                reveal();
+            }
+        }
+
+        if (target && content) {
+            typeWriter();
+        }
+    }, 50);
+})();
+</script>
+{{ end }}

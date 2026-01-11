@@ -1,0 +1,1609 @@
+
+/* --- 1. THEME SYSTEM --- */
+:root {
+    /* DEFAULT THEME (AMBER) */
+    --primary: #ffb000;
+    --primary-dim: rgba(255, 176, 0, 0.15);
+    --primary-rgb: 255, 176, 0;
+    --bg-color: #0d0d0d;
+    --glow: 0 0 10px var(--primary);
+}
+
+[data-theme="amber"] {
+    --primary: #ffb000;
+    --primary-dim: rgba(255, 176, 0, 0.15);
+    --primary-rgb: 255, 176, 0;
+}
+
+[data-theme="green"] {
+    --primary: #00ff41;
+    --primary-dim: rgba(0, 255, 65, 0.15);
+    --primary-rgb: 0, 255, 65;
+}
+
+[data-theme="white"] {
+    --primary: #e0e0e0;
+    --primary-dim: rgba(224, 224, 224, 0.1);
+    --primary-rgb: 224, 224, 224;
+    /* We keep the background dark even for 'white' to maintain the CRT look */
+    --bg-color: #121212; 
+}
+
+/* --- 2. BASE LAYOUT & STRUCTURE --- */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--primary);
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.6;
+    /* The CRT background stays on the body */
+    background-image: radial-gradient(
+        circle at 50% 20%, 
+        color-mix(in srgb, var(--primary), transparent 92%) 0%,
+        rgba(0, 0, 0, 0) 70%
+    );
+    background-attachment: fixed;
+}
+
+/* THE ENGINE: Place this right after body */
+.site-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Vital for sticky footer */
+    position: relative;
+    transition: filter 0.3s ease;
+}
+
+/* THE PUSHER: This forces the footer down */
+.site-wrapper > .container {
+    flex: 1 0 auto;
+}
+
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: block;
+    box-sizing: border-box;
+}
+
+main {
+    display: block;
+    width: 100%;
+}
+
+/* CRT SCANLINE EFFECT */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.4) 3px, rgba(0,0,0,0.4) 4px);
+    background-size: 100% 4px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
+}
+
+/* --- 3. NAVIGATION & LINKS --- */
+.site-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 60px; /* Force it to have height */
+    margin-bottom: 35px;
+    position: relative;
+    z-index: 100;
+}
+
+.site-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--primary);
+    opacity: 0.5;
+    box-shadow: 0 0 5px var(--primary);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Ensure the nav isn't collapsing */
+    min-height: 40px; 
+}
+
+/* Ensure the links themselves are visible and have color */
+
+/* 1. The Container: Prevents the "Home" item from jumping to a new line */
+.nav-container, .site-nav { 
+    display: flex !important;
+    flex-wrap: nowrap !important; /* Forces a single row */
+    align-items: center;
+    justify-content: flex-end; 
+    gap: clamp(10px, 2vw, 25px); /* Shrinks space between links automatically */
+}
+
+/* 2. The Items: Fluid sizing for 720px displays */
+.nav-item, .nav-link {
+    position: relative;
+    z-index: 9999 !important;
+    display: inline-flex !important;
+    align-items: center;
+    color: var(--primary) !important;
+    text-decoration: none;
+    font-weight: 800;
+    transition: all 0.2s ease;
+
+    /* FLUID FONT: 1.4rem on desktop, scales down to 1rem on mobile */
+    font-size: clamp(1rem, 2vw, 1.4rem) !important;
+    
+    letter-spacing: 0.5px;
+    white-space: nowrap; /* Keeps 'Home (~/)' from splitting into two lines */
+}
+
+/* 3. Specific fix for the Whoami Page Sizing */
+.whoami-content .role-title, 
+.whoami-content .edu-degree, 
+.whoami-content a.cert-manifest-link {
+    font-size: clamp(1rem, 3vw, 1.3rem) !important;
+    margin-top: clamp(1.2rem, 4vw, 2.5rem) !important;
+}
+
+/* Unified Link Styling */
+a, .nav-item, .nav-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 800;
+    transition: all 0.2s ease;
+}
+
+a:hover, .nav-item:hover {
+    text-shadow: var(--glow);
+}
+
+/* --- THEME TOGGLE ICON FIX --- */
+#theme-toggle {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 5px;
+    font-size: 1.4rem;
+    color: var(--primary); /* Forces it to follow the current theme color */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+#theme-toggle i {
+    /* This ensures the icon itself glows, not the button box */
+    filter: drop-shadow(0 0 5px var(--primary));
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 10px var(--primary));
+}
+
+#theme-toggle:active {
+    transform: scale(0.9);
+}
+
+/* --- FOOTER SECTION --- */
+.terminal-footer {
+    flex-shrink: 0;           /* Prevents the footer from ever squishing */
+    width: 100%;
+    padding: 30px 0;          /* Increased vertical padding for breathing room */
+    margin-top: 40px;         /* Creates a gap between content and footer */
+    border-top: 1px solid rgba(var(--primary-rgb), 0.2);
+    background: transparent;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between; /* Pushes copyright left, status right */
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-left .copyright {
+    white-space: nowrap;      /* Ensures name and year stay on one line */
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    opacity: 0.8;
+}
+
+.system-status {
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+/* THE GLOWING LIGHT */
+.status-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    margin-right: 10px;
+    /* Connects to the heartbeat pulse animation */
+    animation: status-pulse 2s infinite ease-in-out;
+}
+
+/* --- 4. PROFILE & HOME SECTION --- */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 60px 0;
+}
+
+.profile-container h1, terminal-title {
+    font-size: 3.25rem;           /* Increased from 2.75rem */
+    margin-bottom: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 6px;       /* Slightly wider for a cinematic look */
+    text-shadow: 0 0 15px var(--primary);
+    line-height: 1.1;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    object-fit: cover;
+    box-shadow: var(--glow);
+    filter: sepia(100%) brightness(85%);
+    margin-bottom: 25px;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+/* FIXES THE BUMPING: Force the terminal area to stay the same size */
+.hero-terminal {
+    font-size: 1.3rem;
+    color: var(--primary);
+    display: flex;             
+    justify-content: center;
+    /* KEY FIX: This keeps the 'line' of text in the vertical middle of the 3rem box */
+    align-items: center !important; 
+    height: 3rem !important;
+    min-height: 3rem !important;
+    margin: 10px 0 30px 0;     
+    font-family: 'Courier New', monospace;
+    opacity: 0.6;
+}
+
+#typing-skill {
+    font-size: 1.3rem;
+    line-height: 1;
+    color: var(--primary);
+    display: inline-block;
+    /* Keeps the text itself from shifting */
+    vertical-align: middle;
+}
+
+/* --- SKILLS UNDERSCORE CURSOR --- */
+.hero-terminal .cursor {
+    display: inline-block;
+    width: 14px;
+    height: 2px;
+    background-color: var(--primary);
+    margin-left: 5px;
+    
+    /* Pulls the cursor down to the bottom of the letters */
+    vertical-align: baseline; 
+    
+    /* Fine-tune the underscore position so it doesn't look like a strikethrough */
+    position: relative;
+    bottom: -8px; 
+    
+    animation: blink 1s step-start infinite;
+    box-shadow: 0 0 8px var(--primary);
+}
+
+/* ==========================================================================
+   SOCIAL LINKS - FLOATING ALIGNMENT
+   ========================================================================== */
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* Increased gap since there are no borders */
+    margin-top: 1.5rem;
+}
+
+.social-icon {
+    /* The "Invisible Box" technique */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* We keep the fixed dimensions but remove borders/backgrounds */
+    width: 32px; 
+    height: 32px;
+    
+    font-size: 1.6rem;
+    color: var(--primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    
+    /* Ensure no background or border is set */
+    background: none !important;
+    border: none !important;
+}
+
+.social-icon i {
+    /* This forces the glyph to sit exactly in the center of the 32px area */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Hover Effect: Glow and slight lift */
+.social-icon:hover {
+    color: var(--primary);
+    filter: drop-shadow(0 0 8px var(--primary));
+    transform: translateY(-3px);
+}
+
+/* Specific nudge for the envelope to ensure it hits the visual baseline */
+.fa-envelope {
+    font-size: 1.2em; /* Makes the 'heavy' envelope match the visual weight of logos */
+    transform: translateY(1px); 
+}
+
+/* --- 5. SKILLS & MODULES --- */
+
+/* --- FIXED SKILLS MATRIX --- */
+.skills-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important; 
+    gap: 30px !important;
+    margin: 40px auto !important;
+    max-width: 100% !important;
+}
+
+.skill-category {
+    flex: 1 1 300px !important; 
+    max-width: 350px !important;
+    margin-bottom: 2.5rem !important;
+    text-align: center !important;
+}
+
+.whoami-page span.category-title {
+    display: block !important;
+    color: var(--primary) !important;
+    font-weight: 900 !important;
+    font-size: 1.2rem !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px solid var(--primary) !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 15px !important;
+    text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5) !important;
+}
+
+
+/* --- 6. CERTIFICATES & ARCHIVE --- */
+
+.cert-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important; /* This centers the last row */
+    gap: 20px !important;
+    width: 100% !important;
+    margin: 20px 0 !important;
+}
+
+.cert-box {
+    /* (100% / 3 columns) - (gap adjustment) */
+    flex: 0 1 calc(33.333% - 14px) !important; 
+    min-width: 300px; /* Prevents them from getting too skinny */
+    min-height: 80px;
+    box-sizing: border-box;
+    
+    /* Your existing visual styles */
+    border: 1px solid rgba(var(--primary-rgb), 0.3);
+    background: rgba(var(--primary-rgb), 0.03);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+/* Tablet: 2 Columns */
+@media (max-width: 1024px) {
+    .cert-box {
+        flex: 0 1 calc(50% - 10px) !important;
+    }
+}
+
+/* Mobile: 1 Column */
+@media (max-width: 700px) {
+    .cert-box {
+        flex: 0 1 100% !important;
+    }
+}
+
+.cert-box-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-end !important; /* Keeps the text baseline aligned with button bottom */
+    width: 100%;
+}
+
+.summary-text {
+    flex-grow: 1; /* Allows the date to take up the left space */
+    text-align: left;
+}
+
+.cert-actions {
+    flex-shrink: 0; /* Prevents the button from getting smaller */
+    margin-left: 10px;
+}
+
+/* Hover Effect: The "Glow" */
+.cert-box:hover {
+    border-color: var(--primary);
+    background: rgba(var(--primary-rgb), 0.08);
+    box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.2);
+    transform: translateY(-2px);
+}
+
+/* Optional: The Corner Accent (::before) */
+/* Delete this block if you want plain squares */
+.cert-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-style: solid;
+    border-width: 0 12px 12px 0;
+    border-color: transparent var(--primary) transparent transparent;
+    opacity: 0.4;
+}
+
+.verify-btn {
+    display: inline-block; /* Allows the box to wrap the text tightly */
+    margin-top: 15px;
+    padding: 0px 15px;      /* Vertical and Horizontal padding for the box */
+    
+    /* Change border-top to a full border */
+    border: 1px solid var(--primary) !important;
+    background-color: rgba(var(--primary-rgb), 0.05);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+}
+
+.verify-btn:hover {
+    background-color: var(--primary); /* Invert colors on hover */
+    color: #000 !important;           /* Black text on amber background */
+    box-shadow: 0 0 10px var(--primary-dim);
+    text-shadow: none;
+}
+
+.mini-badge {
+    font-size: 0.7rem;
+    color: var(--primary);
+    opacity: 0.7;
+    margin-right: 5px;
+}
+
+/* --- 7. BLOG & CTF WRITEUPS --- */
+.post-metadata, .ctf-metadata-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+
+.meta-line, .meta-item {
+    font-size: 0.9rem;
+    display: flex;
+    gap: 10px;
+}
+
+.meta-line .label, .meta-item .label {
+    color: var(--primary);
+    font-weight: bold;
+    min-width: 140px; /* Keeps everything aligned */
+}
+
+/* Global Difficulty Colors */
+.diff-easy { color: #55ff55; text-shadow: 0 0 2px #55ff55;}
+
+
+/* --- 9. SYSTEM ANIMATIONS --- */
+
+/* 1. The CRT Scanline Flicker */
+@keyframes flicker {
+    0% { opacity: 0.55; }
+    50% { opacity: 0.6; }
+    100% { opacity: 0.58; }
+}
+
+/* 2. The Main Typing Cursor (For Header/Hero) */
+@keyframes blink-caret {
+    from, to { border-color: transparent; }
+    50% { border-color: var(--primary); }
+}
+
+/* 4. The System Stable "Heartbeat" (Status Light) */
+@keyframes status-pulse {
+    0% { 
+        opacity: 1; 
+        box-shadow: 0 0 8px var(--primary); 
+    }
+    50% { 
+        opacity: 0.4; 
+        box-shadow: 0 0 2px var(--primary); 
+    }
+    100% { 
+        opacity: 1; 
+        box-shadow: 0 0 8px var(--primary); 
+    }
+}
+
+/* Move this to the top of your CSS file to test */
+.cursor {
+    display: inline-block;
+    width: 12px;
+    height: 1.4rem;
+    background-color: var(--primary);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink 1s step-start infinite; /* Removed !important */
+    box-shadow: 0 0 8px var(--primary);
+}
+
+/* While typing: No animation, just a solid block */
+.cursor.typing {
+    animation: none !important;
+    opacity: 1 !important;
+}
+
+/* When finished: Apply the blink */
+.cursor.blink {
+    animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.typewriter-target {
+    border-right: none !important;
+    white-space: pre-wrap;
+    /* Ensure no ghost cursor remains */
+}
+
+/* --- GLOBAL REVEAL RULES --- */
+
+/* Modified for better control */
+.content-hidden {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+/* This is the class the JS will add to reveal the content */
+.content-visible {
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+}
+
+/* Ensure sub-items are block-level so they transition smoothly */
+.exp-item, .edu-item, .cve-entry, .skill-category, .pub-item, .ach-item {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+/* Base styling for sections */
+.profile-section {
+    margin-bottom: 2.5rem;
+}
+
+.section-header {
+    /* clamp(minimum, preferred-variable, maximum) */
+    font-size: clamp(.5rem, 5vw, 1.38rem);
+    
+    width: 100%;
+    word-wrap: break-word;
+    box-sizing: border-box;
+}
+
+/* --- MONOCHROMATIC TERMINAL HIERARCHY --- */
+
+/* 1. Primary Headers (Brightest + Glow) */
+/* Includes Roles, Degrees, CVE IDs, and the Certification Manifest Link */
+.whoami-page span.role-title, 
+.whoami-page span.edu-degree, 
+.whoami-page span.cve-id,
+.whoami-page a.cert-manifest-link {
+    display: block !important;
+    color: var(--primary) !important; 
+    font-weight: 900 !important;
+    font-size: 1.3rem !important;
+    text-transform: uppercase !important;
+    margin-top: 1.8rem !important;
+    /* Strong Glow for Primary Headers */
+    text-shadow: 0 0 10px rgba(var(--primary-rgb), 0.7) !important;
+    opacity: 1 !important;
+    text-decoration: none !important;
+    letter-spacing: 2px !important;
+}
+
+/* Specific Spacing & Hover for Manifest Link */
+.whoami-page a.cert-manifest-link {
+    /* Fluid margin: 2.5rem on desktop, shrinks to 1.5rem on mobile */
+    margin-top: clamp(1.5rem, 5vw, 2.5rem) !important;
+    
+    /* Fluid font-size: ensures the link doesn't break the container */
+    font-size: clamp(0.9rem, 3vw, 1.2rem) !important;
+    
+    transition: all 0.2s ease;
+    width: fit-content;
+    
+    /* Centering */
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Security: Prevents the link from ever being wider than the screen */
+    max-width: 100%;
+    display: block; 
+    text-align: center;
+    overflow-wrap: break-word;
+}
+
+.whoami-page a.cert-manifest-link:hover {
+    background: var(--primary-dim);
+    /* Boosted glow on hover */
+    text-shadow: 0 0 15px rgba(var(--primary-rgb), 1) !important;
+}
+
+/* 2. Company / School (Solid Primary, No Glow) */
+.whoami-page div.company-line, 
+.whoami-page div.edu-school {
+    display: block !important;
+    color: var(--primary) !important; 
+    font-weight: 700 !important;
+    font-size: 1.1rem !important;
+    margin-bottom: 0.6rem !important;
+    text-shadow: none !important;
+    opacity: 0.9 !important;
+}
+
+/* 3. Description Text (Dimmed Primary) */
+.whoami-page p.exp-details, 
+.whoami-page p.summary-text, 
+.whoami-page .category-items {
+    color: var(--primary) !important; 
+    opacity: 0.7 !important; /* This creates the hierarchy visually */
+    font-weight: 550 !important;
+    line-height: 1.7 !important;
+    margin-bottom: 1.2rem !important;
+    text-shadow: none !important;
+}
+
+/* 4. Dates and Slashes (Most Dimmed) */
+.whoami-page span.terminal-dim {
+    color: var(--primary) !important;
+    opacity: 0.4 !important;
+    font-style: italic !important;
+    margin-left: 10px !important;
+}
+
+/* --- CENTERED SKILLS MATRIX --- */
+
+.skill-category {
+    display: block !important;
+    margin-bottom: 2.5rem !important;
+    text-align: center; /* Centers the items list */
+}
+
+/* Category Title: Centered with Full-Width Underline */
+.whoami-page span.category-title {
+    display: block !important;
+    color: var(--primary) !important;
+    font-weight: 900 !important;
+    font-size: 1.2rem !important;
+    text-transform: uppercase !important;
+    text-align: center; /* Centers the title text */
+    
+    /* Full-width underline */
+    border-bottom: 1px solid var(--primary);
+    padding-bottom: 8px;
+    margin-bottom: 15px !important;
+    width: 100%; 
+    
+    /* CRT Glow */
+    text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5);
+}
+
+/* Items list below the line */
+.whoami-page span.category-items {
+    display: block !important;
+    color: var(--primary) !important;
+    opacity: 0.8 !important;
+    font-size: 1.05rem !important;
+    line-height: 1.8 !important;
+    text-align: center; /* Centers the comma-separated list */
+}
+
+/* --- RESPONSIVE NAVIGATION --- */
+
+/* Tablet and below (under 1024px) */
+@media (max-width: 1024px) {
+    .nav-right {
+        gap: 15px; /* Tighter gap */
+    }
+    .cert-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 cols on tablets */
+    }
+}
+
+    /* Adjust the main title size so it doesn't bleed off screen */
+    .profile-container h1, .terminal-title {
+        font-size: 2.2rem !important;
+        letter-spacing: 2px;
+    }
+    
+ c   .hero-terminal {
+        height: auto !important; /* Allow height to adjust if text wraps */
+    }
+
+    .footer-left .copyright {
+        white-space: normal;    /* Allows wrapping on tiny screens */
+    }
+
+}
+
+/* For small phones (under 480px) */
+@media (max-width: 480px) {
+    .terminal-header {
+        font-size: 1.1rem;
+    }
+    
+    .post-path {
+        font-size: 0.8rem;
+    }
+}
+
+
+/* Add a divider between issuer groups */
+.issuer-group {
+    padding-top: 10px !important;
+    padding-bottom: 40px !important;
+    border: none !important;
+    margin-bottom: 0;
+}
+
+/* Remove the line from the last group so it doesn't hit the footer */
+.issuer-group:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+/* --- Shared Terminal List Styles --- */
+
+/* ==========================================================================
+   LOG ENTRIES (BLOG & CTF LISTS)
+   ========================================================================== */
+/* 1. CONTAINER: Anchor everything left */
+.blog-list, .writeup-list {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+}
+
+/* 2. THE ENTRY: "Hug" the content */
+.log-entry {
+    display: inline-flex !important; 
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    width: auto !important; 
+    max-width: 100% !important;
+    padding: 10px 0 !important;
+    text-decoration: none !important;
+    opacity: 1 !important; /* Ensure the whole row is bright */
+}
+
+/* 3. SYNCED OPACITY & NO-GROW */
+.log-date, 
+.log-platform, 
+.log-meta {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    color: var(--primary) !important;
+    /* Match the date's appearance */
+    opacity: 0.8 !important; 
+    font-weight: 400 !important;
+}
+
+/* 4. THE GENERATED DASHES */
+.log-date::after, 
+.log-title::after {
+    content: "—" !important;
+    margin: 0 15px !important;
+    color: var(--primary) !important;
+    opacity: 0.5 !important; /* Slightly dimmer for the separator */
+    font-weight: 400 !important;
+}
+
+/* 5. THE TITLE: High Contrast */
+.log-title {
+    color: var(--primary) !important;
+    font-weight: 700 !important;
+    opacity: 1 !important; /* Title stays brightest */
+    flex: 0 1 auto !important; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 6. HIDE MANUAL SPANS */
+.log-separator {
+    display: none !important;
+}
+
+/* --- Unified Terminal Post Styles --- */
+
+/* Cascade Animation Definition */
+@keyframes cascadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cascade-item {
+    opacity: 0;
+    animation: cascadeIn 0.6s ease-out forwards;
+}
+
+/* Staggered Delays for the "Waterfall" Effect */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.3s; }
+.delay-3 { animation-delay: 0.5s; }
+.delay-4 { animation-delay: 0.7s; }
+
+/* Metadata Layout */
+.post-metadata {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 15px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.meta-line {
+    font-size: 0.9rem;
+    display: flex;
+    gap: 10px;
+}
+
+.meta-line .label {
+    color: var(--primary);
+    font-weight: bold;
+    min-width: 120px;
+}
+
+.meta-line .value {
+    color: inherit;
+    opacity: 0.9;
+}
+
+/* Content Styling */
+.post-content, .writeup-content {
+    line-height: 1.5; /* Terminal standard spacing */
+    margin: 30px 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+/* The Balanced Dashed Line Break */
+.terminal-divider {
+    border: none;
+    height: 1px;
+    /* This creates a sharp 5px dash, 5px gap pattern */
+    background-image: linear-gradient(to right, var(--primary) 50%, transparent 50%);
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+    margin: 0; /* Ensures the balanced 30px spacing you requested */
+    width: 100%;
+}
+
+/* Footer Styling */
+.post-footer {
+    margin-top: 50px;
+    text-align: right;
+}
+
+.post-footer .nav-item {
+    text-decoration: none;
+    display: inline-block;
+    color: var(--primary);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.share-block {
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    opacity: 0.5;
+}
+
+/* Typing Cursor */
+.cursor {
+    color: var(--primary);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* ==========================================================================
+   CTF WRITEUP SHARED STYLES
+   ========================================================================== */
+
+/* 1. ELEVATION & SCANLINE PROTECTION
+   We set this to 10000 to beat the body::before (9999).
+   'isolation' prevents the scanline from blending into the content. */
+.writeup-container {
+    position: relative;
+    z-index: 10000 !important;
+    isolation: isolate !important;
+}
+
+/* 2. DYNAMIC CODE HIGHLIGHTING (Theme-Aware) */
+.hljs-keyword, .hljs-selector-tag, .hljs-section { color: var(--primary); font-weight: bold; }
+.hljs-string, .hljs-template-variable, .hljs-addition { opacity: 0.8; color: #fff; }
+.hljs-comment, .hljs-quote { color: var(--primary); opacity: 0.4; font-style: italic; }
+.hljs-number, .hljs-variable, .hljs-type, .hljs-attribute { color: var(--primary); }
+
+/* 3. INLINE CODE */
+.writeup-content code:not(pre code) {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--primary);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+/* 4. TERMINAL WINDOW CODE BLOCKS */
+.post-content pre {
+    background: #000 !important;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    margin: 2rem 0;
+    padding: 0 !important;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.code-window-header {
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.code-window-left { display: flex; align-items: center; gap: 15px; }
+.code-window-dots { color: var(--primary); opacity: 0.5; font-size: 14px; letter-spacing: 2px; }
+
+.code-lang-tag {
+    font-size: 10px;
+    font-family: monospace;
+    text-transform: uppercase;
+    border: 1px solid var(--primary);
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: var(--primary);
+    opacity: 0.8;
+}
+
+.post-content pre code {
+    display: block !important;
+    padding: 15px !important;
+    background: transparent !important;
+    overflow-x: auto;
+    color: #eee;
+    font-size: 0.9rem;
+    border: none !important;
+}
+
+.copy-btn {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-size: 10px;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+.copy-btn:hover { background: var(--primary); color: #000; }
+
+/* 5. IMAGE SCANLINE DEFEAT & GLOW EFFECT */
+.writeup-content img {
+    display: block !important;
+    margin: 35px auto !important;
+    max-width: 100%;
+    height: auto;
+    cursor: zoom-in;
+    position: relative !important;
+    z-index: 10001 !important;
+    background-color: #000 !important;
+    mix-blend-mode: normal !important;
+    
+    /* Remove Border */
+    border: none !important;
+    
+    /* Smooth transition for the glow */
+    transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* GLOW EFFECT ON HOVER */
+.writeup-content img:hover {
+    transform: scale(1.01); /* Subtle lift */
+    
+    /* The Glow: Using the theme's primary color */
+    filter: drop-shadow(0 0 15px var(--primary));
+    
+    /* Optional: Slight brightness boost to simulate CRT bloom */
+    filter: drop-shadow(0 0 15px var(--primary)) brightness(1.1);
+}
+
+/* 6. FOOTER & NAVIGATION */
+.post-footer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    text-align: right;
+}
+
+.eof-marker {
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    opacity: 0.8;
+    text-align: right;
+    width: 100%;
+}
+
+.nav-item-archive {
+    text-decoration: none;
+    color: var(--primary);
+    font-family: var(--font-mono);
+    font-weight: bold;
+}
+
+.nav-item-archive:hover { opacity: 0.7; }
+
+/* 7. LIGHTBOX ZOOM SYSTEM */
+#zoom-overlay {
+    position: fixed; 
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.98); 
+    z-index: 11000 !important; 
+    display: none;
+    backdrop-filter: blur(10px);
+}
+
+#zoom-img {
+    position: fixed; 
+    top: 50%; left: 50%; 
+    transform: translate(-50%, -50%);
+    max-width: 95vw; 
+    max-height: 90vh; 
+    z-index: 11001 !important; 
+    display: none;
+    border: 3px solid var(--primary);
+}
+
+
+/* ==========================================================================
+   PAGEFIND MODAL & BLEED PROTECTION
+   ========================================================================== */
+
+:root {
+    --pagefind-ui-primary: var(--primary);
+    --pagefind-ui-text: var(--primary);
+    --pagefind-ui-background: #000;
+    --pagefind-ui-border: var(--primary);
+    --pagefind-ui-font: var(--font-mono);
+}
+
+/* --- THE FINAL STACKING FIX --- */
+
+/* 1. Ensure the modal is at the absolute top of the browser's render stack */
+body.search-open .site-wrapper {
+    z-index: 1 !important;
+    filter: blur(5px) brightness(0.2); /* Effectively hides the bleed-through text */
+    pointer-events: none; /* Prevents clicking links behind the search */
+    opacity: 0.5;
+}
+
+/* THE MODAL: Ensure it is at the absolute top of the browser's view */
+#search-overlay {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000 !important;
+    z-index: 2147483647 !important; /* Absolute maximum */
+    display: none; /* JS will flip this to block */
+}
+
+/* 2. THE SEARCH WINDOW (The Box) */
+.search-container {
+    z-index: 100000000 !important;
+    background-color: #000 !important;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    background-color: #000 !important;
+    border: 2px solid var(--primary);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 1), 0 0 20px var(--primary);
+    overflow-y: auto;
+}
+
+/* Header inside the modal */
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(var(--primary-rgb), 0.3);
+}
+
+/* 3. INDIVIDUAL RESULT BOXES (Cert-Box Style) */
+/* 1. INPUT FIELD */
+.pagefind-ui__search-input {
+    background: #000 !important;
+    border: 1px solid var(--primary) !important;
+    color: var(--primary) !important;
+    font-family: var(--font-mono) !important;
+    text-transform: uppercase;
+}
+
+.pagefind-ui__search-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid var(--primary) !important;
+    box-shadow: 0 0 10px var(--primary-dim) !important;
+    caret-color: var(--primary) !important;
+}
+
+/* 2. MESSAGES (e.g., "Searching...", "20 results found") */
+.pagefind-ui__message {
+    color: var(--primary) !important;
+    font-family: var(--font-mono) !important;
+    opacity: 0.9 !important;
+    padding: 10px 0 !important;
+}
+
+/* 3. INDIVIDUAL RESULT BOXES (Cert-Box Style) */
+.pagefind-ui__result {
+    background: rgba(var(--primary-rgb), 0.03) !important;
+    border: 1px solid rgba(var(--primary-rgb), 0.7) !important;
+    padding: 20px !important;
+    margin-bottom: 15px !important;
+    position: relative;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    opacity: 0.8 !important;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+/* CRT Scanlines inside results only */
+.pagefind-ui__result::before {
+    content: " ";
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+/* --- THE TEXT COLOR FIXES --- */
+
+/* Result Title/Links */
+.pagefind-ui__result-title,
+.pagefind-ui__result-link {
+    color: var(--primary) !important;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    margin-bottom: 5px !important;
+}
+
+/* Excerpts (The previously gray snippet text) */
+.pagefind-ui__result-excerpt {
+    color: var(--primary) !important;
+    opacity: 0.8 !important; /* Forces from gray to amber */
+    font-family: var(--font-mono) !important;
+    line-height: 1.4 !important;
+    font-weight: 400 !important;
+}
+
+/* Highlighted search terms inside excerpt */
+.pagefind-ui__result-excerpt mark {
+    background-color: var(--primary) !important;
+    color: #000 !important; /* High contrast black text on amber background */
+    font-weight: 900 !important;
+    padding: 0 2px !important;
+}
+
+/* Metadata (Dates, URLs, Tags) */
+.pagefind-ui__result-metadata {
+    color: var(--primary) !important;
+    opacity: 0.5 !important;
+    font-size: 0.8rem !important;
+    margin-top: 10px !important;
+    display: flex !important;
+}
+
+/* 4. BUTTONS & CLEANUP */
+.pagefind-ui__button {
+    color: var(--primary) !important;
+    background: #000 !important;
+    border: 1px solid var(--primary) !important;
+    font-family: var(--font-mono) !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    padding: 10px 20px !important;
+    margin-top: 20px !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.pagefind-ui__button:hover {
+    background: var(--primary-dim) !important;
+    text-shadow: 0 0 10px var(--primary);
+    box-shadow: 0 0 10px var(--primary-dim);
+}
+
+.pagefind-ui__search-clear, 
+.pagefind-ui__drawer:after,
+.pagefind-ui__result-thumb {
+    display: none !important;
+}
+
+/* 1. Ensure the animation layer stays behind the search modal */
+.writeup-anim-layer {
+    position: relative;
+    z-index: 10;
+}
+
+/* 2. THE KILL SWITCH: Force the layer to flatten when search is open */
+body.search-open .site-wrapper, 
+body.search-open main, 
+body.search-open .container,
+body.search-open .writeup-container,
+body.search-open article {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    z-index: -1 !important;
+}
+
+/* 3. The writeup container fix */
+.writeup-container {
+    position: relative;
+    z-index: 5; /* Lower than search overlay (99999999) */
+}
+body.search-open #search-overlay {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* 3. Ensure the UI inside the modal is also forced visible */
+body.search-open .search-container,
+body.search-open #search-ui {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* ==========================================================================
+   TERMINAL NAVIGATION BUTTONS (SEARCH & THEME)
+   ========================================================================== */
+
+.terminal-button-small {
+    /* Layout & Alignment */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.4rem; 
+    padding: 0 8px;
+    vertical-align: middle;
+    
+    /* Reset Styles */
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    
+    /* Transition for the entire button container */
+    transition: all 0.4s ease;
+}
+
+.terminal-button-small i {
+    /* Sizing - Matches your 1.4rem menu items */
+    font-size: 1.4rem; 
+    
+    /* Initial State: "Low Power" Mode */
+    opacity: 0.4; 
+    filter: drop-shadow(0 0 1px var(--primary));
+    text-shadow: 0 0 1px var(--primary);
+    
+    /* Smooth "Warm-up" Transition */
+    transition: all 0.4s ease;
+}
+
+/* --- SUBTLE HOVER STATE --- */
+
+.terminal-button-small:hover {
+    background: transparent !important; /* Kept clean and minimal */
+}
+
+.terminal-button-small:hover i {
+    /* Hover State: "Active" Mode */
+    opacity: 0.9;
+    
+    /* Sharp, controlled phosphor glow */
+    filter: drop-shadow(0 0 4px var(--primary));
+    text-shadow: 0 0 3px var(--primary);
+    
+    /* No scale transform for a more stable terminal feel */
+    transform: none; 
+}
+
+/* Ensure the Font Awesome icons are centered within the 1.4rem box */
+.fa-solid, .fas {
+    line-height: 1;
+    display: flex;
+    align-items: center;
+}
+
+
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--primary);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-family: var(--font-mono);
+}
+
+
+/* ==========================================================================
+   GLOBAL TERMINAL SCROLLBAR
+   ========================================================================== */
+
+/* --- WebKit Browsers (Chrome, Safari, Edge, Brave) --- */
+
+/* 1. The Scrollbar Width */
+::-webkit-scrollbar {
+    width: 8px; /* Slightly wider for better usability site-wide */
+    height: 8px; /* For horizontal scrollbars */
+}
+
+/* 2. The Track (Background) */
+::-webkit-scrollbar-track {
+    background: #050505; /* Solid dark background to hide page content underneath */
+    border-left: 1px solid rgba(var(--primary-rgb), 0.1);
+}
+
+/* 3. The Thumb (Draggable Bar) */
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary);
+    /* The box-shadow creates the phosphor "bleed" effect */
+    box-shadow: 0 0 5px var(--primary);
+    border: 2px solid #050505; /* Creates a gap between track and thumb */
+}
+
+/* 4. Hover State */
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary);
+    box-shadow: 0 0 12px var(--primary);
+    filter: brightness(1.2);
+}
+
+/* --- Firefox Support --- */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) #050505;
+}
+
+/* Hide mobile elements by default on Desktop */
+.-hamburger, .menu-toggle {
+    display: none !important;
+}
+
+/* --- UNIFIED MOBILE OVERRIDES --- */
+/* --- UNIFIED MOBILE OVERRIDES --- */
+@media (max-width: 768px) {
+    /* 1. Header & Hamburger Visibility */
+    .site-header {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 60px !important; /* Fixed height for consistency */
+        padding: 0 15px !important;
+        
+        position: fixed !important; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #000 !important; 
+        /* Level: Above content, but below Search Container (200,000,000) */
+        z-index: 100000001 !important; 
+        border-bottom: 1px solid rgba(var(--primary-rgb), 0.2);
+        box-sizing: border-box !important;
+    }
+
+    .hamburger {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 4px !important;
+        width: 30px !important;
+        height: 30px !important;
+        cursor: pointer !important;
+        z-index: 100000002 !important; 
+    }
+
+    .hamburger span {
+        display: block !important;
+        width: 22px !important;
+        height: 2px !important;
+        background-color: var(--primary) !important;
+        box-shadow: 0 0 2px var(--primary); 
+    }
+
+    /* 2. Navigation Menu Dropdown */
+    .site-nav {
+        display: none !important;
+        position: fixed !important; 
+        top: 60px !important; /* Starts right after the header */
+        right: 0 !important;
+        background-color: #000 !important;
+        border: 1px solid var(--primary) !important;
+        flex-direction: column !important;
+        padding: 20px !important;
+        width: 200px !important;
+        /* Level: Above content, but sits behind Search if opened */
+        z-index: 100000000 !important; 
+    }
+
+    /* 3. The Toggle Logic */
+    #menu-toggle:checked ~ .site-nav {
+        display: flex !important;
+    }
+
+    /* 4. CONTENT PUSH-DOWN (Prevents header from covering titles) */
+    main, .container, .writeup-container, article {
+        padding-top: 80px !important;
+        position: relative !important;
+        z-index: 1 !important; /* Forces content to bottom-most layer */
+    }
+
+    /* 5. LOG ENTRIES (Unified Styles) */
+    .log-entry {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important; 
+        border: 1px solid rgba(var(--primary-rgb), 0.3) !important;
+        background: rgba(var(--primary-rgb), 0.03) !important;
+        padding: 18px !important;
+        margin-bottom: 15px !important;
+        border-radius: 4px;
+        min-height: 100px !important; 
+        justify-content: center !important;
+        text-decoration: none !important;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .log-entry:active, .log-entry:hover {
+        border-color: var(--primary) !important;
+        background: rgba(var(--primary-rgb), 0.08) !important;
+        box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.2);
+    }
+
+    /* 6. TEXT INSIDE ENTRIES */
+    .log-date, .log-meta, .log-platform {
+        font-size: 0.85rem !important;
+        opacity: 0.6 !important;
+        font-family: monospace;
+        display: inline-block !important;
+        margin-bottom: 4px !important;
+        color: var(--primary);
+    }
+
+    .log-title {
+        font-size: 1.2rem !important;
+        font-weight: bold !important;
+        line-height: 1.3 !important;
+        width: 100% !important;
+        white-space: normal !important;
+        display: block !important;
+        color: var(--primary);
+        margin: 8px 0 !important;
+    }
+
+    /* 7. HIDE DASHES/SEPARATORS */
+    .log-date::after, .log-title::after, .log-separator, .nav-separator {
+        display: none !important;
+    }
+
+    /* 8. GRID ADJUSTMENTS */
+    .cert-grid-container {
+        grid-template-columns: 1fr !important;
+    }
+}

@@ -1,0 +1,60 @@
+{{ define "main" }}
+<div class="container" data-pagefind-body>
+    
+    <span data-pagefind-meta="title" style="display: none;">Blog Journal</span>
+
+    <h1 class="terminal-header" style="min-height: 1.2em;">
+        <span id="typing-blog" class="typing-text"></span>
+    </h1>
+    
+    <div id="blog-container" style="opacity: 0; transform: translateY(10px); transition: opacity 0.8s ease-out, transform 0.8s ease-out;">
+        
+        {{ range .Pages.GroupByDate "2006" }}
+        <section class="year-group">
+            <h2 class="year-header">[{{ .Key }}]</h2>
+            
+            <div class="blog-list">
+                {{ range .Pages }}
+                <a href="{{ .Permalink }}" class="log-entry">
+                    <span class="log-date">{{ .Date.Format "01/02/06" }}</span>
+                    <span class="log-separator">&mdash;</span>
+                    <span class="log-title">{{ .Title }}</span>
+                    <span class="log-separator">&mdash;</span>
+                    <span class="log-meta">{{ .ReadingTime }} MIN_READ</span>
+                </a>
+                {{ end }}
+            </div>
+        </section>
+        {{ end }}
+
+        <div class="writeup-footer" style="margin-top: 50px; border-top: 1px dashed rgba(var(--primary-rgb), 0.2); padding-top: 20px; text-align: right;">
+            <a href="/" class="nav-item" style="text-decoration: none; display: inline-block;" data-pagefind-ignore>
+                << RETURN_TO_ROOT
+            </a>
+        </div>
+    </div>
+    </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const text = "> ACCESSING_JOURNAL: LOG_ENTRIES";
+        const typingElement = document.getElementById('typing-blog');
+        const blogContainer = document.getElementById('blog-container');
+        let i = 0;
+
+        function type() {
+            if (i < text.length) {
+                typingElement.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, 50); 
+            } else {
+                setTimeout(() => {
+                    blogContainer.style.opacity = "1";
+                    blogContainer.style.transform = "translateY(0)";
+                }, 300);
+            }
+        }
+        setTimeout(type, 300);
+    });
+</script>
+{{ end }}

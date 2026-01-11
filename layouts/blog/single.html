@@ -1,0 +1,66 @@
+{{ define "main" }}
+<div class="container">
+<article data-pagefind-body>
+    <div class="post-path">
+        <span class="primary">guest@terminal</span>:<span class="secondary">~/journal</span>$ 
+        <span id="typing-command"></span><span id="command-cursor" class="cursor">_</span>
+    </div>
+
+    <div id="blog-content" style="opacity: 0; transform: translateY(5px); transition: opacity 0.8s ease-out, transform 0.8s ease-out;">
+        <header class="post-header">
+            <h1 class="terminal-header">> LOG: {{ .Title }}</h1>
+            <div class="post-metadata">
+                <div class="meta-line">
+                    <span class="label">[TIMESTAMP]:</span>
+                    <span class="value">{{ .Date.Format "01/02/06" }}</span>
+                </div>
+                <div class="meta-line">
+                    <span class="label">[READ_TIME]:</span>
+                    <span class="value">{{ .ReadingTime }} MIN</span>
+                </div>
+            </div>
+        </header>
+
+        <hr class="terminal-divider">
+
+        <div class="post-content">
+            {{ .Content }}
+        </div>
+
+        <hr class="terminal-divider">
+
+        <footer class="post-footer">
+            <div class="share-block"><span>[END_OF_LOG]</span></div>
+            <a href="/blog" class="nav-item">
+                << RETURN_TO_JOURNAL
+            </a>
+        </footer>
+    </div>
+</article>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const commandText = "cat {{ .File.LogicalName }}";
+        const typingElement = document.getElementById('typing-command');
+        const cursor = document.getElementById('command-cursor');
+        const content = document.getElementById('blog-content');
+        let i = 0;
+
+        function typeCommand() {
+            if (i < commandText.length) {
+                typingElement.textContent += commandText.charAt(i);
+                i++;
+                setTimeout(typeCommand, 70);
+            } else {
+                if (cursor) cursor.style.display = 'none';
+                setTimeout(() => {
+                    content.style.opacity = '1';
+                    content.style.transform = 'translateY(0)';
+                }, 400);
+            }
+        }
+        setTimeout(typeCommand, 500);
+    });
+</script>
+{{ end }}

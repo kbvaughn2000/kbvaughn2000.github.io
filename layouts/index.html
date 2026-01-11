@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="profile-container">
+    <img src="{{ .Site.Params.profile_img | relURL }}" alt="{{ .Site.Params.author }}" class="profile-img">
+    
+    <h1 class="terminal-title">{{ .Site.Params.author }}</h1>
+    <p class="subtitle">{{ .Site.Params.description }}</p>
+    <script src="/js/main.js"></script>
+    <div class="hero-terminal">
+        <span id="typing-skill"></span><span class="cursor"></span>
+    </div>
+    <div class="social-links">
+        <a href="{{ .Site.Params.github }}" class="social-icon" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="{{ .Site.Params.linkedin }}" class="social-icon" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="mailto:{{ .Site.Params.email }}" class="social-icon"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+</section>
+
+<div class="home-content">
+    {{ .Content }}
+</div>
+
+{{ end }}

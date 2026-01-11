@@ -1,0 +1,30 @@
+{{ define "main" }}
+<div class="container writeup-container">
+    <div class="post-path">
+        <span class="primary">guest@terminal</span>:<span class="secondary">~</span>$ 
+        <span id="typing-command">grep -r ./</span><span class="cursor">_</span>
+    </div>
+
+    <div class="terminal-search-window">
+        <div id="search"></div>
+    </div>
+</div>
+
+<link href="/pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="/pagefind/pagefind-ui.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ 
+            element: "#search", 
+            showSubResults: true,
+            showImages: false,
+            resetStyles: false, // Allows our terminal CSS to take over
+            translations: {
+                placeholder: "Enter search query...",
+                zero_results: "NO_MATCHES_FOUND: [SEARCH_TERM]"
+            }
+        });
+    });
+</script>
+{{ end }}

@@ -1,0 +1,58 @@
+{{ define "main" }}
+<div class="container">
+    <h1 class="terminal-header" style="min-height: 1.2em;">
+        <span id="typing-archive" class="typing-text"></span>
+    </h1>
+    
+    <div id="list-container" style="opacity: 0; transform: translateY(10px); transition: opacity 0.8s ease-out, transform 0.8s ease-out;">
+        
+        {{ range .Pages.GroupByDate "2006" }}
+        <section class="year-group">
+            <h2 class="year-header">[{{ .Key }}]</h2>
+            <div class="writeup-list">
+                {{ range .Pages }}
+                <a href="{{ .Permalink }}" class="log-entry">
+                    <span class="log-date">{{ .Date.Format "01/02/06" }}</span>
+                    <span class="log-separator">&mdash;</span>
+                    <span class="log-title">{{ .Title }}</span>
+                    <span class="log-separator">&mdash;</span>
+                    <span class="log-platform">[{{ .Params.platform | upper }}]</span>
+                </a>
+                {{ end }}
+            </div>
+        </section>
+        {{ end }}
+
+        <div class="writeup-footer" style="margin-top: 50px; border-top: 1px dashed rgba(var(--primary-rgb), 0.2); padding-top: 20px; text-align: right;">
+            <a href="/" class="nav-item" style="text-decoration: none; display: inline-block;">
+                << RETURN_TO_ROOT
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const text = "> DIRECTORY_LISTING: CTF_ARCHIVE";
+        const typingElement = document.getElementById('typing-archive');
+        const listContainer = document.getElementById('list-container');
+        let i = 0;
+
+        function type() {
+            if (i < text.length) {
+                typingElement.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, 50); 
+            } else {
+                // Typing finished: Reveal the list
+                setTimeout(() => {
+                    listContainer.style.opacity = "1";
+                    listContainer.style.transform = "translateY(0)";
+                }, 300);
+            }
+        }
+        // Initial delay before typing starts
+        setTimeout(type, 300);
+    });
+</script>
+{{ end }}
