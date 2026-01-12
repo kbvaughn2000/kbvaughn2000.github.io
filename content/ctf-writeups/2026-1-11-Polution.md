@@ -1,3 +1,15 @@
+---
+title: "Polution"
+date: 2026-1-11
+layout: "writeup"
+difficulty: "Easy"
+excerpt: "Walkthrough for Polution on HackSmarter"
+os: "Linux"
+platform: "HackSmarter"
+tags: [HackSmarter, protoype pollution, NodeJS]
+comments: false
+---
+
 Polution is an easy rated box from [Hacksmarter](https://www.hacksmarter.org "Ctrl+Click to open URL"). You’re provided with an initial set of credentials, and your goal is to perform privilege escalation to gain administrator access as shown below:
 
 ![Polution Scope](/images/Polution1.png)
