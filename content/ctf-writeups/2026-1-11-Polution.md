@@ -1,6 +1,6 @@
 ---
 title: "Polution"
-date: 2026-1-11
+date: 2026-01-11
 layout: "writeup"
 difficulty: "Easy"
 excerpt: "Walkthrough for Polution on HackSmarter"
