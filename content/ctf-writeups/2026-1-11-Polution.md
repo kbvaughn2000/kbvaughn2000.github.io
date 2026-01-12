@@ -10,6 +10,8 @@ tags: [HackSmarter, protoype pollution, NodeJS]
 comments: false
 ---
 
+# Polution
+
 Polution is an easy rated box from [Hacksmarter](https://www.hacksmarter.org "Ctrl+Click to open URL"). You’re provided with an initial set of credentials, and your goal is to perform privilege escalation to gain administrator access as shown below:
 
 ![Polution Scope](/images/Polution1.png)
