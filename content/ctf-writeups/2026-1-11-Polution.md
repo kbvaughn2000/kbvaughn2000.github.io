@@ -14,7 +14,7 @@ Polution is an easy rated box from [Hacksmarter](https://www.hacksmarter.org "Ct
 
 ![Polution Scope](/images/Polution1.png)
 
-**I ran** `nmap -A 10.1.59.199 -oA polution` to find which ports were open. It apperas the site is running on a nodejs server.
+I ran `nmap -A 10.1.59.199 -oA polution` to find which ports were open. It apperas the site is running on a nodejs server.
 
 ![Polution nmap](/images/Polution2.png)
 
