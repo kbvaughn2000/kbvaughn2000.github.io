@@ -28,6 +28,10 @@ disableKinds = ["taxonomy", "term"]
         name = "blog"
         url = "/blog/"
         weight = 5
+    [[menu.main]]
+        name = "projects"
+        url = "/projects/"
+        weight = 6
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]

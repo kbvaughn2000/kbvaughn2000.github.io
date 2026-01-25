@@ -1607,3 +1607,717 @@ body.search-open #search-ui {
         grid-template-columns: 1fr !important;
     }
 }
+
+/* ==========================================================================
+   OPERATOR SHELL - FULL CONSOLIDATED TERMINAL UI
+   ========================================================================== */
+
+.operator-shell {
+    background: var(--bg-color) !important;
+    color: var(--primary) !important;
+    font-family: var(--font-mono, 'Courier New', monospace) !important;
+    
+    /* 1. SYMMETRY & PADDING */
+    padding: clamp(15px, 4vw, 30px) !important; 
+    margin: 20px auto !important;
+    max-width: 1200px;
+    
+    border: 1px solid rgba(var(--primary-rgb), 0.3);
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+    position: relative;
+    z-index: 5;
+}
+
+/* 2. SELECTION & FOCUS (Theme Reactive) */
+.operator-shell *::selection {
+    background-color: var(--primary) !important;
+    color: #000 !important;
+}
+
+.operator-shell input:focus,
+.operator-shell select:focus,
+.operator-shell textarea:focus {
+    border-color: var(--primary) !important;
+    outline: none !important;
+    box-shadow: 0 0 12px var(--primary-dim) !important;
+}
+
+/* 3. DASHBOARD GRID (Desktop Alignment) */
+.shell-header .input-row {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    column-gap: 20px !important;
+    row-gap: 20px !important;
+    align-items: end !important;
+    margin-bottom: 25px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.shell-header .input-row:nth-of-type(2) {
+    grid-template-columns: 1fr 1fr 2fr !important;
+}
+
+.shell-input-group {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+}
+
+.shell-input-group label {
+    font-size: 0.7rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 6px !important;
+    opacity: 0.8;
+}
+
+/* 4. UNIFIED INPUTS & SELECTS */
+.operator-shell input[type="text"],
+.operator-shell select {
+    background: #000 !important;
+    color: var(--primary) !important;
+    border: 1px solid rgba(var(--primary-rgb), 0.4) !important;
+    padding: 0 12px !important;
+    height: 42px !important; 
+    font-family: inherit !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+}
+
+/* 5. NMAP INGESTOR (Large Box) */
+.operator-shell textarea#nmap-input {
+    background: #000 !important;
+    color: var(--primary) !important;
+    border: 1px solid rgba(var(--primary-rgb), 0.4) !important;
+    padding: 15px !important;
+    font-family: inherit !important;
+    min-height: 160px !important; 
+    height: auto !important;
+    resize: vertical !important;
+    margin: 15px 0 !important;
+    width: 100% !important;
+    line-height: 1.5 !important;
+    box-sizing: border-box !important;
+}
+
+/* 6. PROMINENT CATEGORY HEADERS */
+.category-title {
+    font-size: 1.25rem !important;
+    font-weight: 900 !important;
+    color: var(--primary) !important;
+    background: var(--primary-dim) !important;
+    padding: 12px 20px !important;
+    border-left: 6px solid var(--primary) !important;
+    margin: 40px 0 20px 0 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 3px !important;
+    text-shadow: var(--glow) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 7. CHECKLIST ITEM ROWS */
+.item-row {
+    display: grid !important;
+    grid-template-columns: 4px 30px 85px 1fr !important;
+    column-gap: 15px !important;
+    align-items: center !important;
+    padding: 14px 0 !important; 
+    border-bottom: 1px solid rgba(var(--primary-rgb), 0.1) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.item-row:hover { background: rgba(var(--primary-rgb), 0.03) !important; }
+
+.priority-border { width: 4px; height: 100%; min-height: 20px; }
+.item-row.priority-high .priority-border {
+    background: var(--primary) !important;
+    box-shadow: var(--glow) !important;
+}
+
+.operator-shell input[type="checkbox"] {
+    accent-color: var(--primary) !important;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.os-tag {
+    font-size: 0.65rem !important;
+    border: 1px solid rgba(var(--primary-rgb), 0.4) !important;
+    background: rgba(var(--primary-rgb), 0.05) !important;
+    text-align: center;
+    padding: 2px 0;
+}
+
+/* 8. CLICK-TO-COPY BOXES */
+/* 8. CLICK-TO-COPY BOXES (REPAIRED FOR WRAPPING) */
+.cmd-box {
+    /* Layout & Grid */
+    grid-column: 2 / -1 !important;
+    display: block;
+    box-sizing: border-box !important;
+    inline-size: 100%; 
+    
+    /* Visuals */
+    background: #0a0a0a !important;
+    color: var(--primary) !important;
+    border: 1px solid rgba(var(--primary-rgb), 0.2) !important;
+    padding: 15px !important; /* Increased for better legibility */
+    margin: 12px 0 !important;
+    cursor: pointer !important;
+    
+    /* Typography (The new larger sizes) */
+    font-size: 1.0rem !important; 
+    line-height: 1.5 !important;
+    font-family: 'Courier New', monospace;
+
+    /* The Wrap Fixes (Critical for Terminal commands) */
+    overflow-wrap: break-word;
+    word-break: break-all;
+    white-space: pre-wrap;
+    
+    /* Scroll Protection */
+    max-height: 350px; /* Bumped up slightly for the larger font */
+    overflow-y: auto;
+    
+    /* Hover Interaction */
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.cmd-box:hover {
+    background: rgba(var(--primary-rgb), 0.05) !important;
+    border-color: var(--primary) !important;
+}
+
+/* 9. TERMINAL BUTTONS & CONTROL BAR */
+.shell-controls {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+    margin-top: 30px !important;
+    padding-top: 20px !important;
+    border-top: 1px solid rgba(var(--primary-rgb), 0.2) !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.button-group {
+    display: flex !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+}
+
+.operator-shell .term-btn {
+    background: transparent !important;
+    border: 2px solid var(--primary) !important;
+    color: var(--primary) !important;
+    padding: 10px 20px !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    max-width: 100% !important;
+    font-size: 0.9rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.operator-shell .term-btn:hover {
+    background: var(--primary) !important;
+    color: #000 !important;
+    box-shadow: var(--glow) !important;
+}
+
+/* Force labels to follow the primary theme color */
+.operator-page .field label {
+    color: var(--primary, #00ff00) !important;
+    opacity: 0.9; /* Slightly more visible */
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    
+    /* SIZE UPDATES */
+    font-size: 0.9rem !important; 
+    letter-spacing: 1.2px;
+    margin-bottom: 8px; /* More space between label and input */
+    
+    text-shadow: 0 0 5px rgba(var(--primary-rgb), 0.5);
+    display: block;
+    text-transform: uppercase;
+}
+
+/* Ensure the input text matches the larger label feel */
+.operator-page input, 
+.operator-page select {
+    font-size: 1rem; 
+    padding: 10px; /* Thicker touch targets for mobile/larger feel */
+}
+
+/* Ensure placeholder text inside inputs also looks like the theme */
+.operator-page input::placeholder {
+    color: var(--primary);
+    opacity: 0.3;
+}
+
+/* 10. MOBILE RESPONSIVENESS - UNIFIED TREATMENT */
+@media (max-width: 850px) {
+    .shell-header .input-row { grid-template-columns: 1fr 1fr !important; }
+}
+
+@media (max-width: 600px) {
+    .operator-shell { padding: 15px !important; }
+    
+    .shell-header .input-row, 
+    .shell-header .input-row:nth-of-type(2) { 
+        grid-template-columns: 1fr !important; 
+        row-gap: 12px !important;
+    }
+
+    .item-row { grid-template-columns: 4px 30px 1fr !important; }
+    .os-tag { display: none !important; }
+    
+    .shell-controls { 
+        flex-direction: column !important; 
+        align-items: stretch !important; 
+        gap: 15px !important;
+    }
+
+    .button-group { 
+        flex-direction: column !important; 
+        width: 100% !important;
+        gap: 10px !important;
+    }
+
+    /* Unified Button Styling for Mobile */
+    .operator-shell .term-btn { 
+        width: 100% !important; 
+        height: 42px !important; 
+        padding: 0 !important; 
+        background: #000 !important; 
+        border: 1px solid rgba(var(--primary-rgb), 0.4) !important;
+        font-size: 0.85rem !important;
+        letter-spacing: 2px !important;
+    }
+
+    .operator-shell .term-btn:active {
+        background: var(--primary) !important;
+        color: #000 !important;
+    }
+}
+
+/* 11. TOAST NOTIFICATION */
+#copy-toast {
+    position: fixed !important;
+    z-index: 2147483647 !important;
+    bottom: 50px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background-color: var(--primary) !important;
+    color: #000 !important;
+    padding: 14px 28px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    border: 3px solid #000 !important;
+    box-shadow: 0 0 25px var(--primary) !important;
+    display: none;
+    white-space: nowrap !important;
+    text-align: center !important;
+    pointer-events: none !important;
+}
+
+/* --- Operator Checklist Theme-Aware Styles --- */
+.operator-page { 
+    color: var(--primary, #00ff00); 
+    font-family: 'Courier New', monospace; 
+}
+
+/* Container for Prompt + Title */
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+/* Static prompt > that appears instantly */
+.title-wrapper::before {
+    content: ">";
+    font-size: 2rem;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+/* The Typing Animation */
+.terminal-title {
+    font-size: 2rem;
+    color: var(--primary) !important;
+    display: inline-block !important;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 !important;
+    border-right: none !important; 
+    width: 0;
+    animation: typing 1.5s steps(30, end) forwards;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+@keyframes typing { 
+    from { width: 0 } 
+    to { width: 100% } 
+}
+
+/* --- Add this below your existing .terminal-title styles --- */
+
+@media screen and (max-width: 768px) {
+    .terminal-title, 
+    #typewriter-cert {
+        /* Kill the 'nowrap' which prevents wrapping */
+        white-space: normal !important; 
+        
+        /* Kill the 'width: 0' which powers the typewriter animation */
+        width: auto !important; 
+        
+        /* Allow the container to grow vertically */
+        height: auto !important;
+        overflow: visible !important;
+        
+        /* Optional: shrink font size slightly so it fits better on phones */
+        font-size: 1.4rem !important;
+        
+        /* Use a fade-in instead of a typewriter slide */
+        animation: mobileFadeIn 1s ease-out forwards !important;
+    }
+
+    .title-wrapper {
+        /* Align the ">" to the top of the first line */
+        align-items: flex-start !important; 
+        gap: 10px !important;
+    }
+}
+
+@keyframes mobileFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Shell & Input Styles */
+.shell-header {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border: 1px solid rgba(var(--primary-rgb), 0.2);
+}
+
+.input-row { display: flex; flex-wrap: wrap; gap: 15px; }
+.field { flex: 1; min-width: 150px; }
+.field label { display: block; font-size: 0.7rem; color: #888; margin-bottom: 5px; text-transform: uppercase; }
+
+.operator-page input, 
+.operator-page select, 
+.operator-page textarea {
+    width: 100%;
+    background: #000 !important;
+    color: var(--primary) !important;
+    border: 1px solid #333 !important;
+    padding: 8px;
+    font-family: monospace;
+}
+
+/* Checklist Category Styles */
+.category-section { margin-top: 30px; }
+.category-title { 
+    color: var(--terminal-amber, #ffb000); 
+    border-bottom: 1px solid #333; 
+    padding-bottom: 5px; 
+    margin-bottom: 15px; 
+    text-transform: uppercase; 
+}
+
+.term-btn {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 10px 20px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: monospace;
+}
+
+#copy-toast {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--primary);
+    color: #000;
+    padding: 10px 20px;
+    z-index: 10000;
+}
+
+/* Styling for the toggle labels specifically */
+.toggle-label {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+/* Make the span inside the toggle look like your main labels */
+.toggle-label span {
+    color: var(--primary, #00ff00) !important;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.9rem !important; /* Matches your new larger size */
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-shadow: 0 0 5px rgba(var(--primary-rgb), 0.5);
+}
+
+/* Optional: Make the checkbox itself look a bit more 'terminal' */
+.toggle-label input[type="checkbox"] {
+    accent-color: var(--primary); /* Modern browsers will tint the checkbox green */
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.task-text {
+    color: var(--primary, #00ff00) !important;
+    font-family: 'Courier New', monospace;
+    
+    /* UPDATED STYLES */
+    font-size: 1.1rem !important;   /* Slightly larger than the command box */
+    font-weight: 800 !important;    /* Extra bold for terminal impact */
+    letter-spacing: 0.5px;
+    
+    display: block;
+    margin-bottom: 8px;             /* Space between text and cmd-box */
+    
+    /* Subtle glow to match the terminal HUD feel */
+    text-shadow: 0 0 8px rgba(var(--primary-rgb), 0.4);
+}
+
+/* Ensure any secondary info or metadata in the task stays clean */
+.task-text small, .task-text span.metadata {
+    font-weight: normal;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+/* --- Page Layout & Header --- */
+.project-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.terminal-header {
+    margin-bottom: 40px;
+}
+
+.system-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 10px;
+    font-family: monospace;
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+.terminal-hr {
+    border: 0;
+    border-top: 1px solid rgba(var(--primary-rgb), 0.3);
+    margin: 15px 0 30px 0;
+}
+
+/* --- 1. Page Layout & Container --- */
+.project-page {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.terminal-header {
+    margin-bottom: 40px;
+}
+
+.system-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-top: 10px;
+    font-family: 'Courier New', monospace;
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+.terminal-hr {
+    border: 0;
+    border-top: 1px solid rgba(var(--primary-rgb), 0.3);
+    margin: 15px 0 30px 0;
+}
+
+/* --- 2. The Project Grid --- */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+/* --- 3. The Project Card --- */
+.project-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(var(--primary-rgb), 0.2);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.2);
+    transform: translateY(-5px);
+}
+
+/* Card Header (Meta Info) */
+.card-header {
+    background: rgba(var(--primary-rgb), 0.1);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(var(--primary-rgb), 0.2);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 5px var(--primary);
+    animation: terminal-blink 2s infinite;
+}
+
+@keyframes terminal-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.file-name, .file-date {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    font-family: 'Courier New', monospace;
+}
+
+/* Card Body */
+.card-body {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.project-title {
+    color: var(--primary);
+    font-size: 1.3rem !important;
+    margin-bottom: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.project-desc {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    opacity: 0.8;
+    margin-bottom: 20px;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    color: var(--primary);
+    font-size: 0.7rem;
+    opacity: 0.5;
+}
+
+/* --- 4. Footer & Action Button --- */
+.footer-links {
+    display: flex;
+    border-top: 1px solid rgba(var(--primary-rgb), 0.1);
+    background: rgba(var(--primary-rgb), 0.02);
+    width: 100%;
+}
+
+.source-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: var(--primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+}
+
+.source-link:hover:not(.disabled-link) {
+    background: var(--primary);
+    color: #000 !important;
+    cursor: pointer;
+}
+
+.disabled-link {
+    opacity: 0.3;
+    filter: grayscale(1);
+    cursor: not-allowed !important;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- 5. Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .system-status {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

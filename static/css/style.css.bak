@@ -1,3 +1,4 @@
+
 /* --- 1. THEME SYSTEM --- */
 :root {
     /* DEFAULT THEME (AMBER) */
@@ -118,16 +119,7 @@ body::before {
     min-height: 40px; 
 }
 
-.terminal-divider {
-    display: block !important;
-    width: 100% !important;
-    height: 1px !important;
-    border: none !important;
-    border-top: 1px dashed var(--primary) !important;
-    opacity: 0.3;
-    margin: 2rem 0 !important;
-    clear: both !important;
-}
+/* Ensure the links themselves are visible and have color */
 
 /* 1. The Container: Prevents the "Home" item from jumping to a new line */
 .nav-container, .site-nav { 
@@ -415,28 +407,46 @@ a:hover, .nav-item:hover {
 
 /* --- 6. CERTIFICATES & ARCHIVE --- */
 
-/* Center the grid and handle the orphaned boxes */
 .cert-grid {
     display: flex !important;
     flex-wrap: wrap !important;
-    justify-content: center !important;
+    justify-content: center !important; /* This centers the last row */
     gap: 20px !important;
-    margin-top: 20px !important;
+    width: 100% !important;
+    margin: 20px 0 !important;
 }
 
-/* Base Box Styling */
 .cert-box {
-    flex: 0 1 320px;
+    /* (100% / 3 columns) - (gap adjustment) */
+    flex: 0 1 calc(33.333% - 14px) !important; 
+    min-width: 300px; /* Prevents them from getting too skinny */
     min-height: 80px;
+    box-sizing: border-box;
+    
+    /* Your existing visual styles */
     border: 1px solid rgba(var(--primary-rgb), 0.3);
     background: rgba(var(--primary-rgb), 0.03);
     padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative; /* Required if you use ::before */
     transition: all 0.3s ease;
 }
+
+/* Tablet: 2 Columns */
+@media (max-width: 1024px) {
+    .cert-box {
+        flex: 0 1 calc(50% - 10px) !important;
+    }
+}
+
+/* Mobile: 1 Column */
+@media (max-width: 700px) {
+    .cert-box {
+        flex: 0 1 100% !important;
+    }
+}
+
 .cert-box-footer {
     display: flex !important;
     justify-content: space-between !important;
@@ -476,20 +486,29 @@ a:hover, .nav-item:hover {
 }
 
 .verify-btn {
-    display: block;
+    display: inline-block; /* Allows the box to wrap the text tightly */
     margin-top: 15px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(var(--primary-rgb), 0.2);
+    padding: 0px 15px;      /* Vertical and Horizontal padding for the box */
+    
+    /* Change border-top to a full border */
+    border: 1px solid var(--primary) !important;
+    background-color: rgba(var(--primary-rgb), 0.05);
     color: var(--primary);
     font-size: 0.8rem;
     font-weight: bold;
     text-decoration: none;
-    text-align: right;
+    text-align: center;
+    text-transform: uppercase;
     letter-spacing: 1px;
+    transition: all 0.2s ease;
+    opacity: 0.6;
 }
 
 .verify-btn:hover {
-    text-shadow: var(--glow);
+    background-color: var(--primary); /* Invert colors on hover */
+    color: #000 !important;           /* Black text on amber background */
+    box-shadow: 0 0 10px var(--primary-dim);
+    text-shadow: none;
 }
 
 .mini-badge {
@@ -621,7 +640,7 @@ a:hover, .nav-item:hover {
 
 .section-header {
     /* clamp(minimum, preferred-variable, maximum) */
-    font-size: clamp(1.3rem, 5vw, 2.5rem);
+    font-size: clamp(.5rem, 5vw, 1.38rem);
     
     width: 100%;
     word-wrap: break-word;
@@ -753,111 +772,26 @@ a:hover, .nav-item:hover {
     .nav-right {
         gap: 15px; /* Tighter gap */
     }
+    .cert-grid-container {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 cols on tablets */
+    }
 }
 
-/* --- 1. Desktop Settings (Place this OUTSIDE/ABOVE the media query) --- */
-.hamburger, .menu-toggle {
-    display: none; /* Hidden on Desktop */
-}
-
-/* --- 2. Mobile/Lower-Res Settings --- */
-@media (max-width: 768px) {
-    .site-header {
-        display: flex !important;
-        flex-direction: row !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding: 10px 15px !important;
-        position: relative; /* Essential for positioning the dropdown */
-    }
-
-    /* Force the Hamburger to appear */
-    .hamburger {
-        display: flex !important; 
-        flex-direction: column;
-        gap: 5px;
-        cursor: pointer;
-        z-index: 10001;
-        padding: 5px;
-    }
-
-    .hamburger span {
-        display: block !important;
-        width: 25px;
-        height: 2px;
-        background-color: var(--primary) !important;
-        box-shadow: var(--glow);
-        transition: 0.3s ease;
-    }
-
-    /* The Mobile Dropdown Menu */
-    .nav-right.site-nav {
-        display: none !important; 
-        position: absolute;
-        top: 100%;
-        right: 0;
-        background-color: #0d0d0d !important; /* Matches your terminal bg */
-        border: 1px solid var(--primary);
-        flex-direction: column !important;
-        padding: 20px !important;
-        gap: 15px !important;
-        width: 200px;
-        z-index: 10000;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-    }
-
-    /* Hide the separators (>) in mobile menu */
-    .nav-separator {
-        display: none !important;
-    }
-
-    /* Show menu when checkbox is clicked */
-    #menu-toggle:checked ~ .site-nav {
-        display: flex !important;
-    }
-
-    /* --- INTEGRATED PAGE CONTENT FIXES --- */
-
-    /* Profile title sizing to prevent bleed-off */
+    /* Adjust the main title size so it doesn't bleed off screen */
     .profile-container h1, .terminal-title {
-        font-size: 1.8rem !important;
-        letter-spacing: 1px !important;
+        font-size: 2.2rem !important;
+        letter-spacing: 2px;
+    }
+    
+ c   .hero-terminal {
+        height: auto !important; /* Allow height to adjust if text wraps */
     }
 
-    /* Whoami page manifest link fix */
-    .whoami-page .whoami-content a.cert-manifest-link {
-        font-size: 0.9rem !important;
-        margin-top: 1.5rem !important;
-        display: block !important;
-        width: 100% !important;
-        text-align: center;
-        padding: 10px !important;
-    }
-
-    .hero-terminal {
-        height: auto !important;
-    }
-
-    /* Footer wrapping for tiny screens */
     .footer-left .copyright {
-        white-space: normal !important;
-        display: block;
-        text-align: center;
-        font-size: 0.8rem;
+        white-space: normal;    /* Allows wrapping on tiny screens */
     }
 
-    .system-status {
-        margin-top: 10px;
-        justify-content: center;
-    }
-
-    /* Pagefind Button Fix */
-    .pagefind-ui__button {
-        width: 100% !important;
-        background-color: #000 !important;
-        color: var(--primary) !important;
-        border: 1px solid var(--primary) !important;
-
+}
 
 /* For small phones (under 480px) */
 @media (max-width: 480px) {
@@ -887,59 +821,66 @@ a:hover, .nav-item:hover {
 
 /* --- Shared Terminal List Styles --- */
 
-/* The container for each line/link */
+/* ==========================================================================
+   LOG ENTRIES (BLOG & CTF LISTS)
+   ========================================================================== */
+/* 1. CONTAINER: Anchor everything left */
+.blog-list, .writeup-list {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    width: 100% !important;
+}
+
+/* 2. THE ENTRY: "Hug" the content */
 .log-entry {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1.05rem;
-    /* Force the entire entry to your primary theme color */
-    color: var(--primary) !important; 
-    transition: all 0.15s ease;
-    padding: 5px 0;
+    display: inline-flex !important; 
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    width: auto !important; 
+    max-width: 100% !important;
+    padding: 10px 0 !important;
+    text-decoration: none !important;
+    opacity: 1 !important; /* Ensure the whole row is bright */
 }
 
-/* Force all spans (date, title, meta) to inherit the primary color */
-.log-entry span {
-    color: inherit !important;
+/* 3. SYNCED OPACITY & NO-GROW */
+.log-date, 
+.log-platform, 
+.log-meta {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    color: var(--primary) !important;
+    /* Match the date's appearance */
+    opacity: 0.8 !important; 
+    font-weight: 400 !important;
 }
 
-.log-entry:hover {
-    transform: translateX(10px);
-    text-shadow: 0 0 8px var(--primary);
-    filter: brightness(1.2); /* Makes the whole line "glow" slightly */
+/* 4. THE GENERATED DASHES */
+.log-date::after, 
+.log-title::after {
+    content: "—" !important;
+    margin: 0 15px !important;
+    color: var(--primary) !important;
+    opacity: 0.5 !important; /* Slightly dimmer for the separator */
+    font-weight: 400 !important;
 }
 
-.log-date {
-    opacity: 0.7;
-    min-width: 85px; /* Keeps dates aligned */
-}
-
-.log-separator {
-    margin: 0 12px;
-    opacity: 0.3;
-}
-
+/* 5. THE TITLE: High Contrast */
 .log-title {
-    font-weight: bold;
-    flex-grow: 0; /* Adjust based on preference */
+    color: var(--primary) !important;
+    font-weight: 700 !important;
+    opacity: 1 !important; /* Title stays brightest */
+    flex: 0 1 auto !important; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.log-meta, .log-platform {
-    font-size: 0.85rem;
-    opacity: 0.5;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-/* Year Headers */
-.year-header {
-    font-size: 1.2rem;
-    color: var(--primary);
-    margin: 30px 0 15px 0;
-    opacity: 0.8;
-    font-family: monospace;
+/* 6. HIDE MANUAL SPANS */
+.log-separator {
+    display: none !important;
 }
 
 /* --- Unified Terminal Post Styles --- */
@@ -1271,13 +1212,43 @@ body.search-open .site-wrapper {
 }
 
 /* 3. INDIVIDUAL RESULT BOXES (Cert-Box Style) */
+/* 1. INPUT FIELD */
+.pagefind-ui__search-input {
+    background: #000 !important;
+    border: 1px solid var(--primary) !important;
+    color: var(--primary) !important;
+    font-family: var(--font-mono) !important;
+    text-transform: uppercase;
+}
+
+.pagefind-ui__search-input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: 1px solid var(--primary) !important;
+    box-shadow: 0 0 10px var(--primary-dim) !important;
+    caret-color: var(--primary) !important;
+}
+
+/* 2. MESSAGES (e.g., "Searching...", "20 results found") */
+.pagefind-ui__message {
+    color: var(--primary) !important;
+    font-family: var(--font-mono) !important;
+    opacity: 0.9 !important;
+    padding: 10px 0 !important;
+}
+
+/* 3. INDIVIDUAL RESULT BOXES (Cert-Box Style) */
 .pagefind-ui__result {
-    background: rgba(var(--primary-rgb), 0.05) !important;
-    border: 1px solid rgba(var(--primary-rgb), 0.2) !important;
+    background: rgba(var(--primary-rgb), 0.03) !important;
+    border: 1px solid rgba(var(--primary-rgb), 0.7) !important;
     padding: 20px !important;
     margin-bottom: 15px !important;
     position: relative;
     list-style: none;
+    display: flex;
+    flex-direction: column;
+    opacity: 0.8 !important;
+    transition: opacity 0.2s ease, border-color 0.2s ease;
 }
 
 /* CRT Scanlines inside results only */
@@ -1292,32 +1263,49 @@ body.search-open .site-wrapper {
     opacity: 0.3;
 }
 
-/* Highlighted search terms */
+/* --- THE TEXT COLOR FIXES --- */
+
+/* Result Title/Links */
+.pagefind-ui__result-title,
+.pagefind-ui__result-link {
+    color: var(--primary) !important;
+    opacity: 1 !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    margin-bottom: 5px !important;
+}
+
+/* Excerpts (The previously gray snippet text) */
+.pagefind-ui__result-excerpt {
+    color: var(--primary) !important;
+    opacity: 0.8 !important; /* Forces from gray to amber */
+    font-family: var(--font-mono) !important;
+    line-height: 1.4 !important;
+    font-weight: 400 !important;
+}
+
+/* Highlighted search terms inside excerpt */
 .pagefind-ui__result-excerpt mark {
     background-color: var(--primary) !important;
-    color: #000 !important;
+    color: #000 !important; /* High contrast black text on amber background */
+    font-weight: 900 !important;
+    padding: 0 2px !important;
 }
 
-/* 4. CLEANUP */
-.pagefind-ui__search-clear, 
-.pagefind-ui__drawer:after,
-.pagefind-ui__result-thumb {
-    display: none !important;
-}
-
-/* 5. INPUT FIELD */
-.pagefind-ui__search-input {
-    background: #000 !important;
-    border: 1px solid var(--primary) !important;
+/* Metadata (Dates, URLs, Tags) */
+.pagefind-ui__result-metadata {
     color: var(--primary) !important;
-    font-family: var(--font-mono) !important;
-    text-transform: uppercase;
+    opacity: 0.5 !important;
+    font-size: 0.8rem !important;
+    margin-top: 10px !important;
+    display: flex !important;
 }
 
-/* Style the Pagefind "Load More" / "More Results" Button */
+/* 4. BUTTONS & CLEANUP */
 .pagefind-ui__button {
     color: var(--primary) !important;
-    background: #000 !important; /* Matches your terminal background */
+    background: #000 !important;
     border: 1px solid var(--primary) !important;
     font-family: var(--font-mono) !important;
     font-weight: 800 !important;
@@ -1326,14 +1314,19 @@ body.search-open .site-wrapper {
     margin-top: 20px !important;
     cursor: pointer;
     transition: all 0.2s ease;
-    width: 100%; /* Makes it easier to click on mobile/720px */
+    width: 100%;
 }
 
-/* Hover Effect for the button */
 .pagefind-ui__button:hover {
     background: var(--primary-dim) !important;
     text-shadow: 0 0 10px var(--primary);
     box-shadow: 0 0 10px var(--primary-dim);
+}
+
+.pagefind-ui__search-clear, 
+.pagefind-ui__drawer:after,
+.pagefind-ui__result-thumb {
+    display: none !important;
 }
 
 /* 1. Ensure the animation layer stays behind the search modal */
@@ -1486,51 +1479,131 @@ body.search-open #search-ui {
     scrollbar-color: var(--primary) #050505;
 }
 
-/* Target only the year-group sections to prevent breaking other pages */
-section.year-group {
-    display: block !important;
-    width: 100% !important;
-    margin-bottom: 2rem !important;
+/* Hide mobile elements by default on Desktop */
+.-hamburger, .menu-toggle {
+    display: none !important;
 }
 
-/* 1. Force the year group and list to be standard vertical containers */
-section.year-group, 
-.writeup-list, 
-.blog-list {
-    display: block !important;
-    width: 100% !important;
-    margin-bottom: 2rem !important;
-}
+/* --- UNIFIED MOBILE OVERRIDES --- */
+/* --- UNIFIED MOBILE OVERRIDES --- */
+@media (max-width: 768px) {
+    /* 1. Header & Hamburger Visibility */
+    .site-header {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 60px !important; /* Fixed height for consistency */
+        padding: 0 15px !important;
+        
+        position: fixed !important; 
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #000 !important; 
+        /* Level: Above content, but below Search Container (200,000,000) */
+        z-index: 100000001 !important; 
+        border-bottom: 1px solid rgba(var(--primary-rgb), 0.2);
+        box-sizing: border-box !important;
+    }
 
-/* 2. Force the <a> tags to behave like a standard Block (Row) */
-.log-entry {
-    display: block !important; /* Forces it to start on a new line */
-    width: 100% !important;
-    text-decoration: none !important;
-    padding: 12px 0 !important;
-    border-bottom: 1px solid rgba(var(--primary-rgb), 0.1) !important;
-    clear: both !important;
-}
+    .hamburger {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        gap: 4px !important;
+        width: 30px !important;
+        height: 30px !important;
+        cursor: pointer !important;
+        z-index: 100000002 !important; 
+    }
 
-/* 3. Use Flex only INSIDE the row to keep the date and title on one line */
-.log-entry > span {
-    display: inline-block !important; /* Safety fallback */
-    vertical-align: middle;
-}
+    .hamburger span {
+        display: block !important;
+        width: 22px !important;
+        height: 2px !important;
+        background-color: var(--primary) !important;
+        box-shadow: 0 0 2px var(--primary); 
+    }
 
-/* This creates the 'Row' layout inside the link */
-.log-entry {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: flex-start !important;
-}
+    /* 2. Navigation Menu Dropdown */
+    .site-nav {
+        display: none !important;
+        position: fixed !important; 
+        top: 60px !important; /* Starts right after the header */
+        right: 0 !important;
+        background-color: #000 !important;
+        border: 1px solid var(--primary) !important;
+        flex-direction: column !important;
+        padding: 20px !important;
+        width: 200px !important;
+        /* Level: Above content, but sits behind Search if opened */
+        z-index: 100000000 !important; 
+    }
 
-.log-date {
-    min-width: 90px !important;
-    flex-shrink: 0;
-}
+    /* 3. The Toggle Logic */
+    #menu-toggle:checked ~ .site-nav {
+        display: flex !important;
+    }
 
-.log-title {
-    flex-grow: 1;
-    padding: 0 15px;
+    /* 4. CONTENT PUSH-DOWN (Prevents header from covering titles) */
+    main, .container, .writeup-container, article {
+        padding-top: 80px !important;
+        position: relative !important;
+        z-index: 1 !important; /* Forces content to bottom-most layer */
+    }
+
+    /* 5. LOG ENTRIES (Unified Styles) */
+    .log-entry {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        width: 100% !important; 
+        border: 1px solid rgba(var(--primary-rgb), 0.3) !important;
+        background: rgba(var(--primary-rgb), 0.03) !important;
+        padding: 18px !important;
+        margin-bottom: 15px !important;
+        border-radius: 4px;
+        min-height: 100px !important; 
+        justify-content: center !important;
+        text-decoration: none !important;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .log-entry:active, .log-entry:hover {
+        border-color: var(--primary) !important;
+        background: rgba(var(--primary-rgb), 0.08) !important;
+        box-shadow: 0 0 10px rgba(var(--primary-rgb), 0.2);
+    }
+
+    /* 6. TEXT INSIDE ENTRIES */
+    .log-date, .log-meta, .log-platform {
+        font-size: 0.85rem !important;
+        opacity: 0.6 !important;
+        font-family: monospace;
+        display: inline-block !important;
+        margin-bottom: 4px !important;
+        color: var(--primary);
+    }
+
+    .log-title {
+        font-size: 1.2rem !important;
+        font-weight: bold !important;
+        line-height: 1.3 !important;
+        width: 100% !important;
+        white-space: normal !important;
+        display: block !important;
+        color: var(--primary);
+        margin: 8px 0 !important;
+    }
+
+    /* 7. HIDE DASHES/SEPARATORS */
+    .log-date::after, .log-title::after, .log-separator, .nav-separator {
+        display: none !important;
+    }
+
+    /* 8. GRID ADJUSTMENTS */
+    .cert-grid-container {
+        grid-template-columns: 1fr !important;
+    }
 }
