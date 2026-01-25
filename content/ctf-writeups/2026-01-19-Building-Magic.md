@@ -5,7 +5,7 @@ layout: "writeup"
 difficulty: "East"
 excerpt: "Walkthrough for Building Magic"
 os: "Windows"
-platform: "Hack Smarter"
+platform: "HackSmarter"
 tags: [Hack Smarter, Windows, Active Directory]
 comments: false
 ---
