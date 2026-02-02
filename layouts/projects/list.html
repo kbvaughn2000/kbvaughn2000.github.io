@@ -2,52 +2,87 @@
 <div class="container project-page">
     <header class="terminal-header">
         <h1 class="terminal-title">
-            <span class="prompt">></span> ACCESSING: PROJECT_DATABASE...
+            <span id="typewriter-proj"></span><span class="typewriter-target"></span>
         </h1>
-        <div class="system-status">
-            <span class="status-item">STATUS: <span class="text-primary">ONLINE</span></span>
-            <span class="status-item">FILES: {{ len .Pages }} DETECTED</span>
-        </div>
-        <br>
-        <hr class="terminal-divider">
+        
+        <div id="proj-content" style="display: none; opacity: 0; transition: opacity 0.8s ease;">
+            <div class="system-status">
+                <span class="status-item">STATUS: <span class="text-primary">ONLINE</span></span>
+                <span class="status-item">FILES: {{ len .Pages }} DETECTED</span>
+            </div>
+            <br>
+            <hr class="terminal-divider">
+
+            <div class="project-grid">
+                {{ range .Pages.ByDate.Reverse }}
+                <article class="project-card">
+                    <div class="card-header">
+                        <div class="header-left">
+                            <span class="status-dot"></span>
+                            <span class="file-name">PROJ_{{ .Title | upper | replace " " "_" }}.log</span>
+                        </div>
+                        <span class="file-date">{{ .Date.Format "01.02.2006" }}</span>
+                    </div>
+                    
+                    <div class="card-body">
+                        <h2 class="project-title">{{ .Title }}</h2>
+                        <p class="project-desc">{{ .Description | default "No metadata description available for this entry." }}</p>
+                        
+                        <div class="project-tags">
+                            {{ range .Params.tags }}
+                            <span class="tag">[{{ . }}]</span>
+                            {{ end }}
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="footer-links">
+                            {{ if .Params.link }}
+                            <a href="{{ .Params.link }}" target="_blank" rel="noopener" class="source-link">
+                                <span class="link-icon">[#]</span> LINK_ACCESS
+                            </a>
+                            {{ else }}
+                            <span class="source-link disabled-link">[X] ENCRYPTED_INTERNAL_ONLY</span>
+                            {{ end }}
+                        </div>
+                    </div>
+                </article>
+                {{ end }}
+            </div>
+        </div> 
     </header>
-
-    <div class="project-grid">
-        {{ range .Pages.ByDate }}
-        <article class="project-card">
-            
-            <div class="card-header">
-                <div class="header-left">
-                    <span class="status-dot"></span>
-                    <span class="file-name">PROJ_{{ .Title | upper | replace " " "_" }}.log</span>
-                </div>
-                <span class="file-date">{{ .Date.Format "01.02.2006" }}</span>
-            </div>
-            
-            <div class="card-body">
-                <h2 class="project-title">{{ .Title }}</h2>
-                <p class="project-desc">{{ .Description | default "No metadata description available for this entry." }}</p>
-                
-                <div class="project-tags">
-                    {{ range .Params.tags }}
-                    <span class="tag">[{{ . }}]</span>
-                    {{ end }}
-                </div>
-            </div>
-
-            <div class="card-footer">
-                <div class="footer-links">
-                    {{ if .Params.link }}
-                    <a href="{{ .Params.link }}" target="_blank" rel="noopener" class="source-link">
-                        <span class="link-icon">[#]</span> LINK_ACCESS
-                    </a>
-                    {{ else }}
-                    <span class="source-link disabled-link">[X] ENCRYPTED_INTERNAL_ONLY</span>
-                    {{ end }}
-                </div>
-            </div>
-        </article>
-        {{ end }}
-    </div>
 </div>
+
+<script type="text/javascript">
+(function() {
+    const text = "> ACCESSING: PROJECT_DATABASE...";
+    let i = 0;
+
+    setTimeout(() => {
+        const target = document.getElementById("typewriter-proj");
+        const content = document.getElementById("proj-content");
+
+        function reveal() {
+            if (content) {
+                content.style.display = "block";
+                setTimeout(() => { content.style.opacity = "1"; }, 50);
+            }
+        }
+
+        function typeWriter() {
+            if (target && i < text.length) {
+                target.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 35);
+            } else {
+                reveal();
+            }
+        }
+
+        if (target && content) {
+            typeWriter();
+        }
+    }, 50);
+})();
+</script>
 {{ end }}
