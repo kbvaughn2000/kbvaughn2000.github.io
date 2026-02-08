@@ -1,5 +1,5 @@
 ---
-title: "Verbose"
+title: "BankSmarter"
 date: 2026-02-07
 layout: "writeup"
 difficulty: "Medium"
