@@ -110,4 +110,4 @@ Next, run the bank_backupd file. Within a few moments you should have a root she
 
 All that's left is to navigate to the /root directory and get the final flag from root.txt!
 
-- ![BankSmarter18.png](/images/BankSmarter18.png)
+![BankSmarter18.png](/images/BankSmarter18.png)
