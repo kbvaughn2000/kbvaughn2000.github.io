@@ -21,10 +21,10 @@ The following tools were utilized during the engagement:
 | Tool | Category | Purpose |
 | :--- | :--- | :--- |
 | **Nmap** | Reconnaissance | TCP and UDP service discovery and version scanning. |
-| **SNMPwalk** | Information Gathering | Enumerating MIB values and system information from the SNMP service. |
+| **SNMPwalk** | Information Gathering &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Enumerating MIB values and system information from the SNMP service. |
 | **Pspy** | Enumeration | Monitoring Linux processes in real-time without root permissions. |
 | **Socat** | Exploitation | Establishing a bidirectional byte stream to move laterally between user sessions. |
-| **Bash/Python**  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Post-Exploitation &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Creating reverse shells and performing environment path hijacking. |
+| **Bash/Python**  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Post-Exploitation | Creating reverse shells and performing environment path hijacking. |
 
 <hr class="terminal-divider" style="margin-top: 25px;">
 
