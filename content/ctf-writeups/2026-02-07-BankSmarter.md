@@ -44,13 +44,13 @@ Following an unsuccessful attempt to exploit the "RegreSSHion" vulnerability on 
 The results indicated that **SNMP (Simple Network Management Protocol)** was accessible.
 
 ### SNMP Information Disclosure
-Using the default community string `public`, we enumerated system information:
+Using the default community string `public`, I enumerated system information:
 
 `snmpwalk -v1 -c public 10.0.29.53`
 
 ![BankSmarter3.png](/images/BankSmarter3.png)
 
-The output revealed plaintext credentials. By normalizing the discovered username to lowercase, we established an SSH session as the user `layne`.
+The output revealed plaintext credentials. By normalizing the discovered username to lowercase, I established an SSH session as the user `layne`.
 
 ![BankSmarter4.png](/images/BankSmarter4.png)
 
@@ -63,12 +63,12 @@ During post-exploitation enumeration, a backup script was identified in Layne’
 
 ![BankSmarter5.png](/images/BankSmarter5.png)
 
-Using `pspy`, we confirmed that this script was being executed every minute by a user with **UID 1002** (identified in `/etc/passwd` as `scott.weiland`).
+Using `pspy`, I confirmed that this script was being executed every minute by a user with **UID 1002** (identified in `/etc/passwd` as `scott.weiland`).
 
 ![BankSmarter6.png](/images/BankSmarter6.png)
 
 
-Because `layne` owned the home directory containing the script, we were able to move the original and replace it with a malicious reverse shell:
+Because `layne` owned the home directory containing the script, I was able to move the original and replace it with a malicious reverse shell:
 
 `mv bankSmarter_backup.sh bankSmarter_backup.sh.bak`
 
@@ -96,7 +96,7 @@ The user `ronnie.stone` was found to be a member of the `bankers` group, which g
 
 ![BankSmarter13.png](/images/BankSmarter13.png)
 
-Analysis of the associated Python script revealed that it called `python3` without using an absolute path. This allowed for **Path Hijacking**. By placing a malicious script named `python3` in `/tmp` and prepending that directory to the system `$PATH`, we manipulated the binary into executing our payload with root privileges.
+Analysis of the associated Python script revealed that it called `python3` without using an absolute path. This allowed for **Path Hijacking**. By placing a malicious script named `python3` in `/tmp` and prepending that directory to the system `$PATH`, I manipulated the binary into executing our payload with root privileges.
 
 
 ```bash
