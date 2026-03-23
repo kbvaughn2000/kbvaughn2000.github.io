@@ -2326,3 +2326,84 @@ body.search-open #search-ui {
         gap: 5px;
     }
 }
+.activity-container {
+    display: table; 
+    margin: 60px auto;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    /* This ensures everything inside uses the current CRT color */
+    color: inherit; 
+    text-transform: uppercase;
+}
+
+.feed-header {
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-align: center;
+    margin: 0;
+    padding: 15px 0; 
+    /* Using transparent borders to let the theme color peek through */
+    border-top: 2px solid rgba(255, 255, 255, 0); /* Fallback */
+    border-bottom: 2px solid rgba(255, 255, 255, 0); /* Fallback */
+    
+    /* The Magic: border-image or outline can be tricky, so we use pseudo-borders 
+       or simply border-color with opacity if your browser supports it: */
+    border-top: 2px solid color-mix(in srgb, currentColor, transparent 70%);
+    border-bottom: 2px solid color-mix(in srgb, currentColor, transparent 70%);
+}
+
+/* For older browser support, we can use this more robust method: */
+.feed-header {
+    border-top: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+}
+
+/* We reduce the opacity of the specific border elements by targeting their color */
+.feed-header, .activity-feed {
+    /* This keeps the text bright but makes the borders faint */
+    border-color: color-mix(in srgb, currentColor, transparent 75%);
+}
+
+.activity-feed {
+    border-bottom: 2px solid color-mix(in srgb, currentColor, transparent 75%); 
+}
+
+.activity-row {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    padding: 18px 15px;
+    text-decoration: none;
+    color: inherit;
+    /* Very faint internal lines */
+    border-top: 1px solid color-mix(in srgb, currentColor, transparent 90%);
+    opacity: 0.8;
+    transition: all 0.2s ease;
+}
+
+.activity-row:first-child {
+    border-top: none;
+}
+
+.activity-row:hover {
+    opacity: 1;
+    background: color-mix(in srgb, currentColor, transparent 95%);
+}
+
+/* Content Sizes */
+.activity-date {
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.activity-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.activity-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding-right: 20px;
+}

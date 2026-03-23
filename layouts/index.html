@@ -19,4 +19,22 @@
     {{ .Content }}
 </div>
 
+<section class="activity-container">
+    <h2 class="feed-header">Latest Activity</h2>
+    
+    <div class="activity-feed">
+        {{ $latest := (where site.RegularPages "Section" "in" (slice "ctf-writeups" "blog")).ByDate.Reverse | first 3 }}
+        
+        {{ range $latest }}
+        <a href="{{ .RelPermalink }}" class="activity-row">
+            <span class="activity-date">{{ .Date.Format "2006.01.02" }}</span>
+            <span class="activity-label">
+                {{ if eq .Section "ctf-writeups" }}WRITEUP{{ else }}ARTICLE{{ end }}
+            </span>
+            <span class="activity-title">{{ .Title }}</span>
+        </a>
+        {{ end }}
+    </div>
+</section>
+
 {{ end }}
