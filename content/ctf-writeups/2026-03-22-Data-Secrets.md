@@ -1,6 +1,6 @@
 ---
 title: "Data Secrets"
-date: 2026-03-14
+date: 2026-03-22
 layout: "writeup"
 difficulty: "Medium"
 excerpt: "Walkthrough for Data Secrets on HackSmarter"
@@ -20,12 +20,12 @@ Data Secrets is a "Medium" difficulty AWS-focused challenge that centers on **Cl
 
 The following tools and frameworks were utilized during this engagement:
 
-| Tool                                       | Category       | Purpose                                                                     |
-|:------------------------------------------ |:-------------- |:--------------------------------------------------------------------------- |
-| **AWS CLI** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Administration &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Interacting with AWS services (IAM, EC2, Lambda, Secrets Manager).          |
-| **PACU**                                   | Exploitation   | AWS exploitation framework used for automated enumeration and exfiltration. |
-| **CURL**                                   | Enumeration    | Interacting with the Instance Metadata Service (IMDSv1) on port 80.         |
-| **SSH**                                    | Access         | Establishing remote terminal access to compromised EC2 instances.           |
+| Tool                                       | Category                                      | Purpose                                                                     |
+|:------------------------------------------ |:--------------------------------------------- |:--------------------------------------------------------------------------- |
+| **AWS CLI** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Administration &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Interacting with AWS services (IAM, EC2, Lambda, Secrets Manager).          |
+| **PACU**                                   | Exploitation                                  | AWS exploitation framework used for automated enumeration and exfiltration. |
+| **CURL**                                   | Enumeration                                   | Interacting with the Instance Metadata Service (IMDSv1) on port 80.         |
+| **SSH**                                    | Access                                        | Establishing remote terminal access to compromised EC2 instances.           |
 
 <hr class="terminal-divider" style="margin-top: 25px;">
 
@@ -109,10 +109,10 @@ The `database-user` profile possessed the `secretsmanager:ListSecrets` and `secr
 
 ## Vulnerability Mapping (CWE)
 
-| ID    | Vulnerability Name       | CWE Mapping                                                 |
-|:----- |:------------------------ |:----------------------------------------------------------- |
-| **1** | Credentials in User Data | **CWE-522**: Insufficiently Protected Credentials           |
-| **2** | SSRF / IMDSv1 Enabled    | **CWE-918**: Server-Side Request Forgery                    |
+| ID                                   | Vulnerability Name                                      | CWE Mapping                                                 |
+|:------------------------------------ |:------------------------------------------------------- |:----------------------------------------------------------- |
+| **1**                                | Credentials in User Data                                | **CWE-522**: Insufficiently Protected Credentials           |
+| **2**                                | SSRF / IMDSv1 Enabled                                   | **CWE-918**: Server-Side Request Forgery                    |
 | **3** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Secrets in Env Variables &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | **CWE-215**: Information Exposure Through Debug Information |
 
 <hr class="terminal-divider" style="margin-top: 25px;">
