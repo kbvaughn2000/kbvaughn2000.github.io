@@ -35,7 +35,7 @@ The following tools and frameworks were utilized during this engagement:
 
 The engagement started with the configuration of a local AWS profile using a set of provided Access and Secret keys.
 
-`aws configure --profile initial-attacker`
+`aws configure`
 
 ![DataSecrets1.png](/images/DataSecrets1.png)
 ![DataSecrets2.png](/images/DataSecrets2.png)
